@@ -2,9 +2,14 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './styles/index.scss';
+import InputWithLabel from './components/InputWithLabel';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [formState, setFormState] = useState({
+    email: null,
+    password : null
+  })
 
   return (
     <>
@@ -30,6 +35,20 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <InputWithLabel
+          name='email'
+          label='Email'
+          type='email'
+          setValue={setFormState}
+          value={formState.email}
+      />
+      <InputWithLabel
+          name='password'
+          label='Password'
+          type='password'
+          setValue={setFormState}
+          value={formState.password}
+      />
     </>
   )
 }
