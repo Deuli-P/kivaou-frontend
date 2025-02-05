@@ -1,11 +1,13 @@
 
-
 // COLORS //
 $primary_color:  #6171A0;
 $secondary_color: #C8A4BF;
 $background_color: #060709;
 $text_color: #EEF4FC;
 $accent_color: #B7878D;
+
+
+$transition: all 0.3s ease-in-out;
 
 
 @font-face {
@@ -39,4 +41,16 @@ h1{
     color: $accent_color;
     font-size: clamp(20px, calc(20px + calc((24 - 20) / (1440 - 320)) * (100vw - 320px)), 24px);
     font-family: 'Oi', sans-serif;
+}
+
+button{
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    &:focus{
+        outline: none;
+    }
+    &:active{
+        transform: scale(0.95);
+    }
 }
