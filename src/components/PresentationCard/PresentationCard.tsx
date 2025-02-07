@@ -58,7 +58,7 @@ function PresentationCard(event: object) {
            
            <button
                 onClick={handleSeeMore}
-                className='btn btn-primary'
+                className='btn'
            >
                 Plus
            </button>

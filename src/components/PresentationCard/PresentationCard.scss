@@ -9,6 +9,7 @@
     border-radius: 8px;
     background: settings.$background_color;
     padding: 6px;
+    gap:6px;
 }
 
 .presentation_card_header{
@@ -68,8 +69,10 @@
 }
 
 .presentation_card_footer{
-    &.btn.btn-primary{
-        width:180px;
+    display: flex;
+    flex-direction: row;
+    .btn-primary{
+        width:70%;
     }
 }
 

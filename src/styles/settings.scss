@@ -26,11 +26,23 @@ $transition: all 0.3s ease-in-out;
     font-style: normal;
 };
 
-*{
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
     box-sizing: border-box;
-    margin: 0;
-    text-decoration: none;
 }
+
+
+body {
+	line-height: 1;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 
 p{
     font-size: clamp(10px, calc(10px + calc((16 - 10) / (1920 - 320)) * (100vw - 320px)), 16px);
@@ -53,4 +65,12 @@ button{
     &:active{
         transform: scale(0.95);
     }
+}
+
+ol, ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
 }

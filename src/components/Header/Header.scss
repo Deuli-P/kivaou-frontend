@@ -1,0 +1,108 @@
+@use './../../styles/settings.scss';
+
+header{
+    width: clamp(320px, calc(320px + calc((320 - 2560) / (320 - 2560)) * (100vw - 320px)), 2560px);
+    display: flex;
+    padding: clamp(20px, calc(20px + calc((20 - 25) / (320 - 1440)) * (100vw - 320px)), 25px);
+    background: settings.$primary-color;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.burger-container{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.burger-bar{
+    width: 70%;
+    height: 2px;
+    background-color: white;
+    transition: settings.$transition;
+    opacity: 1;
+    &:first-child.open{
+        transform: rotate(45deg) translateY(4px) translateX(5px);
+    }
+    &:last-child.open{
+        transform: rotate(-45deg) translateY(-4px) translateX(5px);
+    }
+    &:nth-child(2).open{
+        opacity: 0;
+    }
+}
+
+
+nav{
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    
+    transform: translateY(-100%);
+    top:0;
+    transition: settings.$transition;
+    &.open{
+        opacity: 1;
+        top: 100%;
+        left: 0;
+        background: settings.$primary-color;
+        padding: 20px;
+        z-index: 100;
+        transform: translateY(0);
+        ul{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            li{
+                a{
+                    color: settings.$text-color;
+                    font-size: 1.5rem;
+                    transition: settings.$transition;
+                    &:hover{
+                        color: settings.$accent-color;
+                    }
+                }
+            }
+        }
+    }
+    ul{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center ;
+        li{
+           cursor: pointer;
+        }
+    }
+}
+
+
+
+
+@media screen and (min-width: 768px){
+
+    .burger-container{
+        display: none;
+    }
+    nav{
+        display: block;
+        position: relative;
+        ul{
+            flex-direction: row;
+            gap: 20px;
+        }
+    }
+    
+}
