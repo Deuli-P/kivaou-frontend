@@ -1,7 +1,7 @@
 const fetching = async(url, method, body) => {
 
     const response = await fetch(url, {
-        method,
+        method: method,
         headers: {
             "Content-Type": "application/json",
         },
@@ -11,7 +11,7 @@ const fetching = async(url, method, body) => {
     const data = await response.json();
 
     if (response.status >= 400) {
-        throw new Error(data.errors);
+        throw new Error("Erreur de fetch :", data.errors);
     }
 
     return data;

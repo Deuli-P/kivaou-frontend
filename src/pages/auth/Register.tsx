@@ -4,13 +4,11 @@ const API_URL = import.meta.env.VITE_BACKEND_URL
 const Register = () => {
 
   const [registerData, setRegisterData] = useState({
-    email: '',
-    password: '',
-    firstname: '',
-    lastname: '',
-    birthdate: '',
-    address: '',
-    phone: '',
+    email: 'admin@admin.com',
+    password: 'password',
+    firstname: 'Jeff',
+    lastname: 'Tuches',
+    photo_path: 'https://randomuser.me/api/portraits/men/86.jpg'
   })
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +31,7 @@ const Register = () => {
         console.log('ok')
       }
     }
-    catch(e){
+    catch(e: any){
       throw new Error("Erreur d'inscription : ",e)
     }
   }
@@ -107,50 +105,21 @@ const Register = () => {
           />
         </label>
         <label
-          htmlFor="address"
+          htmlFor="photo_path"
           className="input-label"
         >
-          Adresse
+          Url de la photo
           <input
             type="text"
-            id="address"
-            name="address"
+            id="photo_path"
+            name="photo_path"
             required
-            value={registerData.address}
+            value={registerData.photo_path}
             onChange={(e)=>handleChangeValue(e)}
             className="input-input"
           />
         </label>
-        <label
-          htmlFor="phone"
-          className="input-label"
-        >
-          Téléphone
-          <input
-            type="text"
-            id="phone"
-            name="phone"
-            required
-            value={registerData.phone}
-            onChange={(e)=>handleChangeValue(e)}
-            className="input-input"
-          />
-        </label>
-        <label
-          htmlFor="birthdate"
-          className="input-label"
-        >
-          Date de naissance
-          <input
-            type="date"
-            id="birthdate"
-            name="birthdate"
-            required
-            value={registerData.birthdate}
-            onChange={(e)=>handleChangeValue(e)}
-            className="input-input"
-          />
-        </label>
+
         <div className="auth-redirection-link">
           <p>Déja inscrit ? </p>
           <a href="/auth/login">Connectez-vous</a>

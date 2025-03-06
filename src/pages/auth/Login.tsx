@@ -3,6 +3,7 @@ import { fetching } from "../../utils/utils";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
+
 const Login = () => {
 
   const [ loginData , setLoginData ] = useState({
@@ -29,7 +30,9 @@ const Login = () => {
     console.log(response)
     if(response){
       console.log('ok')
+      console.log(response)
     }
+
 
     
   };
@@ -39,14 +42,6 @@ const Login = () => {
       className="auth-container"
     >
       <h1>Connexion</h1>
-      <button
-        onClick={async() => {
-          await fetch(`${API_URL}/api/`,{
-            method:'GET'})
-        }}
-      >
-        Check liaison with backend
-      </button>
       <div>
         <form 
           onSubmit={handleSubmit}
