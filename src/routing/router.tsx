@@ -1,29 +1,57 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./Layout";
-import ErrorPage from "../pages/ErrorPage";
-import LoginPage from "../pages/LoginPage";
-import ResgisterPage from "../pages/ResgisterPage";
-import EventPage from "../pages/EventPage";
+
+import Home from "../pages/Home";
+import Error from "../pages/Error";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import CreateOrganization from "../pages/organization/create";
+import OrganizationDetail from "../pages/organization/detail";
+import EventCreate from "../pages/organization/event/create";
+import EventList from "../pages/organization/event/list";
+import EventDetail from "../pages/organization/event/detail";
 
 
-export const router = createBrowserRouter([ 
+import IsConnected from "../middlewares/IsConnected";
+import IsMember from "../middlewares/IsMember";
+
+export const router = createBrowserRouter([
     {
-        path:'/',
-        element:<Layout />,
-        errorElement: <ErrorPage />,
+        path: '/',
+        element: <Layout />,
+        errorElement: <Error />,
         children: [
             {
-                index: true,
-                element : <LoginPage />
+                path: "auth",
+                children: [
+                    { path: "login", element: <Login /> }, 
+                    { path: "register", element: <Register /> }
+                ], 
             },
             {
-                path:'/register',
-                element: <ResgisterPage />
+                path: "in",
+                element: <IsConnected />,
+                children: [
+                    { path: "", element: <Home /> },
+                    { path: "orga/create", element: <CreateOrganization /> },
+                    { 
+                        path: "orga",
+                        element: <IsMember />,
+                        children: [
+                            { path: ":id", element: <OrganizationDetail /> },
+                            {
+                                path: "event", 
+                                children: [
+                                    { path: "create", element: <EventCreate /> },
+                                    { path: ":id", element: <EventDetail /> },
+                                    { path: "", element: <EventList /> }
+                                ],
+                            },
+                        ]
+                    }
+                ]
             },
-            {
-                path:"/event/:id",
-                element: <EventPage />
-            }
+            { path: "*", element: <Navigate to='/' replace /> }
         ]
     }
 ]);

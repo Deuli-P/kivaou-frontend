@@ -1,23 +1,11 @@
-import bcrypt from "bcryptjs";
-
-const hashPassword = async (password: string)=> {
-    const newPassword = bcrypt.hash(password, saltRounds, (err, hash) => {
-        if (err) {
-            console.error(err);
-        }
-        return hash;
-    });
-    return newPassword;
-};
-
 const fetching = async(url, method, body) => {
 
     const response = await fetch(url, {
         method,
         headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
         },
+        credentials: "include",
         ...body,
     });
     const data = await response.json();
@@ -31,4 +19,4 @@ const fetching = async(url, method, body) => {
 
 const regexEmail = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/';
 
-export { hashPassword, fetching, regexEmail };
+export { fetching, regexEmail };

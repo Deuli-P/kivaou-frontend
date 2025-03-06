@@ -1,2 +1,61 @@
 @use 'settings.scss';
 
+
+
+
+.input-label{
+    display:  flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    max-width: 400px;
+}
+
+.input-input{
+    border-radius: 8px;
+    background-color: settings.$primary_color;
+    padding: 6px 12px;
+    min-width: 300px;
+}
+
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100vh;
+    width: 100vw;
+
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+.login-no-account{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    & p{
+        color: settings.$text_color;
+    }
+    & a{
+        color: settings.$accent_color;
+    }
+}
