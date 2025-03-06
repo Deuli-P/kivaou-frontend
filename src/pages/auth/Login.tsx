@@ -35,14 +35,14 @@ const Login = () => {
   };
 
   return (
-    <>
-    <div
-      className="login-container"
+    <main
+      className="auth-container"
     >
       <h1>Connexion</h1>
       <button
         onClick={async() => {
-          await fetching(`${API_URL}/api/`,'GET', {})
+          await fetch(`${API_URL}/api/`,{
+            method:'GET'})
         }}
       >
         Check liaison with backend
@@ -50,7 +50,7 @@ const Login = () => {
       <div>
         <form 
           onSubmit={handleSubmit}
-          className='login-form'
+          className='auth-form'
           >
           <label 
             htmlFor="email"
@@ -81,9 +81,9 @@ const Login = () => {
               className="input-input"
               />
           </label>
-          <div className="login-no-account">
+          <div className="auth-redirection-link">
             <p>Pas de compte ?</p>
-            <a href="/register">Inscrivez-vous</a>
+            <a href="/auth/register">Inscrivez-vous</a>
           </div>
           <button 
             type="submit"
@@ -93,8 +93,7 @@ const Login = () => {
           </button>
         </form>
       </div>
-    </div>
-    </>
+    </main>
   )
 }
 
