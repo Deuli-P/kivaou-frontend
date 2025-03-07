@@ -1,9 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const IsConnected = () => {
-    const isConnected = true
+   
+    const { user } = useAuth();
 
-    return isConnected ? <Outlet /> : <Navigate to="/auth/login" />;
+    if(!user){
+        return <Navigate to='/auth/login' replace />
+    }
+
+
+    return <Outlet />
 
 }
 

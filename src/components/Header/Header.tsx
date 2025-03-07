@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./Header.scss";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { getLogout} = useAuth();
 
   return (
     <header>
@@ -28,11 +32,11 @@ const Header = () => {
         {/* Navigation */}
         <nav className={`${menuOpen ? "open" : null}`}>
           <ul>
-            <li><div>Créer un évenement</div></li>
-            <li><div>Mes événements</div></li>
-            <li><div>Mon groupe</div></li>
-            <li><div >Profil</div></li>
-            <li><div >Déconnexion</div></li>
+            <li><NavLink to='/event/create'>Créer un évenement</NavLink></li>
+            <li><NavLink to='/event'>Mes événements</NavLink></li>
+            <li><NavLink to='/organizations'>Mon groupe</NavLink></li>
+            <li><NavLink to='/profile'>Profil</NavLink></li>
+            <li><div onClick={getLogout}>Déconnexion</div></li>
           </ul>
         </nav>
     </header>

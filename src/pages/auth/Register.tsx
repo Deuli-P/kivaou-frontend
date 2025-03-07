@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react"
-import { fetching } from "../../utils/utils"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../context/AuthContext"
 const API_URL = import.meta.env.VITE_BACKEND_URL
 const Register = () => {
 
+  const { user } = useAuth();
+  const navigate = useNavigate()
+
   const [registerData, setRegisterData] = useState({
-    email: 'admin@admin.com',
-    password: 'password',
+    email: 'jeff@field.com ',
+    password: 'papillon',
     firstname: 'Jeff',
-    lastname: 'Tuches',
-    photo_path: 'https://randomuser.me/api/portraits/men/86.jpg'
+    lastname: 'Field',
+    photo_path: 'https://randomuser.me/api/portraits/men/65.jpg'
   })
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +27,12 @@ const Register = () => {
     e.preventDefault()
     try{
 
-      const response = await fetching(`${API_URL}/api/auth/register`, 'POST', {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
         body: JSON.stringify(registerData)
       })
       console.log(response)
@@ -36,6 +45,12 @@ const Register = () => {
     }
   }
 
+  useEffect(() => {
+    if(user){
+      navigate('/')
+    }
+
+  }, []);
 
   return (
     <main className="auth-container">

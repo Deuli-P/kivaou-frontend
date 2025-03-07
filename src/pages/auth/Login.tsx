@@ -1,16 +1,21 @@
-import { useState } from "react";
-import { fetching } from "../../utils/utils";
-
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from "react-router-dom";
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 
 const Login = () => {
 
-  const [ loginData , setLoginData ] = useState({
-    email: '',
-    password: ''
-  })
+  const { getLogin, user } = useAuth();
 
+  const navigate = useNavigate();
+
+  const [ loginData , setLoginData ] = useState({
+    email: 'admin@admin.com',
+    password: 'password'
+  })
+ 
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData((prev) => ({
@@ -19,23 +24,21 @@ const Login = () => {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
-
-
-
-    const response = fetching(`${API_URL}/api/auth/login`, 'POST', {
-      body: JSON.stringify(loginData)
-    })
-    console.log(response)
-    if(response){
-      console.log('ok')
-      console.log(response)
+    const responses =  await getLogin(loginData)
+    console.log('responses',responses)
+    if(responses){
+      navigate('/')
     }
-
-
-    
   };
+
+  useEffect(() => {
+    if(user){
+      navigate('/')
+    }
+  
+  }, []);
 
   return (
     <main

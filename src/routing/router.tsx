@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
                 ], 
             },
             {
-                path: "in",
+                path: "",
                 element: <IsConnected />,
                 children: [
                     { path: "", element: <Home /> },
