@@ -43,6 +43,18 @@ body {
     justify-content: flex-start;
 }
 
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    margin-top: 1em;
+    padding: 20px;
+    width: 100vw;
+};
+
+
 
 p{
     font-size: clamp(10px, calc(10px + calc((16 - 10) / (1920 - 320)) * (100vw - 320px)), 16px);

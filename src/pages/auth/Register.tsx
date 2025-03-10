@@ -53,7 +53,7 @@ const Register = () => {
   }, []);
 
   return (
-    <main className="auth-container">
+    <main>
       <h1>Inscription</h1>
       <form
         className='auth-form'

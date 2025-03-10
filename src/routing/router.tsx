@@ -14,6 +14,7 @@ import EventDetail from "../pages/organization/event/detail";
 
 import IsConnected from "../middlewares/IsConnected";
 import IsMember from "../middlewares/IsMember";
+import Profile from "../pages/profile";
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
                 children: [
                     { path: "", element: <Home /> },
                     { path: "orga/create", element: <CreateOrganization /> },
+                    { path: 'profile', element: <Profile />},
                     { 
                         path: "orga",
                         element: <IsMember />,

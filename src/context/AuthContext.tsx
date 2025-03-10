@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 interface AuthContextType {
-  user: string | null;
-  setUser: (user: string | null) => void;
+  user: UserProps | null;
+  setUser: (user: UserProps | null) => void;
   getLogin: (arg0:LoginData) => void;
   getLogout: () => void;
 }
@@ -13,10 +13,22 @@ interface LoginData {
   password: string;
 }
 
+interface UserProps {
+  firstname: string;
+  lastname: string;
+  email : string;
+  photo_path?: string;
+  organization:{
+    id: string | null;
+    name: string | null;
+  };
+}
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<string | null>(null);
+
+  const [user, setUser] = useState<UserProps | null>(null);
 
   const getLogin = async (dataLogin:LoginData) => {
     try{

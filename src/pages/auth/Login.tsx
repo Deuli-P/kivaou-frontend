@@ -41,9 +41,7 @@ const Login = () => {
   }, []);
 
   return (
-    <main
-      className="auth-container"
-    >
+    <main>
       <h1>Connexion</h1>
       <div>
         <form 

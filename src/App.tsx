@@ -12,7 +12,13 @@ function App() {
   return (
     <AuthProvider>
         <RouterProvider router={router} />
-        <ToastContainer/>
+        <ToastContainer
+          position='bottom-right'
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick
+        />
       </AuthProvider>
   )
 }
