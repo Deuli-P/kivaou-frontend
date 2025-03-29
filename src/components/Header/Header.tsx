@@ -69,12 +69,24 @@ const Header = () => {
       {/* Navigation Mobile */}
       {user ? (
         <nav className={`mobile-nav ${menuOpen ? "open" : ""}`} ref={navRef}>
-          <NavLink to="/event/create" className="header-navlink">
-            Créer un événement
-          </NavLink>
-          <NavLink to="/organizations" className="header-navlink">
-            Mon organisation
-          </NavLink>
+          {user.organization.id ? 
+              (
+                <>
+                  <NavLink to="/orga/event/create" className="header-navlink">
+                    Créer un événement
+                  </NavLink>
+                  <NavLink to="/organizations" className="header-navlink">
+                    Mon organisation
+                  </NavLink>
+                </>
+              ) 
+            : 
+              (
+                <NavLink to="orga/create" className="header-navlink">
+                  Créer une organisation
+                </NavLink>
+              )
+            }
           <NavLink to="/profile" className="header-navlink">
             Profil
           </NavLink>

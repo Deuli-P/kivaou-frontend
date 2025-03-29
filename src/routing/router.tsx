@@ -5,11 +5,11 @@ import Home from "../pages/Home";
 import Error from "../pages/Error";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import CreateOrganization from "../pages/organization/create";
-import OrganizationDetail from "../pages/organization/detail";
-import EventCreate from "../pages/organization/event/create";
-import EventList from "../pages/organization/event/list";
-import EventDetail from "../pages/organization/event/detail";
+import CreateOrganization from "../pages/organization/Create";
+import OrganizationDetail from "../pages/organization/Detail";
+import EventCreate from "../pages/organization/event/Create";
+import EventList from "../pages/organization/event/List";
+import EventDetail from "../pages/organization/event/Detail";
 
 
 import IsConnected from "../middlewares/IsConnected";

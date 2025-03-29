@@ -25,7 +25,7 @@ const Profile = () => {
        })
 
 
-    const handleChangeProfile = (e) => {
+    const handleChangeProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setProfileEditData(prev => ({
             ...prev,
@@ -37,7 +37,7 @@ const Profile = () => {
         setOpenEditModal(prev => !prev)
     };
 
-    const handleSubmitEditProfile =(e)=> {
+    const handleSubmitEditProfile =(e: React.FormEvent<HTMLFormElement>)=> {
         e.preventDefault()
         try{
 
@@ -45,6 +45,7 @@ const Profile = () => {
         }
         catch(e){
             console.log(e)
+            toast.error("Erreur lors de la modification du profil")
         }
         finally{
             toast.success('Profil modifié avec succès')
@@ -60,7 +61,11 @@ const Profile = () => {
             <div>
                 <p>{user?.firstname} {user?.lastname}</p>
                 <p>{user?.email}</p>
+                { user?.organization.id ? 
                 <div onClick={()=> navigate(`/orga/${user?.organization.id}`)}>{user?.organization?.name}</div>
+                :
+                <div onClick={()=> navigate(`/orga/create`)}>Créer une organisation</div>
+                }
             </div>
             <button
                 onClick={handleOpeningEditModal}
