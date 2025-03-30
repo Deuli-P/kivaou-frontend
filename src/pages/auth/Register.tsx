@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
+import { toast } from "react-toastify"
 const API_URL = import.meta.env.VITE_BACKEND_URL
 const Register = () => {
 
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate()
 
   const [registerData, setRegisterData] = useState({
@@ -35,13 +36,23 @@ const Register = () => {
         credentials: 'include',
         body: JSON.stringify(registerData)
       })
-      console.log(response)
       if(response){
-        console.log('ok')
+        const data = await response.json()
+        console.log('data',data)
+        if(data.user){
+          setUser(data.user)
+          toast.success("Inscription réussie")
+          if(user){
+            navigate('/')
+          }
+        }
+        else{
+          toast.error(data.message)
+        }
       }
     }
     catch(e: any){
-      throw new Error("Erreur d'inscription : ",e)
+      throw new Error(`Erreur d'inscription : ${e.message}`);
     }
   }
 
@@ -49,7 +60,6 @@ const Register = () => {
     if(user){
       navigate('/')
     }
-
   }, []);
 
   return (

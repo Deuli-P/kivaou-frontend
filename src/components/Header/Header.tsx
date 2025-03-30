@@ -16,7 +16,9 @@ const Header = () => {
     <header>
       <div className="container">
         {/* Logo */}
-        <div className="logo">MyLogo</div>
+        <NavLink to="/" className="header-logo">
+          <img src="/logo.png" alt="Logo" className="header-logo-img" />
+        </NavLink>
 
         {/* Burger Menu uniquement en mobile */}
         <div

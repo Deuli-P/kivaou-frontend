@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from "react-router-dom";
-const API_URL = import.meta.env.VITE_BACKEND_URL
+import {  useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -12,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [ loginData , setLoginData ] = useState({
-    email: 'admin@admin.com',
+    email: 'admin@admin.io',
     password: 'password'
   })
  
@@ -24,12 +23,17 @@ const Login = () => {
     }))
   }
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const responses =  await getLogin(loginData)
-    console.log('responses',responses)
-    if(responses){
-      navigate('/')
+    try{    
+      const responses =  await getLogin(loginData)
+      console.log('responses',responses)
+      if(responses){
+          navigate('/')
+      }
+    }catch(err){
+      console.log(err)
+      toast.error("Erreur lors de la connexion")
     }
   };
 

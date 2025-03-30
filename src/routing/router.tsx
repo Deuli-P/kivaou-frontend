@@ -23,13 +23,6 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
             {
-                path: "auth",
-                children: [
-                    { path: "login", element: <Login /> }, 
-                    { path: "register", element: <Register /> }
-                ], 
-            },
-            {
                 path: "",
                 element: <IsConnected />,
                 children: [
@@ -52,6 +45,13 @@ export const router = createBrowserRouter([
                         ]
                     }
                 ]
+            },
+            {
+                path: "auth",
+                children: [
+                    { path: "login", element: <Login /> }, 
+                    { path: "register", element: <Register /> }
+                ], 
             },
             { path: "*", element: <Navigate to='/' replace /> }
         ]

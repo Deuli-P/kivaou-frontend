@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState} from 'react'
 import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 
 const CreateOrganization = () => {
 
-  const [ organizationData, setOrganizationData ] = React.useState({
+  const { setUser } = useAuth();
+
+  const navigate = useNavigate();
+
+  const [ organizationData, setOrganizationData ] = useState({
     name: 'EDF',
     number: 23,
     street: "Rue de l'avion",
@@ -31,11 +37,27 @@ const CreateOrganization = () => {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify(organizationData)
-    });
+      });
+      if(!response.ok){
+        toast.error("Erreur lors de la création de l'organisation")
+        return
+      }
 
-    console.log('response create orga : ', response)
-    const data = await response.json();
-    console.log('data create orga : ', data)
+      const data = await response.json();
+      console.log('data create orga : ', data)
+      if(data.organization){
+        setUser((prev: UserProps) => ({
+          ...prev,
+          organization:{
+            id: data.organization.id,
+            name: data.organization.name
+          }
+        }))
+        navigate('/profile')
+      }
+      else{
+        toast.error("Erreur lors de la création de l'organisation")
+      }
 
     }
     catch(e){

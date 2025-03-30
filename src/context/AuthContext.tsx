@@ -8,6 +8,7 @@ interface AuthContextType {
   setUser: (user: UserProps | null) => void;
   getLogin: (arg0:LoginData) => void;
   getLogout: () => void;
+  loading : boolean;
 }
 interface LoginData {
   email: string;
@@ -20,6 +21,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const [user, setUser] = useState<UserProps | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getLogin = async (dataLogin:LoginData) => {
     try{
@@ -71,6 +73,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const checkIfAuth = async () => {
     try{
+      setLoading(true)
       const response = await fetch(`${API_URL}/api/auth/check`,{
         method: 'GET',
         headers: {
@@ -89,6 +92,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       toast.error(e.message)
       return false
     }
+    finally{
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -100,7 +106,8 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     user,
     setUser,
     getLogin,
-    getLogout
+    getLogout,
+    loading
   };
 
   return (
