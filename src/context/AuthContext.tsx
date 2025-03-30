@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { toast } from 'react-toastify';
+import { UserProps } from '../utils/types';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 interface AuthContextType {
@@ -13,16 +14,6 @@ interface LoginData {
   password: string;
 }
 
-interface UserProps {
-  firstname: string;
-  lastname: string;
-  email : string;
-  photo_path?: string;
-  organization:{
-    id: string | null;
-    name: string | null;
-  };
-}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
