@@ -64,7 +64,7 @@ const Register = () => {
 
   return (
     <main>
-      <h1>Inscription</h1>
+      <h2>Inscription</h2>
       <form
         className='auth-form'
         onSubmit={handleSubmit}

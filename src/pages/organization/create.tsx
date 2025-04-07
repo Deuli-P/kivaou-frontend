@@ -2,6 +2,7 @@ import React, { useState} from 'react'
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { UserProps } from '../../utils/types';
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 
@@ -46,6 +47,7 @@ const CreateOrganization = () => {
       const data = await response.json();
       console.log('data create orga : ', data)
       if(data.organization){
+        toast.success("Organisation créée avec succès");
         setUser((prev: UserProps) => ({
           ...prev,
           organization:{
@@ -58,14 +60,10 @@ const CreateOrganization = () => {
       else{
         toast.error("Erreur lors de la création de l'organisation")
       }
-
     }
     catch(e){
       console.log(e)
       toast.error("Erreur lors de la création de l'organisation")
-    }
-    finally{
-      toast.success('Organisation créée avec succès')
     }
   }
 

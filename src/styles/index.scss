@@ -15,6 +15,16 @@
     width: 100%;
     max-width: 400px;
 }
+.select-label{
+    display:  flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    max-width: 400px;
+}
 
 .input-input{
     border-radius: 8px;
@@ -23,6 +33,20 @@
     min-width: 300px;
 }
 
+.input-select{
+    border-radius: 8px;
+    background-color: settings.$primary_color;
+    padding: 6px 12px;
+    min-width: 300px;
+}
+
+.textarea-input{
+    border-radius: 8px;
+    background-color: settings.$primary_color;
+    padding: 6px 12px;
+    min-width: 300px;
+    min-height: 100px;
+}
 
 
 .auth-form{

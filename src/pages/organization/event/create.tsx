@@ -1,59 +1,122 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { toast } from 'react-toastify';
+import { useAuth } from '../../../context/AuthContext';
+import { PlaceProps } from '../../../utils/types';
 const API_URL = import.meta.env.VITE_BACKEND_URL
+
 
 
 const CreateEvent = () => {
 
+  const { user } = useAuth();
+
   const [eventData, setEventData ] = useState({
-    name: 'EDF',
-    number: 23,
-    street: "Rue de l'avion",
-    postal_code: 12345,
-    city: 'Fankfurt',
-    country: 'France'
+    title: 'Final des Worlds series',
+    description: 'Une description de l\'événement ici pour dire quel est le programme ou le projet',
+    start_date: "2023-10-01T12:00",
+    end_date: "2023-10-01T18:00",
+    place : 'Accord Arena'
   })
+
+  const [ places, setPlaces ] = useState<PlaceProps[]>([]);
+  const [ loading, setLoading ] = useState(false);
 
   const handleChange= (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setOrganizationData(prev => ({
+    setEventData(prev => ({
       ...prev,
       [name]: value
     }))
+  };
+
+  const fetchPlaces = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch(`${API_URL}/api/organization/${user?.organization.id}/places`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+      });
+      if(!response.ok){
+        toast.error("Erreur lors de la récupération des lieux")
+        return
+      }
+      const data = await response.json();
+      console.log('data places : ', data)
+      setPlaces(data)
+      setLoading(false)
+    }
+    catch(e){
+      console.log(e)
+      toast.error("Erreur lors de la récupération des lieux")
+    }
   };
 
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log('submit')
     try{
+      if (new Date(eventData.end_date) < new Date(eventData.start_date)) {
+        toast.warning("La date de fin ne peut pas être antérieure à la date de début.");
+        return;
+      }
+
+      if(!user?.organization){
+        toast.error("Vous devez appartenir à une organisation pour créer un événement")
+        return
+      }
+
+      const body = {
+        ...eventData,
+        organization_id : user?.organization.id
+      }
       const response = await fetch(`${API_URL}/api/event/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(organizationData)
+        body: JSON.stringify(body)
       });
       if(!response.ok){
         toast.error("Erreur lors de la création de l'organisation")
         return
       }
-      console.log('response create orga : ', response)
+      console.log('response create event : ', response)
       const data = await response.json();
-      console.log('data create orga : ', data)
+      console.log('data create event : ', data)
+      toast.success("L'événement est créé avec succès")
     }
     catch(e){
       console.log(e)
-      toast.error("Erreur lors de la création de l'organisation")
+      toast.error("Erreur lors de la création de l'événement")
     }
-    finally{
-      toast.success('Organisation créée avec succès')
-    }
+  }
+
+  useEffect(() => {
+    fetchPlaces()
+  },[])
+
+  if(loading){
+    return (
+      <main>
+        <h1>Chargement...</h1>
+      </main>
+    )
+  }
+
+  if(places.length === 0 && !loading){
+    return (
+      <main>
+        <h1>Aucun lieu trouvé</h1>
+        <p>Vous devez créer un lieu avant de créer un événement.</p>
+      </main>
+    )
   }
 
 
   return (
     <main>
-      <h1>Créer une organisation</h1>
-      <p>Si vous avez déjà une organisation, veuilliez contacter son administrateur pour qu'il vous invite directement.</p>
+      <h1>Créer un événement</h1>
+      <p>Vous voulez orgniser un événement ou prévoir une sortie, vous ètes au bon endroit.</p>
       <form 
         action="submit" 
         onSubmit={handleSubmit}
@@ -61,17 +124,17 @@ const CreateEvent = () => {
       >
         <label 
             className="input-label"
-            htmlFor="firstname"
+            htmlFor="title"
         >
-            Nom de l'organisation
+            Titre de l'événement
             <input 
                 type="text" 
-                placeholder="ex : EDF" 
-                name='name'
-                id="name"
+                placeholder="ex : Escape game de Paris" 
+                name='title'
+                id="title"
                 required
                 className='input-input'
-                value={organizationData.name}
+                value={eventData.title}
                 onChange={(e)=>handleChange(e)}
             />
         </label>
@@ -79,15 +142,16 @@ const CreateEvent = () => {
             className="input-label"
             htmlFor="firstname"
         >
-           Numéro de la voie
+            Heure et date de début
             <input 
-                type="number" 
-                placeholder="ex : 123" 
-                name='number'
-                id="number"
+                type="datetime-local" 
+                placeholder="Heure et date de début" 
+                name='start_date'
+                id="start_date"
+                min={new Date().toISOString().slice(0,16)}
                 required
                 className='input-input'
-                value={organizationData.number}
+                value={eventData.start_date}
                 onChange={(e)=>handleChange(e)}
             />
         </label>
@@ -95,67 +159,62 @@ const CreateEvent = () => {
             className="input-label"
             htmlFor="firstname"
         >
-            Rue
+            Heure et date de fin
             <input 
-                type="text" 
-                placeholder="ex : Rue de l'église" 
-                name='street'
-                id="street"
-                required
+                type="datetime-local" 
+                placeholder="Heure et date de fin" 
+                name='end_date'
+                id="end_date"
+                min={ eventData.start_date || new Date().toISOString().slice(0,16)}
                 className='input-input'
-                value={organizationData.street}
+                value={eventData.end_date}
                 onChange={(e)=>handleChange(e)}
             />
         </label>
-        <label 
-            className="input-label"
-            htmlFor="firstname"
-        >
-            Ville
-            <input 
-                type="text" 
-                placeholder="ex : 123" 
-                name='city'
-                id="city"
+        <div className="event-form-place-list-container">
+          <label 
+              className="select-label"
+              htmlFor="place"
+          >
+            Lieu
+            <select 
+                name="place"
+                id="place"
                 required
-                className='input-input'
-                value={organizationData.city}
+                className='input-select'
+                value={eventData.place}
                 onChange={(e)=>handleChange(e)}
-            />
-        </label>
+            >
+                <option value="null">-- Sélectionner un lieu --</option>
+                {places.map((place) => (
+                    <option
+                        key={place.id}
+                        value={place.id}
+                        className="input-option"
+                    >
+                        {place.name}
+                    </option>
+                ))} 
+            </select>
+          </label>
+        </div>
         <label 
-            className="input-label"
-            htmlFor="firstname"
+          className="input-label"
+          htmlFor="description"
         >
-            Code postale
-            <input 
-                type="number" 
-                placeholder="ex : 123" 
-                name='postal_code'
-                id="postal_code"
-                required
-                className='input-input'
-                value={organizationData.postal_code}
-                onChange={(e)=>handleChange(e)}
-            />
-        </label>
-        <label 
-            className="input-label"
-            htmlFor="firstname"
-        >
-           Pays
-            <input 
-                type="text" 
-                placeholder="ex : 123" 
-                name='country'
-                id="country"
-                required
-                className='input-input'
-                value={organizationData.country}
-                onChange={(e)=>handleChange(e)}
-            />
+          Description
+          <textarea 
+              rows={5}
+              placeholder="Description de l'événement" 
+              name='description'
+              id="description"
+              className='textarea-input'
+              value={eventData.description}
+              onChange={(e)=>handleChange(e)}
+          />
         </label>
           <button
+              disabled={new Date(eventData.end_date) < new Date(eventData.start_date) ? true : false}
               type="submit"
               >
               Créer

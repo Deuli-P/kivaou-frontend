@@ -37,7 +37,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       if(data.success){
         toast.success(data.message)
-        setUser(data.user)
+        setUser(data)
         return true
       }
       else{

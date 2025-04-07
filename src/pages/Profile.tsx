@@ -74,7 +74,7 @@ const Profile = () => {
 
   return (
     <main>
-        <h1>Mon profile</h1>
+        <h2>Mon profile</h2>
         <div>
             <img src={user?.photo_path ? user.photo_path : "https://www.randomkittengenerator.com/cats/1957.jpg"} alt={user?.photo_path ? "Photo de profile" : "Photo de chaton"} />
             <div>

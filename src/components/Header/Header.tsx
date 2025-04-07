@@ -17,7 +17,7 @@ const Header = () => {
       <div className="container">
         {/* Logo */}
         <NavLink to="/" className="header-logo">
-          <img src="/logo.png" alt="Logo" className="header-logo-img" />
+          <h1>KIVAOU</h1>
         </NavLink>
 
         {/* Burger Menu uniquement en mobile */}
@@ -39,7 +39,7 @@ const Header = () => {
                   <NavLink to="/orga/event/create" className="header-navlink">
                     Créer un événement
                   </NavLink>
-                  <NavLink to="/organizations" className="header-navlink">
+                  <NavLink to={`/orga/${user.organization.id}`} className="header-navlink">
                     Mon organisation
                   </NavLink>
                 </>
@@ -77,7 +77,7 @@ const Header = () => {
                   <NavLink to="/orga/event/create" className="header-navlink">
                     Créer un événement
                   </NavLink>
-                  <NavLink to="/organizations" className="header-navlink">
+                  <NavLink to={`/orga/${user.organization.id}`} className="header-navlink">
                     Mon organisation
                   </NavLink>
                 </>
