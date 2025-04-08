@@ -28,9 +28,6 @@ const Login = () => {
     try{    
       const responses =  await getLogin(loginData)
       console.log('responses',responses)
-      if(responses){
-          navigate('/')
-      }
     }catch(err){
       console.log(err)
       toast.error("Erreur lors de la connexion")
@@ -41,8 +38,7 @@ const Login = () => {
     if(user){
       navigate('/')
     }
-  
-  }, []);
+  }, [user, navigate]);
 
   return (
     <main>

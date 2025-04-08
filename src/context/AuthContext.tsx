@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { toast } from 'react-toastify';
 import { UserProps } from '../utils/types';
-
+import jwt_decode from 'jwt-decode';
 const API_URL = import.meta.env.VITE_BACKEND_URL
 interface AuthContextType {
   user: UserProps | null;
@@ -23,6 +23,8 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProps | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+
+
   const getLogin = async (dataLogin:LoginData) => {
     try{
       const response = await fetch(`${API_URL}/api/auth/login`,{
@@ -37,7 +39,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       if(data.success){
         toast.success(data.message)
-        setUser(data)
+        setUser(data.user); 
         return true
       }
       else{

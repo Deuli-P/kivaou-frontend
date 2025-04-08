@@ -15,6 +15,7 @@ import EventDetail from "../pages/organization/event/Detail";
 import IsConnected from "../middlewares/IsConnected";
 import IsMember from "../middlewares/IsMember";
 import Profile from "../pages/profile";
+import DestinationCreate from "../pages/organization/destination/Create";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
                                 path: "event", 
                                 children: [
                                     { path: "create", element: <EventCreate /> },
+                                    { path: "destination/create", element: <DestinationCreate /> },
                                     { path: ":id", element: <EventDetail /> },
                                     { path: "", element: <EventList /> }
                                 ],

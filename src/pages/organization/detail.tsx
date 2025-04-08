@@ -7,10 +7,10 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 const OrganizationDetail = () => {
 
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user } = useAuth();
   const [ loading, setLoading ] = useState(true);
 
-  const [ organization, setOrganization ] = useState({
+  const [ organization, setOrganization ] = useState({
     name: 'Robert Space Industries',
     address: {
       street: 'Rue de l\'avion',
@@ -27,6 +27,8 @@ const OrganizationDetail = () => {
       lastname: 'Robert'
     }
   })
+
+  const [ role , setRole ] = useState('MEMBER');
 
   const [ usersList, setUsersList ] = useState([]);
   // EventList = events du passé et event présent ou futur
@@ -53,6 +55,7 @@ const OrganizationDetail = () => {
         past: data.events.past ? data.events.past : [],
         futures: data.events.futures ? data.events.futures : []
       });
+      setRole(data.role);
       setLoading(false);
     }
     catch (error) {
@@ -66,7 +69,8 @@ const OrganizationDetail = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log("organization", organization);
+    console.log("organization owner id", organization.owner.id);
+    console.log('user id ', user);
   }, [organization]);
 
   return (
@@ -132,6 +136,21 @@ const OrganizationDetail = () => {
                   </ul>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="orga-detail-destitnations">
+            <div className="orga-detail-destinations-container">
+              <h2>Liste des destinations de l'organisation</h2>
+              {role === 'ADMIN' &&(
+                <button>
+                  Créer une nouvelle destination
+                </button>
+              )}
+              <ul>
+                <li className="orga-detail-destinations-not-found">
+                  Aucune destination
+                </li>
+              </ul>
             </div>
           </div>
           <div className="orga-detail-user-list">
