@@ -95,7 +95,7 @@ const CreateOrganization = () => {
         </label>
         <label 
             className="input-label"
-            htmlFor="firstname"
+            htmlFor="number"
         >
            Numéro de la voie
             <input 
@@ -111,7 +111,7 @@ const CreateOrganization = () => {
         </label>
         <label 
             className="input-label"
-            htmlFor="firstname"
+            htmlFor="street"
         >
             Rue
             <input 
@@ -127,7 +127,7 @@ const CreateOrganization = () => {
         </label>
         <label 
             className="input-label"
-            htmlFor="firstname"
+            htmlFor="city"
         >
             Ville
             <input 
@@ -143,7 +143,7 @@ const CreateOrganization = () => {
         </label>
         <label 
             className="input-label"
-            htmlFor="firstname"
+            htmlFor="postal_code"
         >
             Code postale
             <input 
@@ -159,7 +159,7 @@ const CreateOrganization = () => {
         </label>
         <label 
             className="input-label"
-            htmlFor="firstname"
+            htmlFor="country"
         >
            Pays
             <input 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { EventProps, UserProps } from "../../utils/types";
 const API_URL = import.meta.env.VITE_BACKEND_URL;
@@ -29,6 +29,8 @@ const OrganizationDetail = () => {
   })
 
   const [ role , setRole ] = useState('MEMBER');
+
+  const navigate = useNavigate();
 
   const [ usersList, setUsersList ] = useState([]);
   // EventList = events du passé et event présent ou futur
@@ -68,10 +70,6 @@ const OrganizationDetail = () => {
     fetchOrganization()
   }, [id]);
 
-  useEffect(() => {
-    console.log("organization owner id", organization.owner.id);
-    console.log('user id ', user);
-  }, [organization]);
 
   return (
     <>
@@ -142,7 +140,13 @@ const OrganizationDetail = () => {
             <div className="orga-detail-destinations-container">
               <h2>Liste des destinations de l'organisation</h2>
               {role === 'ADMIN' &&(
-                <button>
+                <button
+                  onClick={() => {
+                    navigate('/orga/destination/create', {
+                      state: {
+                        organizationId: id}})
+                  }}
+                >
                   Créer une nouvelle destination
                 </button>
               )}

@@ -1,44 +1,269 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAuth } from '../../../context/AuthContext';
 
 const DestinationCreate = () => {
+
+    const { user } = useAuth();
+
+    const [ destinationData, setDestinationData ] = useState({
+            name: 'Peper Grill',
+            service_type: 'restaurant',
+            service_link: null,
+            google_map: 'https://g.co/kgs/DjjEM1S',
+            speciality: 'Fast-food',
+            phone: '01 23 45 67 89',
+            website: 'https://pepper-grill.com/',
+            photo_path: 'https://pepper-grill.com/wp-content/uploads/2023/06/pepper_grill_logo.png.webp',
+            number: 6,
+            street: 'Boulevard du Mont d\'Est',
+            postal_code: 93100,
+            city: 'Noisy-le-Grand',
+            country: 'France',
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        setDestinationData({
+            ...destinationData,
+            [name]: value
+        })
+    };
+
+    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        setDestinationData({
+            ...destinationData,
+            service_type: value
+        });
+    }; 
+
+
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try{
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/destination/create?id=${user?.organization?.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify(destinationData)
+            })
+            const data = await response.json()
+            if(data.success){
+                console.log('Destination created successfully', data)
+            }
+            else{
+                console.error('Error creating destination', data)
+            }
+        }
+        catch(err){
+            console.error('Error creating destination', err)
+        }
+    }
   return (
     <main>
         <h2>Ajouter une destination à votre organisation</h2>
         <p>Il faut ajouter des destinations pour pouvoir les utiliser pour créer des événements.</p>
-        <form action="">
-            <label htmlFor="" className='input-label'>
+        <form action='submit' onSubmit={handleSubmit} className='auth-form'>
+            <div>
+                <span>Information</span>
+            
+            <label htmlFor="name" className='input-label'>
                 Nom de la destination
                 <input 
                     className='input-input' 
                     type="text" 
-                    name="" 
-                    id=""
+                    name="name" 
+                    id="name"
                     required
+                    value={destinationData.name}
+                    onChange={(e)=>handleChange(e)}
                     placeholder='Nom de la destination' 
                 />
             </label>
-            <label htmlFor="" className='input-label'>
-                Nom de la destination
+            <label htmlFor="name" className='input-label'>
+                Type de service
+                <select 
+                    name="service_type" 
+                    id="service_type"
+                    className='input-input'
+                    onChange={(e)=>handleSelect(e)}
+                    value={destinationData.service_type}
+                >
+                    <option className='select-option' value="pub">Bar</option>
+                    <option className='select-option' value="restaurant">Restaurant</option>
+                    <option className='select-option' value="fast-food">Fast Food</option>
+                    <option className='select-option' value="escape-game">Escape Game</option>
+                    <option className='select-option' value="amusement-park">Parc d'attraction</option>
+                    <option className='select-option' value="entertenment">Loisirs</option>
+                    <option className='select-option' value="theater">Cinéma</option>
+                </select>
+            </label>
+            <label htmlFor="service_link" className='input-label'>
+                Lien
                 <input 
                     className='input-input' 
                     type="text" 
-                    name="" 
-                    id=""
-                    required
-                    placeholder='Nom de la destination' 
+                    name="service_link" 
+                    id="service_link"
+                    placeholder='Lien uber eats, site de réservation, etc.' 
+                    value={destinationData.service_link}
+                    onChange={(e)=>handleChange(e)}
                 />
             </label>
-            <label htmlFor="" className='input-label'>
-                Nom de la destination
+            <label htmlFor="google_map" className='input-label'>
+                Lien Google map
                 <input 
                     className='input-input' 
                     type="text" 
-                    name="" 
-                    id=""
-                    required
-                    placeholder='Nom de la destination' 
+                    name="google_map" 
+                    id="google_map"
+                    placeholder='Lien Google map' 
+                    value={destinationData.google_map}
+                    onChange={(e)=>handleChange(e)}
                 />
             </label>
+            <label htmlFor="speciality" className='input-label'>
+                Spécialité
+                <input 
+                    className='input-input' 
+                    type="text" 
+                    name="speciality" 
+                    id="speciality"
+                    placeholder='ex: Plongée, Surf, Libanais, Bar.' 
+                    value={destinationData.speciality}
+                    onChange={(e)=>handleChange(e)}
+                />
+            </label>
+            <label htmlFor="phone" className='input-label'>
+                Téléphone
+                <input 
+                    className='input-input' 
+                    type="text" 
+                    name="speciality" 
+                    id="phone"
+                    placeholder='Téléphone' 
+                    value={destinationData.phone}
+                    onChange={(e)=>handleChange(e)}
+                />
+            </label>
+            <label htmlFor="website" className='input-label'>
+                Site web
+                <input 
+                    className='input-input' 
+                    type="text" 
+                    name="website" 
+                    id="website"
+                    placeholder='Site web' 
+                    value={destinationData.website}
+                    onChange={(e)=>handleChange(e)}
+                />
+            </label>
+            <label htmlFor="photo_path" className='input-label'>
+                Photo
+                <input 
+                    className='input-input' 
+                    type="text" 
+                    name="photo_path" 
+                    id="photo_path"
+                    placeholder='Lien de la photo' 
+                    value={destinationData.photo_path}
+                    onChange={(e)=>handleChange(e)}
+                />
+            </label>
+            </div>
+            <div>
+                <span>Adresse</span>
+                <label 
+                    className="input-label"
+                    htmlFor="number"
+                >
+                Numéro de la voie
+                    <input 
+                        type="number" 
+                        placeholder="ex : 123" 
+                        name='number'
+                        id="number"
+                        required
+                        className='input-input'
+                        value={destinationData.number}
+                        onChange={(e)=>handleChange(e)}
+                    />
+                </label>
+                <label 
+                    className="input-label"
+                    htmlFor="street"
+                >
+                    Rue
+                    <input 
+                        type="text" 
+                        placeholder="ex : Rue de l'église" 
+                        name='street'
+                        id="street"
+                        required
+                        className='input-input'
+                        value={destinationData.street}
+                        onChange={(e)=>handleChange(e)}
+                    />
+                </label>
+                <label 
+                    className="input-label"
+                    htmlFor="city"
+                >
+                    Ville
+                    <input 
+                        type="text" 
+                        placeholder="ex : 123" 
+                        name='city'
+                        id="city"
+                        required
+                        className='input-input'
+                        value={destinationData.city}
+                        onChange={(e)=>handleChange(e)}
+                    />
+                </label>
+                <label 
+                    className="input-label"
+                    htmlFor="postal_code"
+                >
+                    Code postale
+                    <input 
+                        type="number" 
+                        placeholder="ex : 123" 
+                        name='postal_code'
+                        id="postal_code"
+                        required
+                        className='input-input'
+                        value={destinationData.postal_code}
+                        onChange={(e)=>handleChange(e)}
+                    />
+                </label>
+                <label 
+                    className="input-label"
+                    htmlFor="country"
+                >
+                Pays
+                    <input 
+                        type="text" 
+                        placeholder="ex : 123" 
+                        name='country'
+                        id="country"
+                        required
+                        className='input-input'
+                        value={destinationData.country}
+                        onChange={(e)=>handleChange(e)}
+                    />
+                </label>
+            </div>
+            <div className="btn_container">
+                <button 
+                    type='submit'
+                    className='btn-primary'
+                >
+                    Créer la destination
+                </button>
+            </div>
         </form>
     </main>
   )

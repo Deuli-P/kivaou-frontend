@@ -7,6 +7,7 @@ export interface UserProps {
     organization?:{
       id: string | null;
       name: string | null;
+      owner_id: string | null;
     };
 }
 
@@ -59,4 +60,12 @@ export interface PlaceProps {
         postal_code: number;
         country: string;
     }
+}
+
+export type InputWithLabelProps ={
+  label : string;
+  value : string  | null;
+  setValue: React.Dispatch<React.SetStateAction<{ [key: string]: string | null }>>;
+  type?: string;
+  name: string;
 }

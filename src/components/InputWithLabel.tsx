@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { InputWithLabelProps } from '../data/types';
+import { InputWithLabelProps } from '../utils/types';
 
 
 
