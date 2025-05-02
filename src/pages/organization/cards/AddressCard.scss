@@ -1,0 +1,84 @@
+.address-card {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  
+    &__image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+  
+    &__content {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+  
+    &__title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  
+    &__type {
+      font-style: italic;
+      color: #555;
+    }
+  
+    &__address {
+      color: #333;
+    }
+  
+    &__phone {
+      font-weight: 500;
+    }
+  
+    &__links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+  
+      a {
+        text-decoration: none;
+        color: #0066cc;
+        font-size: 0.9rem;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    &__schedule {
+      margin-top: 0.5rem;
+  
+      ul {
+        padding-left: 1rem;
+        margin: 0.3rem 0;
+      }
+  
+      li {
+        font-size: 0.85rem;
+      }
+    }
+
+  .address-card__toggle,
+  .address-card__more {
+    background: none;
+    border: none;
+    color: #007acc;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 0.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

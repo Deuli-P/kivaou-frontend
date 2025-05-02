@@ -7,7 +7,7 @@ export interface UserProps {
     organization?:{
       id: string | null;
       name: string | null;
-      owner_id: string | null;
+      role: 'OWNER' | 'MEMBER' | null;
     };
 }
 

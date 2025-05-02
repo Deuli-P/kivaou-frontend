@@ -3,41 +3,71 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { EventProps, UserProps } from "../../utils/types";
 const API_URL = import.meta.env.VITE_BACKEND_URL;
+const env = import.meta.env.VITE_ENV_MODE;
+import AddressCards from "./cards/AddressCards.js";
+import CreateEventModal from './modals/CreateEventModal.js';
+const fakeOrganization ={
+  name: 'Robert Space Industries',
+  address: {
+    street: 'Rue de l\'avion',
+    number: 123,
+    postal_code: 55604,
+    city: 'Los Santos',
+    country: 'États-Unis',
+    latitude: 23.405,
+    longitude: -12.456,
+  },
+  owner: {
+    id: '123456789',
+    firstname: 'Chriss',
+    lastname: 'Robert'
+  }
+};
+
+const emptyOrganization = {
+  name: '',
+  address: {
+    street: '',
+    number: 0,
+    postal_code: 0,
+    city: '',
+    country: '',
+    latitude: 0,
+    longitude: 0,
+  },
+  owner: {
+    id: '',
+    firstname: '',
+    lastname: ''
+  }
+};
+const emptyEvents = {
+  past: [],
+  futures: []
+};
+const emptyUsers : any[] = [];
+const emptyDestinationsList: any[] = [];
 
 const OrganizationDetail = () => {
 
   const { id } = useParams();
   const { user } = useAuth();
   const [ loading, setLoading ] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedDestination, setSelectedDestination] = useState(null);
 
-  const [ organization, setOrganization ] = useState({
-    name: 'Robert Space Industries',
-    address: {
-      street: 'Rue de l\'avion',
-      number: 123,
-      postal_code: 55604,
-      city: 'Los Santos',
-      country: 'États-Unis',
-      latitude: 23.405,
-      longitude: -12.456,
-    },
-    owner: {
-      id: '123456789',
-      firstname: 'Chriss',
-      lastname: 'Robert'
-    }
-  })
+  const [ organization, setOrganization ] = useState( env === 'DEV' ? fakeOrganization : emptyOrganization);
+  const [ destinationsList, setDestinationsList ] = useState(emptyDestinationsList);
 
-  const [ role , setRole ] = useState('MEMBER');
 
   const navigate = useNavigate();
 
-  const [ usersList, setUsersList ] = useState([]);
+  const dateNow = new Date();
+  const timeNow = dateNow.getTime();
+
+  const [ usersList, setUsersList ] = useState(emptyUsers);
   // EventList = events du passé et event présent ou futur
-  const [ eventsList, setEventsList ] = useState({
-    past:[],
-    futures: []
-  });
+  const [ eventsList, setEventsList ] = useState(emptyEvents);
 
   const fetchOrganization = async () => {
     try{
@@ -57,7 +87,7 @@ const OrganizationDetail = () => {
         past: data.events.past ? data.events.past : [],
         futures: data.events.futures ? data.events.futures : []
       });
-      setRole(data.role);
+      setDestinationsList(data.destinations || []);
       setLoading(false);
     }
     catch (error) {
@@ -139,7 +169,7 @@ const OrganizationDetail = () => {
           <div className="orga-detail-destitnations">
             <div className="orga-detail-destinations-container">
               <h2>Liste des destinations de l'organisation</h2>
-              {role === 'ADMIN' &&(
+              {user.organization?.role === 'OWNER' &&(
                 <button
                   onClick={() => {
                     navigate('/orga/destination/create', {
@@ -150,10 +180,23 @@ const OrganizationDetail = () => {
                   Créer une nouvelle destination
                 </button>
               )}
-              <ul>
-                <li className="orga-detail-destinations-not-found">
-                  Aucune destination
-                </li>
+              <ul className="orga-detail-destinations-list">
+                {destinationsList.length > 0 ? 
+                  destinationsList.map((destination) => (
+                    <AddressCards
+                      key={destination.id}
+                      destination={destination}
+                      onCreateEventClick={() => {
+                        setSelectedDestination(destination);
+                        setOpenModal(true);
+                      }}
+                    />
+                  ))
+                  :
+                  <li className="orga-detail-destinations-not-found">
+                    Aucune destination
+                  </li>
+                }
               </ul>
             </div>
           </div>
@@ -189,6 +232,12 @@ const OrganizationDetail = () => {
               </ul>
             </div>
           </div>
+          {openModal && selectedDestination && (
+            <CreateEventModal
+              destination={selectedDestination}
+              onClose={() => setOpenModal(false)}
+            />
+          )}
         </main>
         ) 
       }

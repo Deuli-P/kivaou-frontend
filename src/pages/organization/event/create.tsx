@@ -9,13 +9,16 @@ const API_URL = import.meta.env.VITE_BACKEND_URL
 
 const CreateEvent = () => {
 
-  const { user } = useAuth();
+  const { user } = useAuth();
+
+  const now = new Date();
+  const localNow = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
 
   const [eventData, setEventData ] = useState({
     title: 'Final des Worlds series',
     description: 'Une description de l\'événement ici pour dire quel est le programme ou le projet',
-    start_date: "2023-10-01T12:00",
-    end_date: "2023-10-01T18:00",
+    start_date: localNow,
+    end_date: localNow,
     place : 'Accord Arena'
   })
 
