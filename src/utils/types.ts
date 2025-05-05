@@ -15,12 +15,7 @@ export interface OrganizationProps {
     id: string;
     name: string;
     owner: UserProps;
-    address: {
-        street: string;
-        city: string;
-        postal_code: number;
-        country: string;
-    };
+    address: AddressProps;
 }
 
 export interface EventProps {
@@ -39,14 +34,7 @@ export interface EventProps {
     description: string;
     start_date: string;
     end_date: string;
-    address? : {
-      id: string;
-      number: number;
-      street: string;
-      city: string;
-      postal_code: number;
-      country: string;
-    };
+    destination: PlaceProps;
   };
   
 export interface PlaceProps {
@@ -54,12 +42,31 @@ export interface PlaceProps {
     name: string;
     speciality?: string;
     photo_path?: string;
-    address: {
-        street: string;
-        city: string;
-        postal_code: number;
-        country: string;
-    }
+    schedule?: DayProps[];
+    service_type?: string;
+    service_link?: string;
+    phone?: string;
+    google_page_link?: string;
+    website?: string;
+    note?: number;
+    address: AddressProps;
+}
+
+export interface DayProps {
+    day: string;
+    morning: string | null;
+    afternoon: string | null;
+}
+
+export interface AddressProps{
+    id: string;
+    number: number;
+    street: string;
+    city: string;
+    postale_code: number;
+    country: string;
+    latitude?: number;
+    longitude?: number;
 }
 
 export type InputWithLabelProps ={

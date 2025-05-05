@@ -7,9 +7,10 @@ event: EventProps
 
 
 const EventCard: React.FC<EventCardProps> = ({event}) => {
-    const { title, description, website, start_date, end_date, address } = event;
 
     const [ submitted, setSubmitted ] = useState(false);
+
+    const addressComplete = event.destination.address ? `${event.destination.address.number} ${event.destination.address.street}, ${event.destination.address.postale_code} ${event.destination.address.city}, ${event.destination.address.country}` : '';
 
     const handleSubmit = async() => {
         setSubmitted(true);
@@ -23,33 +24,31 @@ const EventCard: React.FC<EventCardProps> = ({event}) => {
     };
 
     return (
-      <div className=''>
-        <h2 className=''>{title}</h2>
-  
-        {description && description.trim().length > 0 && (
-          <p className=''>{description}</p>
-        )}
-  
-        <p className=''><strong>Lieu :</strong> {placeName}</p>
-        <p className=''><strong>Adresse :</strong> {address}</p>
-        <p className=''><strong>Téléphone :</strong> {phone}</p>
-        <p className=''>
-          <strong>Site web :</strong>{' '}
-          <a href={website} target="_blank" rel="noopener noreferrer" style={styles.link}>
-            {website}
-          </a>
-        </p>
-  
-        <div className=''>
-            { submitted ? (
-                <button className='' onClick={handleCancel}>Annuler</button>
-            ) : 
-            (
-                <button className='' onClick={handleSubmit}>Valider</button>
-            )}
-          <button className='' onClick={handleSeeMore}>Voir plus</button>
-        </div>
-      </div>
+        <article className=''>
+            <div className=''>
+                <h2 className=''>{event.title}</h2>
+                {/* Note  */}
+                <p className=''><strong>Lieu :</strong> {event?.destination.name}</p>
+                <p className=''><strong>Adresse :</strong> {addressComplete}</p>
+                <p className=''><strong>Téléphone :</strong> {event?.destination.phone}</p>
+                <p className=''>
+                <strong>Site web :</strong>{' '}
+                <a href={event?.destination.website} target="_blank" rel="noopener noreferrer">
+                    Site Web
+                </a>
+                </p>
+        
+                <div className=''>
+                    { submitted ? (
+                        <button className='' onClick={handleCancel}>Annuler</button>
+                    ) : 
+                    (
+                        <button className='' onClick={handleSubmit}>Valider</button>
+                    )}
+                <button className='' onClick={handleSeeMore}>Voir plus</button>
+                </div>
+            </div>
+        </article>
     );
 };
 
