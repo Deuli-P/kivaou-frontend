@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import UserCircle from "../UserCircle";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -52,7 +53,12 @@ const Header = () => {
               )
             }
             <NavLink to="/profile" className="header-navlink header-profile">
-              {user.photo_path && <img src={user.photo_path} alt="Photo de profile" className="header_img_profile"/>}
+              {user.photo_path && (
+                <UserCircle
+                  user={user}
+                  size="m"
+                />
+              )}
               Profile
             </NavLink>
           </nav>

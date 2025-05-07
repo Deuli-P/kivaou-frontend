@@ -27,14 +27,15 @@ export interface EventProps {
     };
     owner: {
       id: string;
-      firstname: string;
-      lastname: string;
-      photo_path: string;
+      firstname?: string;
+      lastname?: string;
+      photo_path?: string;
     };
     description: string;
     start_date: string;
     end_date: string;
     destination: PlaceProps;
+    submitted?: boolean;
   };
   
 export interface PlaceProps {

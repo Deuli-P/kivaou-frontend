@@ -17,6 +17,7 @@ const Home = () => {
 
   const fetchEvents = async () => {
     try {
+      console.log('fetching events');
       const response = await fetch(`${API_URL}/api/event/active?id=${user?.organization?.id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -27,14 +28,10 @@ const Home = () => {
         throw new Error('Failed to fetch events');
       }
       
-      console.log('response events :', response);
       if(response.status === 200) {
         const data = await response.json();
-        console.log('data events :', data.result);
         setEvents(data.result || []);
       } 
-
-
 
     }
     catch (error) {
@@ -100,8 +97,8 @@ const Home = () => {
         <div className=''>
           {events.map((event, index) => (
             <EventCard 
-            key={index}
-            event={event}
+              key={index}
+              event={event}
             /> 
           ))}
         </div>

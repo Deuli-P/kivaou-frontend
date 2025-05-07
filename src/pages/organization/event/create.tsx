@@ -1,23 +1,38 @@
 import React, {useEffect, useState} from 'react'
 import { toast } from 'react-toastify';
 import { useAuth } from '../../../context/AuthContext';
-import { PlaceProps } from '../../../utils/types';
 import { useNavigate } from 'react-router-dom';
 const API_URL = import.meta.env.VITE_BACKEND_URL
 
 const env = import.meta.env.VITE_ENV_MODE;
+
+interface CreateEventPlaceProps {
+  id: string;
+  name: string;
+  address: {
+    street: string;
+    number: number;
+    postal_code: number;
+    city: string;
+    country: string;
+    latitude?: number;
+    longitude?: number;
+  }
+};
 
 const fakeEvent = {
   title: 'Final des Worlds series',
   description: 'Une description de l\'événement ici pour dire quel est le programme ou le projet',
   start_date: '2025-10-01T12:00',
   end_date: '2025-10-01T15:00',
-  place : '8e54650a-cb47-49ba-98ed-a654fd1fb7ad'
+  place : "931b6c05-6a48-47c1-a330-0c92be775f7a"
+
 };
 
-const fakePlaces = [
+const fakePlaces: CreateEventPlaceProps[] = [
   {
-    id: '8e54650a-cb47-49ba-98ed-a654fd1fb7ad',
+    id: "931b6c05-6a48-47c1-a330-0c92be775f7a"
+,
     name: 'Paris',
     address: {
       street: 'Rue de la paix',
@@ -46,6 +61,8 @@ const fakePlaces = [
 
 
 
+
+
 const CreateEvent = () => {
 
   const { user } = useAuth();
@@ -64,7 +81,7 @@ const CreateEvent = () => {
 
   const [eventData, setEventData ] = useState(env === 'DEV' ? fakeEvent : emptyEvent);
 
-  const [ places, setPlaces ] = useState<PlaceProps[]>(env === 'DEV' ? fakePlaces : []);
+  const [ places, setPlaces ] = useState<CreateEventPlaceProps[]>(env === 'DEV' ? fakePlaces : []);
   const [ loading, setLoading ] = useState(false);
 
   const navigate = useNavigate();
@@ -101,40 +118,43 @@ const CreateEvent = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  
-    if (new Date(eventData.end_date) < new Date(eventData.start_date)) {
-      toast.warning("La date de fin ne peut pas être antérieure à la date de début.");
-      return;
-    };
-  
-    if (!user?.organization) {
-      toast.error("Vous devez appartenir à une organisation pour créer un événement");
-      return;
-    };
-
-  
-    await fetch(`${API_URL}/api/event/create?id=${user.organization.id}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(eventData)
-    })
-    .then(response => {
-      if (!response.ok) {
-        toast.error("Erreur lors de la création de l'organisation");
-        throw new Error("Erreur HTTP");
+    try{
+      e.preventDefault();
+    
+      if (new Date(eventData.end_date) < new Date(eventData.start_date)) {
+        toast.warning("La date de fin ne peut pas être antérieure à la date de début.");
+        return;
+      };
+    
+      if (!user?.organization) {
+        toast.error("Vous devez appartenir à une organisation pour créer un événement");
+        return;
+      };
+      if(eventData.place === 'null'){
+        toast.error("Vous devez choisir un lieu");
+        return;
       }
-      return response.json();
-    })
-    .then(data => {
-      console.log('data create event :', data);
-      toast.success("L'événement est créé avec succès");
-    })
-    .catch(err => {
-      console.error(err);
+    
+      const response = await fetch(`${API_URL}/api/event/create?id=${user.organization.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(eventData)
+      })
+        console.log('response create event :', response);
+        if (response.status === 200) {
+          const data = await response.json();
+          toast.success(data.message);
+          //navigate vers la page de l'événement
+          //navigate("/orga/event/"+eventData.id);
+      } else {
+          const data = await response.json();
+          toast.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error creating event:', error);
       toast.error("Erreur lors de la création de l'événement");
-    });
+    }
   };
 
   const handleNavigate = () => {

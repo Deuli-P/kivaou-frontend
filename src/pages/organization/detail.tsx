@@ -6,6 +6,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 const env = import.meta.env.VITE_ENV_MODE;
 import AddressCards from "./cards/AddressCards.js";
 import CreateEventModal from './modals/CreateEventModal.js';
+import EventCard from "../../components/EventCard/EventCard.js";
 const fakeOrganization ={
   name: 'Robert Space Industries',
   address: {
@@ -85,7 +86,7 @@ const OrganizationDetail = () => {
       setUsersList(data.users);
       setEventsList({
         past: data.events.past ? data.events.past : [],
-        futures: data.events.futures ? data.events.futures : []
+        futures: data.events.future ? data.events.future : []
       });
       setDestinationsList(data.destinations || []);
       setLoading(false);
@@ -125,7 +126,7 @@ const OrganizationDetail = () => {
             <div className="orga-detail-orga-address-container">
               <h2>Adresse</h2>
               <p>{organization.address.street}</p>
-              <p>{organization.address.postal_code} {organization.address.city}</p>
+              <p>{organization.address.postale_code} {organization.address.city}</p>
               <p>{organization.address.country}</p>
             </div>
           </div>
@@ -157,9 +158,10 @@ const OrganizationDetail = () => {
                       </li>
                     :
                     eventsList.futures.map((evt) => (
-                      <li key={evt.id} className="orga-detail-events-card">
-                        {evt.name}
-                      </li>
+                      <EventCard 
+                        key={evt.id}
+                        event={evt}
+                      />
                     ))}
                   </ul>
                 </div>

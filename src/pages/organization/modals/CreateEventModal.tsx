@@ -11,10 +11,11 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 interface CreateEventModalProps {
   destination: PlaceProps;
   onClose: () => void;
+  setEvent: (event: any) => void;
 }
 
 
-const CreateEventModal = ({ destination, onClose }: CreateEventModalProps)=> {
+const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalProps)=> {
 
   const { user } = useAuth();
   
@@ -49,42 +50,46 @@ const CreateEventModal = ({ destination, onClose }: CreateEventModalProps)=> {
   
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-    
-      if (new Date(eventData.end_date) < new Date(eventData.start_date)) {
-        toast.warning("La date de fin ne peut pas être antérieure à la date de début.");
-        return;
-      };
-    
-      if (!user?.organization) {
-        toast.error("Vous devez appartenir à une organisation pour créer un événement");
-        return;
-      };
-
-      await fetch(`${API_URL}/api/event/create?id=${user.organization.id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(eventData)
-      })
-      .then(response => {
-        if (!response.ok) {
-          toast.error("Erreur lors de la création de l'organisation");
-          throw new Error("Erreur HTTP");
+      try{
+        e.preventDefault();
+      
+        if (new Date(eventData.end_date) < new Date(eventData.start_date)) {
+          toast.warning("La date de fin ne peut pas être antérieure à la date de début.");
+          return;
+        };
+      
+        if (!user?.organization) {
+          toast.error("Vous devez appartenir à une organisation pour créer un événement");
+          return;
+        };
+        if(eventData.place === 'null'){
+          toast.error("Vous devez choisir un lieu");
+          return;
         }
-        return response.json();
-      })
-      .then(data => {
-        console.log('data create event :', data);
-        toast.success(data.message);
-      })
-      .then(() => {
-        onClose();
-      })
-      .catch(err => {
-        console.error(err);
+      
+        const response = await fetch(`${API_URL}/api/event/create?id=${user.organization.id}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(eventData)
+        })
+          console.log('response create event :', response);
+          if (response.status === 200) {
+            const data = await response.json();
+            toast.success(data.message);
+            setEvent((prev)=> ({
+              ...prev,
+              future:[...prev,eventData]
+          }));
+            onClose();
+        } else {
+            const data = await response.json();
+            toast.error(data.message);
+        }
+      } catch (error) {
+        console.error('Error creating event:', error);
         toast.error("Erreur lors de la création de l'événement");
-      });
+      }
     };
   
 
@@ -106,8 +111,7 @@ const CreateEventModal = ({ destination, onClose }: CreateEventModalProps)=> {
               min={new Date().toISOString().slice(0,16)} 
               value={eventData.start_date} 
               onChange={(e) => handleChange(e)} 
-              required 
-            
+              required
             />
           </label>
           <label>

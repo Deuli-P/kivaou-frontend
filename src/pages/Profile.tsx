@@ -20,9 +20,10 @@ const Profile = () => {
     const [openEditModal, setOpenEditModal] = useState(false);
 
     const [ profileEditData, setProfileEditData ] = useState({
+        id: user?.id,
         firstname: user?.firstname,
         lastname: user?.lastname,
-        photo_path: user?.photo_path,
+        photo_path: user?.photo_path
        })
 
 
@@ -59,7 +60,7 @@ const Profile = () => {
                     ...prev,
                     firstname: data.user.firstname,
                     lastname: data.user.lastname,
-                    photo_path: data.user.photo_path,
+                    photo_path: data.user.photo_path
                 }))
                 toast.success('Profil modifié avec succès')
                 handleOpeningEditModal()
@@ -71,6 +72,31 @@ const Profile = () => {
             toast.error("Erreur lors de la modification du profil")
         }
     }
+
+    const fetchProfile = async (id: string) => {
+        try {
+            const response = await fetch(`${API_URL}/api/user/eventlist/${id}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include'
+            });
+            if(response.status === 200) {
+                const data = await response.json();
+            }
+            else{
+                const data = await response.json();
+                toast.error(data.message)
+
+            }
+        }
+        catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    }
+    useEffect(() => {
+        fetchProfile(user.id);
+    }, [])
+                
 
   return (
     <main>
@@ -112,71 +138,73 @@ const Profile = () => {
             <button onClick={getLogout}>Se déconnecter</button>
         </div>
         {openEditModal && createPortal(
-            <div className='modal-container'>
-                <h3>Modifier les informations</h3>
-                <form
-                    className='auth-form'
-                    onSubmit={(e) => {
-                        handleSubmitEditProfile(e)
-                    }}
-                >
-                    <label 
-                        className="input-label"
-                        htmlFor="firstname"
+            <div className='modal-overlay'>
+                <div className='modal-container'>
+                    <h3>Modifier les informations</h3>
+                    <form
+                        className='auth-form'
+                        onSubmit={(e) => {
+                            handleSubmitEditProfile(e)
+                        }}
                     >
-                        Prenom
-                        <input 
-                            type="text" 
-                            placeholder="John" 
-                            name='firstname'
-                            id="firstname"
-                            required
-                            className='input-input'
-                            value={profileEditData.firstname}
-                            onChange={(e)=>handleChangeProfile(e)}
-                        />
-                    </label>
-                    <label 
-                        className="input-label"
-                        htmlFor="lastname"
-                    >
-                        Nom
-                        <input 
-                            type="text" 
-                            placeholder="Smith" 
-                            id="lastname"
-                            name='lastname'
-                            required
-                            className='input-input'
-                            value={profileEditData.lastname}
-                            onChange={(e)=>handleChangeProfile(e)}
-                        />
-                    </label>
-                    <label htmlFor="photo_path" className="input-label">
-                        Url de la photo de profile 
-                        <input 
-                            type="text" 
-                            id='photo_path'
-                            placeholder="http://..." 
-                            name='photo_path'
-                            className='input-input'
-                            value={profileEditData.photo_path}
-                            onChange={(e)=>handleChangeProfile(e)}
-                        />
-                    </label>
-                    <div className="modal-edit_button_container">
-                    <button
-                        onClick={handleOpeningEditModal}
-                    >
-                        Annuler
-                    </button>
-                    <button
-                        type="submit"
+                        <label 
+                            className="input-label"
+                            htmlFor="firstname"
                         >
-                        Modifier
-                    </button>
-                    </div>
-                </form>
+                            Prenom
+                            <input 
+                                type="text" 
+                                placeholder="John" 
+                                name='firstname'
+                                id="firstname"
+                                required
+                                className='input-input'
+                                value={profileEditData.firstname}
+                                onChange={(e)=>handleChangeProfile(e)}
+                            />
+                        </label>
+                        <label 
+                            className="input-label"
+                            htmlFor="lastname"
+                        >
+                            Nom
+                            <input 
+                                type="text" 
+                                placeholder="Smith" 
+                                id="lastname"
+                                name='lastname'
+                                required
+                                className='input-input'
+                                value={profileEditData.lastname}
+                                onChange={(e)=>handleChangeProfile(e)}
+                            />
+                        </label>
+                        <label htmlFor="photo_path" className="input-label">
+                            Url de la photo de profile 
+                            <input 
+                                type="text" 
+                                id='photo_path'
+                                placeholder="http://..." 
+                                name='photo_path'
+                                className='input-input'
+                                value={profileEditData.photo_path}
+                                onChange={(e)=>handleChangeProfile(e)}
+                            />
+                        </label>
+                        <div className="modal-edit_button_container">
+                        <button
+                            onClick={handleOpeningEditModal}
+                        >
+                            Annuler
+                        </button>
+                        <button
+                            type="submit"
+                            >
+                            Modifier
+                        </button>
+                        </div>
+                    </form>
+                </div>
             </div>,
             document.body
         )

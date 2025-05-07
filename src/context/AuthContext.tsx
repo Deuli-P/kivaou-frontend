@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 import { UserProps } from '../utils/types';
 const API_URL = import.meta.env.VITE_BACKEND_URL
 interface AuthContextType {
-  user: UserProps | null;
-  setUser: (user: UserProps | null) => void;
+  user: UserProps | undefined;
+  setUser: (user: UserProps) => void;
   getLogin: (arg0:LoginData) => void;
   getLogout: () => void;
   loading : boolean;
@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
-  const [user, setUser] = useState<UserProps | null>(null);
+  const [user, setUser] = useState<UserProps>();
   const [loading, setLoading] = useState<boolean>(true);
 
 
@@ -89,7 +89,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         return true
       }
       else{
-        setUser(null)
+        setUser(undefined)
         return false
       }
     }
@@ -101,10 +101,10 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       setLoading(false)
     }
   }
-
   useEffect(() => {
     checkIfAuth()
-  },[])
+  }, []);
+
 
 
   const values:AuthContextType ={

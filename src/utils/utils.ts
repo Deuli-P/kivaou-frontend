@@ -4,3 +4,33 @@ export const firstLetterUppercase = (str: string) => {
     if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+// format de la date en jjj. DD mmm. YYYY
+// exemple : lun. 01 janv. 2023
+export const formatDate = (date: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+    };
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString('fr-FR', options);
+};
+
+// formate de l'heure en HH:mm
+// exemple : 12:00
+export const formatTime = (date: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+    };
+    const dateObj = new Date(date);
+    return dateObj.toLocaleTimeString('fr-FR', options);
+};
+
+export const formatDateTime = (date: string) => {
+    const dateFormatted = formatDate(date);
+    const timeFormatted = formatTime(date);
+    return `${dateFormatted} à ${timeFormatted}`;
+};
