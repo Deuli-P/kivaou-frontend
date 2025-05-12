@@ -50,6 +50,39 @@
     }
   }
 
+.orga-detail-user-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, calc(8px + calc((20 - 8) / (1920 - 320)) * (100vw - 320px)), 20px);
+    border-radius: 8px;
+    &-photo-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: clamp(100px, calc(100px + calc((150 - 100) / (1920 - 320)) * (100vw - 320px)), 150px);
+        height: clamp(100px, calc(100px + calc((150 - 100) / (1920 - 320)) * (100vw - 320px)), 150px);
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: settings.$grey_100;
+        img{
+            width: 100%;
+            height: 100%;
+           
+        }
+    }
+    &-infos{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        p{
+          font-weight: 600;
+        }
+    }
+
+}
+
 // =================
 //     INPUT
 // =================
@@ -59,10 +92,11 @@
     flex-direction: column;
     gap: 4px;
     align-items: flex-start;
-    font-size: 16px;
+    font-size: 0.9rem;
     font-weight: 600;
     width: 100%;
     max-width: 400px;
+    color: settings.$grey_700;
 }
 .select-label{
     display:  flex;
@@ -77,21 +111,24 @@
 
 .input-input{
     border-radius: 8px;
-    background-color: settings.$primary_color;
+    background-color: settings.$background_color;
+    border: 1px solid settings.$grey_100;
     padding: 6px 12px;
     min-width: 300px;
 }
 
 .input-select{
     border-radius: 8px;
-    background-color: settings.$primary_color;
+    background-color: settings.$background_color;
+    border : 1px solid settings.$grey_100;
     padding: 6px 12px;
     min-width: 300px;
 }
 
 .textarea-input{
     border-radius: 8px;
-    background-color: settings.$primary_color;
+    background-color: settings.$background_color;
+    border : 1px solid settings.$grey_100;
     padding: 6px 12px;
     min-width: 300px;
     min-height: 100px;
@@ -104,7 +141,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 20px;
+    padding: clamp(10px, calc(10px + calc((20 - 10) / (1920 - 320)) * (100vw - 320px)), 20px);
 };
 
 
@@ -114,12 +151,13 @@
     justify-content: center;
     align-items: center;
     gap: 4px;
-    font-size: 14px;
+    font-size: clamp(10px, calc(10px + calc((16 - 10) / (1920 - 320)) * (100vw - 320px)), 16px);
     & p{
         color: settings.$text_color;
     }
     & a{
-        color: settings.$accent_color;
+        color: settings.$grey_700;
+        text-decoration: underline
     }
 };
 
@@ -136,7 +174,21 @@
     margin-top: 18px;
 }
 
-.profile-events-container{
+.profile-photo{
+    border-radius: 25%;
+    background-color: settings.$primary_color;
+    width: 150px;
+    height: 150px;
+    border: 3px solid settings.$text_color;
+}
+
+.profile-name{
+    font-size: clamp(14px, calc(14px + calc((20 - 14) / (1920 - 320)) * (100vw - 320px)), 20px);
+    font-weight: 700;
+
+}
+
+.events-list-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -147,40 +199,67 @@
     width: 100vw;
 };
 
-.profile-events-list{
+.events-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ 
+  }
+
+@media screen and (min-width: 768px) {
+    .events-list{
+        flex-direction: row;
+        gap: 20px;
+        
+    }
+  }
+
+
+// =================
+//    DESTINATION
+// =================
+
+
+
+// =================
+//    EVENT
+// =================
+
+
+// =================
+//    ORGANIZATION
+// =================
+
+.users-list-container{
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-    border: 1px solid settings.$primary_color;
-    width: 100%;
-};
-
-// =================
-//    CREATE DESTINATION
-// =================
-
-
-
-// =================
-//    DELETE DESTINATION
-// =================
-
-
-// =================
-//    CREATE EVENT
-// =================
+    justify-content: flex-start;
+    align-items: center;
+    gap: clamp(14px, calc(14px + calc((22 - 14) / (1920 - 320)) * (100vw - 320px)), 22px);
+    padding: clamp(10px, calc(10px + calc((20 - 10) / (1920 - 320)) * (100vw - 320px)), 20px);
+    min-height: 200px;
+    width: 100vw;
+}
+.users-list-users-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    padding: clamp(10px, calc(10px + calc((20 - 10) / (1920 - 320)) * (100vw - 320px)), 20px);
+    min-height: 200px;
+    width: 100vw;
+}
 
 
 // =================
-//    EDIT EVENT
+//   HOME PAGE
 // =================
-
-
-// =================
-//    DELETE EVENT
-// =================
-
 
 
 

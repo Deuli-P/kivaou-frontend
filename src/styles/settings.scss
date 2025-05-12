@@ -1,30 +1,21 @@
 
 // COLORS //
-$primary_color:  #6171A0;
-$secondary_color: #C8A4BF;
-$background_color: #060709;
-$text_color: #EEF4FC;
-$accent_color: #B7878D;
+$primary_color:  #0075DE;
+$secondary_color: #626262;
+$background_color: #FFFFFF;
+$text_color: #21211F;
+$accent_color: #F6F5F4;
+$grey_100: #EFEFEF;
+$grey_200: #DEDEDE;
+$grey_700: #474744;
+$blue_100: #0087fc;
+$blue_200: #0260b1;
+$blue_700: #014683;
 
 
 $transition: all 0.3s ease-in-out;
 
 
-@font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/Roboto-Regular.ttf') format('ttf');
-    font-weight: 400;
-    font-style: normal;
-};
-
-@font-face{
-    font-family: 'Oi';
-    src: 
-        url('../assets/fonts/Oi-Regular.woff2') format('woff2'),
-        url('../assets/fonts/Oi-Regular.ttf') format('ttf');
-    front-weight : 600;
-    font-style: normal;
-};
 
 * {
 	margin: 0;
@@ -32,6 +23,12 @@ $transition: all 0.3s ease-in-out;
 	border: 0;
 	vertical-align: baseline;
     box-sizing: border-box;
+}
+
+::root{
+    color: $text_color;
+    background-color: $background_color;
+  
 }
 
 
@@ -48,6 +45,7 @@ main{
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     margin-top: 1em;
     padding: 20px;
@@ -59,24 +57,61 @@ main{
 p{
     font-size: clamp(10px, calc(10px + calc((16 - 10) / (1920 - 320)) * (100vw - 320px)), 16px);
     font-family: 'Roboto', sans-serif;
+    color: $text_color;
 }
 
 h1{
-    color: $accent_color;
-    font-size: clamp(20px, calc(20px + calc((24 - 20) / (1440 - 320)) * (100vw - 320px)), 24px);
-    font-family: 'Oi', sans-serif;
+    color: $text_color;
+    font-size: clamp(18px, calc(18px + calc((24 - 18) / (1440 - 320)) * (100vw - 320px)), 24px);
+    font-family: 'Cal sans', sans-serif;
+}
+
+h2{
+    color: $text_color;
+    font-size: clamp(16px, calc(16px + calc((20 - 16) / (1440 - 320)) * (100vw - 320px)), 20px);
+    font-family: 'Cal sans', sans-serif;
 }
 
 button{
     padding: 8px 16px;
     border: none;
     border-radius: 8px;
-    background-color: $secondary_color;
     &:focus{
         outline: none;
     }
     &:active{
         transform: scale(0.95);
+    }
+    &.primary{
+        background-color: $text_color;
+        color: $accent_color;
+        transition: $transition;
+        &:hover{
+            background-color: $grey_700;
+        }
+    }
+    &.secondary{
+        background-color: transparent;
+        color: $text_color;
+        transition: $transition;
+        border: 1px solid $text_color;
+        &:hover{
+            background-color: $grey_100;
+        }
+        & .disabled{
+            background-color: $grey_200;
+            color: $grey_700;
+            border: 1px solid $grey_200;
+            cursor: not-allowed;
+        }
+    }
+    &.tertiary{
+        background-color: $primary_color;
+        color: $background_color;
+        transition: $transition;
+        &:hover{
+            background-color: $blue_700;
+        }
     }
 }
 
@@ -87,3 +122,30 @@ ol, ul{
 a{
     text-decoration: none;
 }
+
+.underline_label{
+    color: $text_color;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    p {
+        text-decoration: underline;
+        text-decoration-color: $text_color;
+        text-underline-offset: 2px;
+    }
+    span{
+        text-decoration: none;
+        cursor: pointer;
+
+    }
+};
+
+.deep_link{
+    color: $text_color;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+        text-decoration-color: $text_color;
+        text-underline-offset: 2px;
+    }
+};

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import './EventCard.scss';
 import { useNavigate } from 'react-router-dom';
 import { formatDateTime } from '../../utils/utils';
+import UserGroup from '../UserGroup';
 
 interface EventCardProps {
   event: EventProps;
@@ -100,47 +101,68 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
   return (
     <article className="event_card-container">
-      <h2 className="event_card-title">{eventData.title}</h2>
-      <p>{formatDateTime(eventData.start_date)} - { eventData.end_date && (formatDateTime(eventData.end_date))}</p>
-      {eventData.description && <p className="event_card-description"><strong>Description :</strong> {eventData.description}</p>}
-      <p className="event_card-info"><strong>Lieu :</strong> {eventData.destination.name}</p>
-      <p className="event_card-info"><strong>Adresse :</strong> {addressComplete}</p>
-      {eventData.destination.phone && (
-        <p className="event_card-info"><strong>Téléphone :</strong> {eventData.destination.phone}</p>
-      )}
-      {eventData.destination.website && (
-        <p className="event_card-info">
-          <strong>Site web :</strong>{' '}
-          <a href={eventData.destination.website} target="_blank" rel="noopener noreferrer" className="event_card-link">
-            {eventData.destination.website}
-          </a>
-        </p>
-      )}
+      <div className="event_card-content-container">
+        <div className="">
+          <h2 className="event_card-title">{eventData.title}</h2>
+          {eventData.description && <p> {eventData.description}</p>}
+        </div>
 
-      <div className="event_card-participants">
-        <strong>Participants :</strong>
-        <ul className="event_card-user_list">
-            { eventData.users && eventData.users.length > 0 ? (
-          eventData.users.map((user) => (
-            <li key={user.id} className="event_card-user_item">
-              <img src={user.photo_path} alt={user.id} className="event_card-user_avatar" />
-            </li>
-          ))
-        ) : (
-            <div className="">
-                <p>Aucun participant pour le moment</p>
-            </div>
+        <div className="event_card-info">
+          <p className='event_card_label'>📍 : </p>
+          <p className="event_card-content">
+          {eventData.destination.name}
+          </p>
+        </div>
+        <div className="event_card-info">
+          <p className='event_card_label'>🏢 :</p>
+          <p className="event_card-content">
+          {eventData.destination.address.number} {eventData.destination.address.street}, {eventData.destination.address.postale_code} {eventData.destination.address.city}, {eventData.destination.address.country}
+          </p>
+        </div>
+        <div className="event_card-dates">
+          <p>⏳ {formatDateTime(eventData.start_date)}</p>
+          {eventData.end_date && (<p>⌛ {formatDateTime(eventData.end_date)}</p>)}
+        </div>
+        {eventData.destination.phone && (
+          <div className="event_card-info">
+          <p className='event_card_label'>📞 : </p>
+          <p className="event_card-content">
+            {eventData.destination.phone}
+          </p>
+        </div>
         )}
-        </ul>
+        {eventData.destination.website && (
+          <div className="event_card-info">
+            <p className='event_card_label'>🌐 : </p>
+            <a href={eventData.destination.website} target="_blank" rel="noopener noreferrer" className="event_card-content underline">
+              {eventData.destination.website}
+            </a>
+          </div>
+        )}
+        <div className="event_card-participants">
+          <strong>Participants :</strong>
+          {eventData.users && eventData.users.length > 0 ? 
+            (
+              <UserGroup
+                users={eventData.users}
+                size="m"
+              />
+            ) 
+            : 
+            (
+              <div className="">
+                  <p>Aucun participant pour le moment</p>
+              </div>
+          )}
+        </div>
       </div>
-
       <div className="event_card-actions">
         {eventData.submitted ? (
-          <button className="btn cancel" onClick={handleCancel} disabled={loading || eventData.owner.id === user.id}>Annuler</button>
+          <button className="btn tertiary" onClick={handleCancel} disabled={loading || eventData.owner.id === user.id}>Annuler</button>
         ) : (
-          <button className="btn submit" onClick={handleSubmit} disabled={loading}>Valider</button>
+          <button className="btn primary" onClick={handleSubmit} disabled={loading}>Valider</button>
         )}
-        <button className="btn" onClick={handleSeeMore}>Voir plus</button>
+        <button className="btn secondary" onClick={handleSeeMore}>Voir plus</button>
       </div>
     </article>
   );

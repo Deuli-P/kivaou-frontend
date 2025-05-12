@@ -4,13 +4,9 @@ import { useAuth } from '../context/AuthContext';
 import { createPortal } from 'react-dom';
 import { toast } from 'react-toastify';
 import { UserProps } from '../utils/types';
+import EventCard from '../components/EventCard/EventCard';
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-// Fetch de la page :
-// - GET tous les events ou il a submits et submit not cancelled
-// - GET tous les events ou il est user_id et event_status not cancelled
-
-// Envoi de la requête de modification de profil
 
 const Profile = () => {
 
@@ -25,6 +21,8 @@ const Profile = () => {
         lastname: user?.lastname,
         photo_path: user?.photo_path
        })
+
+    const [ events, setEvents ] = useState([])
 
 
     const handleChangeProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +41,6 @@ const Profile = () => {
     const handleSubmitEditProfile =async(e: React.FormEvent<HTMLFormElement>)=> {
         e.preventDefault();
         try{
-            console.log("start edit profile")
             const response = await fetch(`${API_URL}/api/user/edit`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -68,25 +65,25 @@ const Profile = () => {
 
         }
         catch(e){
-            console.log(e)
             toast.error("Erreur lors de la modification du profil")
         }
     }
 
-    const fetchProfile = async (id: string) => {
+    const fetchProfile = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/user/eventlist/${id}`, {
+            const response = await fetch(`${API_URL}/api/user`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
             });
             if(response.status === 200) {
                 const data = await response.json();
+                setUser(data.user_info);
+                setEvents(data.events_submit);
             }
             else{
                 const data = await response.json();
                 toast.error(data.message)
-
             }
         }
         catch (error) {
@@ -94,48 +91,98 @@ const Profile = () => {
         }
     }
     useEffect(() => {
-        fetchProfile(user.id);
+        fetchProfile();
     }, [])
                 
 
   return (
     <main>
-        <h2>Mon profile</h2>
-        <div>
-            <img src={user?.photo_path ? user.photo_path : "https://www.randomkittengenerator.com/cats/1957.jpg"} alt={user?.photo_path ? "Photo de profile" : "Photo de chaton"} />
-            <div>
-                <p>{user?.firstname} {user?.lastname}</p>
-                <p>{user?.email}</p>
-                { user?.organization.id ? 
-                <div onClick={()=> navigate(`/orga/${user?.organization.id}`)}>{user?.organization?.name}</div>
+        <h1>Mon profile</h1>
+        <div className='profile-container'>
+            <img 
+                className='profile-photo'
+                src={user?.photo_path ? user.photo_path : "https://www.randomkittengenerator.com/cats/1957.jpg"} alt={user?.photo_path ? "Photo de profile" : "Photo de chaton"} 
+                loading="lazy"
+            />
+            <div
+                className='profile-infos'
+            >
+                <span className='profile-name'> 
+                    {user?.firstname} {user?.lastname}
+                </span>
+                <div 
+                    className='underline_label'
+                >  
+                    <p
+                        className='underline'
+                    >
+                        Votre email : 
+                    </p>
+                    <span>
+                        {user?.email}
+                    </span>
+                </div>
+                { user?.organization?.id ? 
+                    <div 
+                        className='underline_label'
+                    >  
+                        <p
+                            className='underline'
+                        >
+                            Votre organisation : 
+                        </p>
+                        <span
+                            onClick={()=> navigate(`/orga/${user?.organization?.id}`)}
+                        >
+                            {user?.organization?.name}
+                        </span>
+                    </div>
                 :
-                <div onClick={()=> navigate(`/orga/create`)}>Créer une organisation</div>
+                <div onClick={()=> navigate(`/orga/create`)}>Créer une organisation ou demandez à l'administrateur d'une organisation de vous ajouter</div>
                 }
             </div>
             <button
+                className='btn primary'
                 onClick={handleOpeningEditModal}
             >
                 Modifier les informations
             </button>
         </div>
-        <div className="profile-events">
-            <div className='profile-events-container'>
-                <h3>Derniers événements inscris</h3>
-                <div className='profile-events-list'>
-                    {/* Liste des événements */}
-                    
+        { events.length > 0 ? (
+            <div className="profile-events">
+                <div className='events-list-container'>
+                    <h3>Derniers événements inscris</h3>
+                    <div className='events-list'>
+                        {/* Liste des événements */}
+                        {events.filter(evt=> evt.owner.id !== user.id).map((event) => (
+                            <EventCard
+                                key={event.id}
+                                event={event}
+                            />
+                        ))}                    
+                    </div>
+                </div>
+                <div className='events-list-container'>
+                    <h3>Derniers événements créés</h3>
+                    <div className='events-list'>
+                        {/* Liste des événements */}
+                        {events.filter(evt=> evt.owner.id === user.id).map((event) => (
+                            <EventCard
+                                key={event.id}
+                                event={event}
+                            />
+                        ))}          
+                    </div>
                 </div>
             </div>
-            <div className='profile-events-container'>
-                <h3>Derniers événements créés</h3>
-                <div className='profile-events-list'>
-                    {/* Liste des événements */}
-                    
-                </div>
-            </div>
-        </div>
+        ) : (
+            <p >
+                Pas d'événements à venir où vous êtes inscrit ou que vous avez créés
+            </p>
+                
+        )}
         <div>
-            <button onClick={getLogout}>Se déconnecter</button>
+            <button onClick={getLogout} className='btn primary'>Se déconnecter</button>
         </div>
         {openEditModal && createPortal(
             <div className='modal-overlay'>
@@ -194,11 +241,13 @@ const Profile = () => {
                         <div className="modal-edit_button_container">
                         <button
                             onClick={handleOpeningEditModal}
+                            className='btn secondary'
                         >
                             Annuler
                         </button>
                         <button
                             type="submit"
+                            className='btn primary'
                             >
                             Modifier
                         </button>

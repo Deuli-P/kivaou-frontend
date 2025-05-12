@@ -17,7 +17,6 @@ const Home = () => {
 
   const fetchEvents = async () => {
     try {
-      console.log('fetching events');
       const response = await fetch(`${API_URL}/api/event/active?id=${user?.organization?.id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -39,7 +38,7 @@ const Home = () => {
     }
   };
 
-  if(user?.organization === null) {
+  if(user?.organization?.id === null) {
     return (
       <main>
         <div className=''>
@@ -94,7 +93,7 @@ const Home = () => {
       ) 
       : 
       (
-        <div className=''>
+        <div className='events-list'>
           {events.map((event, index) => (
             <EventCard 
               key={index}

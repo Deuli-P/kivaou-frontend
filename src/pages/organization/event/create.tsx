@@ -111,7 +111,6 @@ const CreateEvent = () => {
       setLoading(false)
     }
     catch(e){
-      console.log(e)
       setLoading(false)
       toast.error("Erreur lors de la récupération des lieux")
     }
@@ -141,7 +140,6 @@ const CreateEvent = () => {
         credentials: 'include',
         body: JSON.stringify(eventData)
       })
-        console.log('response create event :', response);
         if (response.status === 200) {
           const data = await response.json();
           toast.success(data.message);
@@ -201,7 +199,7 @@ const CreateEvent = () => {
     (
       <main>
         <h1>Créer un événement</h1>
-        <p>Vous voulez orgniser un événement ou prévoir une sortie, vous ètes au bon endroit.</p>
+        <p>Vous voulez organiser un événement ou prévoir une sortie, vous ètes au bon endroit.</p>
         <form 
           action="submit" 
           onSubmit={handleSubmit}
@@ -299,6 +297,7 @@ const CreateEvent = () => {
             <button
                 disabled={new Date(eventData.end_date) < new Date(eventData.start_date) ? true : false}
                 type="submit"
+                className='btn primary'
                 >
                 Créer
             </button>

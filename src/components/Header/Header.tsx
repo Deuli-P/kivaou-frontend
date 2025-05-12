@@ -18,7 +18,7 @@ const Header = () => {
       <div className="container">
         {/* Logo */}
         <NavLink to="/" className="header-logo">
-          <h1>KIVAOU</h1>
+          <span className="header-logo">KiVAOU</span>
         </NavLink>
 
         {/* Burger Menu uniquement en mobile */}
@@ -34,7 +34,7 @@ const Header = () => {
         {/* Navigation Desktop*/}
         {user ? (
           <nav className="desktop-nav">
-            {user.organization.id ? 
+            {user?.organization?.id ? 
               (
                 <>
                   <NavLink to="/orga/event/create" className="header-navlink">

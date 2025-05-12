@@ -31,7 +31,6 @@ const CreateOrganization = () => {
 
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('submit')
     try{
       const response = await fetch(`${API_URL}/api/organization/create`, {
         method: 'POST',
@@ -45,7 +44,6 @@ const CreateOrganization = () => {
       }
 
       const data = await response.json();
-      console.log('data create orga : ', data)
       if(data.organization){
         toast.success("Organisation créée avec succès");
         setUser((prev: UserProps) => ({
@@ -62,7 +60,6 @@ const CreateOrganization = () => {
       }
     }
     catch(e){
-      console.log(e)
       toast.error("Erreur lors de la création de l'organisation")
     }
   }

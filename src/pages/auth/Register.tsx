@@ -38,7 +38,6 @@ const Register = () => {
       })
       if(response){
         const data = await response.json()
-        console.log('data',data)
         if(data.user){
           setUser(data.user)
           toast.success("Inscription réussie")
@@ -149,7 +148,10 @@ const Register = () => {
           <p>Déja inscrit ? </p>
           <a href="/auth/login">Connectez-vous</a>
         </div>
-        <button>
+        <button
+          type="submit"
+          className="btn primary"
+        >
           S'inscrire
         </button>
       </form>

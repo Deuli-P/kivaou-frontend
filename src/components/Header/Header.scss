@@ -7,14 +7,22 @@ header {
     min-height: 70px;
     align-items: center;
     justify-content: center;
-    background: settings.$primary_color;
+    background: settings.$background_color;
+    box-shadow: 0 2px 4px settings.$grey_200;
     padding: clamp(10px, 2vw, 20px);
     position: relative;
+}
+.header-logo {
+    font-family: 'Cal sans', sans-serif;
+    font-weight: 700;
+    color: settings.$text_color;
+    font-size: 30px;
+    letter-spacing: -3px;
 }
 
 .container {
     width: 100%;
-    max-width: 1280px; // Conteneur centré pour éviter d'étirer trop sur grand écran
+    max-width: 1280px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -65,7 +73,7 @@ header {
     top: 0;
     left: 0;
     transform: translateY(-100%);
-    background: settings.$primary_color;
+    background: settings.$background_color;
     padding: 20px;
     transition: settings.$transition;
     z-index: 100;
@@ -76,12 +84,17 @@ header {
 }
 .header-navlink{
         cursor: pointer;
-        color: white;
+        color: settings.$text_color;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
         font-size: 1rem;
         text-decoration: none;
+        padding: 5px 10px;
         transition: settings.$transition;
+        border-radius: 4px;
         &:hover {
-            color: settings.$accent_color;
+            background-color: settings.$grey_100;
+            color: settings.$text_color;
         }
 }
 

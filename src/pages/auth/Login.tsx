@@ -23,22 +23,21 @@ const Login = () => {
     }))
   }
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try{    
-      const responses =  await getLogin(loginData)
-      console.log('responses',responses)
+      getLogin(loginData);
     }catch(err){
-      console.log(err)
       toast.error("Erreur lors de la connexion")
     }
   };
 
   useEffect(() => {
-    if(user){
-      navigate('/')
+    if(user) {
+      navigate('/');
     }
   }, [user, navigate]);
+  
 
   return (
     <main>
@@ -81,11 +80,11 @@ const Login = () => {
           </label>
           <div className="auth-redirection-link">
             <p>Pas de compte ?</p>
-            <a href="/auth/register">Inscrivez-vous</a>
+            <a href="/auth/register" className="deep_link">Inscrivez-vous</a>
           </div>
           <button 
             type="submit"
-            className="btn btn-primary"
+            className="btn primary"
             >
             Se connecter
           </button>

@@ -73,7 +73,6 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
           credentials: 'include',
           body: JSON.stringify(eventData)
         })
-          console.log('response create event :', response);
           if (response.status === 200) {
             const data = await response.json();
             toast.success(data.message);
@@ -138,8 +137,8 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
             </label>
           </div>
           <div className="modal-buttons">
-            <button className='btn' onClick={onClose}>Annuler</button>
-            <button type="submit" className='btn-primary'>Créer</button>
+            <button className='btn secondary' onClick={onClose}>Annuler</button>
+            <button type="submit" className='btn primary'>Créer</button>
           </div>
         </form>
       </div>

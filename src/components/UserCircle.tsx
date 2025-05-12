@@ -12,7 +12,7 @@ const UserCircle: React.FC<UserCircleProps> = ({ user, size }) => {
   return (
     <div className={`user_circle user_circle--${size}`}>
       {user.photo_path ? (
-        <img src={user.photo_path} alt={`${user.firstname} ${user.lastname}`} className="user_circle-img" />
+        <img src={user.photo_path} alt={`${user.firstname} ${user.lastname}`} className="user_circle-img" loading="lazy"/>
       ) : (
         <span className="user_circle-initials">{initials}</span>
       )}

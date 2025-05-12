@@ -21,29 +21,33 @@ const AddressCard = ({ destination, onCreateEventClick }) => {
   
 
   return (
-    <li className="address-card">
-      <img className="address-card__image" src={photo_path} alt={`Photo de ${name}`} />
-      <div className="address-card__content">
+    <article className="address-card">
+      <div className="address-card_header">
+      <img className="address-card_image" src={photo_path} alt={`Photo de ${name}`} loading="lazy"/>
+      <div className="address-card_name-type">
         <h3 className="address-card__title">{name}</h3>
-        <p className="address-card__type">{firstLetterUppercase(service_type)} – {speciality}</p>
-        <p className="address-card__address">
+        <p className="address-card_type">{firstLetterUppercase(service_type)} – {speciality}</p>
+      </div>
+      </div>
+      <div className="address-card_content">
+        <p className="address-card_address">
           {address.street_number} {address.street}, {address.postale_code} {address.city}, {address.country}
         </p>
-        <p className="address-card__phone">📞 {phone}</p>
+        <p className="address-card_phone">📞 {phone}</p>
 
-        <div className="address-card__links">
+        <div className="address-card_links">
           {website && <a href={website} target="_blank" rel="noreferrer">🌐 Site Web</a>}
           {service_link && <a href={service_link} target="_blank" rel="noreferrer">🛒 Réserver</a>}
-          {google_page_link && <a href={google_page_link} target="_blank" rel="noreferrer">📍 Maps</a>}
+          {google_page_link && <a href={google_page_link} target="_blank" rel="noreferrer">🗺️ Maps</a>}
         </div>
         { destination.schedule ? (
           <>
-            <button className="address-card__toggle" onClick={() => setShowSchedule(!showSchedule)}>
+            <button className="btn secondary" onClick={() => setShowSchedule(!showSchedule)}>
               {showSchedule ? 'Masquer les horaires' : 'Afficher les horaires'}
             </button>
 
             {showSchedule && (
-              <div className="address-card__schedule">
+              <div className="address-card_schedule">
                 <strong>Horaires :</strong>
                 <ul>
                   {schedule.map(({ day, morning, afternoon }) => (
@@ -55,15 +59,16 @@ const AddressCard = ({ destination, onCreateEventClick }) => {
             </>
         )
         :
-
-        <p className="address-card__no-schedule">Horaires non disponibles</p>
+        <button className='btn secondary disabled' disabled={true}>
+          Horaires non disponibles
+        </button>
         
       }
-        <button className="address-card__more" onClick={onCreateEventClick}>
+        <button className="btn primary" onClick={onCreateEventClick}>
           Créer un événement
         </button>
       </div>
-    </li>
+    </article>
   );
 };
 

@@ -10,9 +10,9 @@ import EventCard from "../../components/EventCard/EventCard.js";
 const fakeOrganization ={
   name: 'Robert Space Industries',
   address: {
-    street: 'Rue de l\'avion',
     number: 123,
-    postal_code: 55604,
+    street: 'Rue de l\'avion',
+    postale_code: 55604,
     city: 'Los Santos',
     country: 'États-Unis',
     latitude: 23.405,
@@ -28,9 +28,9 @@ const fakeOrganization ={
 const emptyOrganization = {
   name: '',
   address: {
-    street: '',
     number: 0,
-    postal_code: 0,
+    street: '',
+    postale_code: 0,
     city: '',
     country: '',
     latitude: 0,
@@ -104,7 +104,7 @@ const OrganizationDetail = () => {
 
   return (
     <>
-      {!user && <div>Vous devez être connecté pour voir cette page</div>}
+      {!user && <main>Vous devez être connecté pour voir cette page</main>}
       {loading ? 
         <main>
           <div>Chargement...</div>
@@ -120,12 +120,12 @@ const OrganizationDetail = () => {
           <h2>Détail de l'organisations</h2>
           <div className="orga-detail-orga-info">
             <div className="orga-detail-orga-title-container">
-              <h2>{organization.name}</h2>
+              <h2>Nom : {organization.name}</h2>
               <p>Propietaire : {organization.owner.firstname} {organization.owner.lastname} </p>
             </div>
             <div className="orga-detail-orga-address-container">
-              <h2>Adresse</h2>
-              <p>{organization.address.street}</p>
+              <h2>Adresse :</h2>
+              <p>{ organization.address.number} {organization.address.street}</p>
               <p>{organization.address.postale_code} {organization.address.city}</p>
               <p>{organization.address.country}</p>
             </div>
@@ -134,9 +134,9 @@ const OrganizationDetail = () => {
             <div className="orga-detail-events-container">
               <h2>Liste des événements</h2>
               <div className="orga-detail-events-list-container">
-                <div className="orga-detail-events-list-past-container">
+                <div className="events-list-container">
                   <h3>Événements passés</h3>
-                  <ul className="orga-detail-events-list-ul">
+                  <ul className="events-list">
                     {eventsList.past.length === 0 ? 
                       <li className="orga-detail-events-not-found">
                         Aucun événements passés
@@ -149,9 +149,9 @@ const OrganizationDetail = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="orga-detail-events-list-past-container">
+                <div className="events-list-container">
                   <h3>Événements à venir</h3>
-                  <ul className="orga-detail-events-list-ul">
+                  <ul className="events-list">
                     {eventsList.futures.length === 0 ? 
                       <li className="orga-detail-events-not-found">
                         Aucun événements passés
@@ -168,8 +168,8 @@ const OrganizationDetail = () => {
               </div>
             </div>
           </div>
-          <div className="orga-detail-destitnations">
-            <div className="orga-detail-destinations-container">
+          <div className="events-list-container">
+            <div className="events-list">
               <h2>Liste des destinations de l'organisation</h2>
               {user.organization?.role === 'OWNER' &&(
                 <button
@@ -178,11 +178,13 @@ const OrganizationDetail = () => {
                       state: {
                         organizationId: id}})
                   }}
+                  className="btn tertiary"
                 >
                   Créer une nouvelle destination
                 </button>
               )}
-              <ul className="orga-detail-destinations-list">
+            </div>
+              <div className="events-list">
                 {destinationsList.length > 0 ? 
                   destinationsList.map((destination) => (
                     <AddressCards
@@ -199,39 +201,36 @@ const OrganizationDetail = () => {
                     Aucune destination
                   </li>
                 }
-              </ul>
-            </div>
+              </div>
           </div>
-          <div className="orga-detail-user-list">
-            <div className="orga-detail-user-list-container">
-              <h2>Liste des utilisateurs</h2>
-              <ul>
+          <div className="users-list-container">
+            <h2>Liste des utilisateurs</h2>
+            <div className="users-list-users-container">
                 {usersList.length === 0 ? 
                   <div className="user-list-not-found">
                     Aucun utilisateur dans cette organisation
                   </div>
                 :
                 usersList.map((user: UserProps) => (
-                  <li key={user.id}>
-                    <div className="user-list-photo-container">
+                  <article key={user.id} className="orga-detail-user-card">
+                    <div className="orga-detail-user-card-photo-container">
                       {user.photo_path ?
                         (
-                          <img src={user.photo_path} alt="photo de profil" />
+                          <img src={user.photo_path} alt="photo de profil" loading="lazy"/>
                         )
                       :
                         (
-                          <img src="https://www.randomkittengenerator.com/cats/1957.jpg" alt="photo de profil" />
+                          <img src="https://www.randomkittengenerator.com/cats/1957.jpg" alt="photo de profil" loading="lazy"/>
                         )
                       }
                     </div>
-                    <div className="user-list-name-container">
+                    <div className="orga-detail-user-card-infos">
                       <p>
-                      {user.firstname} {user.lastname}
+                        {user.firstname} {user.lastname}
                       </p>
                     </div>
-                  </li>
+                  </article>
                 ))}
-              </ul>
             </div>
           </div>
           {openModal && selectedDestination && (
