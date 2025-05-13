@@ -1,0 +1,39 @@
+
+.user_circle-group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    padding: 8px 15px;
+    &.s{
+        height: 40px;
+    }
+    &.m{
+        height: 50px;
+    }
+    &.l{
+        height: 60px;
+    }
+
+}
+
+
+.user_circle-wrapper{
+    display: flex;
+    gap: -10px;
+    position: absolute;
+    &.s{
+        left: 20px;
+    }
+    &.m{
+        left: 25px;
+    }
+    &.l{
+        left: 30px;
+    }
+    &:first-child{
+        position: absolute;
+        left: 0;
+    }
+
+}

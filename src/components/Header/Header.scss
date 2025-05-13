@@ -1,21 +1,21 @@
-@use './../../styles/settings.scss';
+@use '../../assets/styles/sass/variables' as *;
 
 header {
-    width: 100vw; // Utiliser toute la largeur de l'écran
-    max-width: 100%; // Éviter toute restriction de largeur
+    width: 100vw; 
+    max-width: 100%;
     display: flex;
     min-height: 70px;
     align-items: center;
     justify-content: center;
-    background: settings.$background_color;
-    box-shadow: 0 2px 4px settings.$grey_200;
+    background: $background;
+    box-shadow: 0 2px 4px $grey_200;
     padding: clamp(10px, 2vw, 20px);
     position: relative;
 }
 .header-logo {
     font-family: 'Cal sans', sans-serif;
     font-weight: 700;
-    color: settings.$text_color;
+    color: $text;
     font-size: 30px;
     letter-spacing: -3px;
 }
@@ -50,8 +50,8 @@ header {
 .burger-bar {
     width: 75%;
     height: 3px;
-    background-color: settings.$text_color;
-    transition: settings.$transition;
+    background-color: $text;
+    transition: $transition;
     &.open {
         &:first-child{
             transform: rotate(45deg) translateY(5px) translateX(7px);
@@ -73,9 +73,9 @@ header {
     top: 0;
     left: 0;
     transform: translateY(-100%);
-    background: settings.$background_color;
+    background: $background;
     padding: 20px;
-    transition: settings.$transition;
+    transition: $transition;
     z-index: 100;
     display: flex;
     flex-direction: column;
@@ -84,17 +84,17 @@ header {
 }
 .header-navlink{
         cursor: pointer;
-        color: settings.$text_color;
+        color: $text;
         font-family: 'Roboto', sans-serif;
         font-weight: 500;
         font-size: 1rem;
         text-decoration: none;
         padding: 5px 10px;
-        transition: settings.$transition;
+        transition: $transition;
         border-radius: 4px;
         &:hover {
-            background-color: settings.$grey_100;
-            color: settings.$text_color;
+            background-color: $grey_100;
+            color: $text;
         }
 }
 
@@ -130,12 +130,12 @@ header {
         li {
             list-style: none;
             a {
-                color: settings.$text_color;
+                color: $text;
                 font-size: 1rem;
                 text-decoration: none;
-                transition: settings.$transition;
+                transition: $transition;
                 &:hover {
-                    color: settings.$accent_color;
+                    color: $accent;
                 }
             }
         }

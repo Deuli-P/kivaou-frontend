@@ -1,0 +1,46 @@
+@use '../../assets/styles/sass/variables' as *;
+
+.label{
+    display:  flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 100%;
+    max-width: 400px;
+    color: $grey_700;
+}
+.select-label{
+    display:  flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    max-width: 400px;
+}
+
+.input{
+    border-radius: 8px;
+    background-color: $background;
+    border: 1px solid $grey_100;
+    padding: 6px 12px;
+    min-width: 300px;
+    &.disabled{
+        background-color: $grey_200;
+        border: 1px solid $grey_300;
+        color: $grey_500;
+    }
+}
+
+
+.textarea{
+    border-radius: 8px;
+    background-color: $background;
+    border : 1px solid $grey_100;
+    padding: 6px;
+    min-width: 300px;
+    min-height: 100px;
+}

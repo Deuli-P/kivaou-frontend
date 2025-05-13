@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import UserCircle from "../UserCircle";
+import UserCircle from "../User/UserThumbnail/UserThumbnail";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);

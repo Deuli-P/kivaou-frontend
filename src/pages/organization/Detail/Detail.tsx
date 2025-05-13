@@ -1,0 +1,268 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
+import { EventProps, UserProps } from "../../../utils/types";
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+const env = import.meta.env.VITE_ENV_MODE;
+import AddressCards from "../../../components/Cards/AddressCard/AddressCards";
+import CreateEventModal from '../../../components/Modals/CreateEventModal/CreateEventModal.tsx';
+import EventCard from "../../../components/Cards/EventCard/EventCard";
+import AddUserModal from "../../../components/Modals/AddUserModal/AddUserModal";
+import UserDetailCard from "../../../components/User/UserDetailCard/UserDetailCard";
+import './detail.scss';
+import Button from "../../../components/Button/Button.tsx";
+
+const fakeOrganization ={
+  name: 'Robert Space Industries',
+  address: {
+    number: 123,
+    street: "Rue de l'avion",
+    postale_code: 55604,
+    city: 'Los Santos',
+    country: 'États-Unis',
+    latitude: 23.405,
+    longitude: -12.456,
+  },
+  owner: {
+    id: '123456789',
+    firstname: 'Chriss',
+    lastname: 'Robert'
+  }
+};
+
+const emptyOrganization = {
+  name: '',
+  address: {
+    number: 0,
+    street: '',
+    postale_code: 0,
+    city: '',
+    country: '',
+    latitude: 0,
+    longitude: 0,
+  },
+  owner: {
+    id: '',
+    firstname: '',
+    lastname: ''
+  }
+};
+const emptyEvents = {
+  past: [],
+  futures: []
+};
+const emptyUsers : any[] = [];
+const emptyDestinationsList: any[] = [];
+
+const OrganizationDetail = () => {
+
+  const { id } = useParams();
+  const { user } = useAuth();
+  const [ loading, setLoading ] = useState(true);
+  const [openCreateEventModal, setCreateEventOpenModal] = useState(false);
+  const [addUserOpenModal, setAddUserOpenModal] = useState(false);
+  const [selectedDestination, setSelectedDestination] = useState(null);
+
+  const [ organization, setOrganization ] = useState( env === 'DEV' ? fakeOrganization : emptyOrganization);
+  const [ destinationsList, setDestinationsList ] = useState(emptyDestinationsList);
+
+
+  const navigate = useNavigate();
+
+
+  const [ usersList, setUsersList ] = useState(emptyUsers);
+  const [ eventsList, setEventsList ] = useState(emptyEvents);
+
+  const fetchOrganization = async () => {
+    try{
+      setLoading(true);
+      const response = await fetch(`${API_URL}/api/organization/${id}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch organization');
+      }
+      const data = await response.json();
+      setOrganization(data.organization);
+      setUsersList(data.users);
+      setEventsList({
+        past: data.events.past ? data.events.past : [],
+        futures: data.events.future ? data.events.future : []
+      });
+      setDestinationsList(data.destinations || []);
+      setLoading(false);
+    }
+    catch (error) {
+      console.error('Error fetching organization:', error);
+    }
+  }
+
+
+  useEffect(() => {
+    fetchOrganization()
+  }, [id]);
+
+
+  return (
+    <>
+      {!user && <main>Vous devez être connecté pour voir cette page</main>}
+      {loading ? 
+        <main>
+          <div>Chargement...</div>
+        </main>
+      :
+       !organization ? 
+        <main>
+          <div>Cette organisation n'existe pas</div>
+        </main>
+      :
+        (
+        <main>
+          <section className="orga-detail-orga-info">
+            <img 
+              src="/hero-1440.webp" 
+              srcSet="/hero-320.webp 320w, /hero-768.webp 600w, /hero-1440.webp 1100w, /hero-2400.webp 2000w"
+              className="orga-detail-hero"
+              loading="lazy"
+            />
+            <h2>Détail de l'organisations</h2>
+            <div className="orga-detail-orga-title-container">
+              <p>Nom : {organization.name}</p>
+              <p>Propietaire : {organization.owner.firstname} {organization.owner.lastname} </p>
+            </div>
+            <div className="orga-detail-orga-address-container">
+              <p>Adresse :</p>
+              <p>{ organization.address.number} {organization.address.street}</p>
+              <p>{organization.address.postale_code} {organization.address.city}</p>
+              <p>{organization.address.country}</p>
+            </div>
+          </section>
+          <section className="orga-detail-events">
+            <div className="orga-detail-events-global-container">
+              <h3>Liste des événements</h3>
+              <div className="orga-detail-events-list-container">
+                <div className="events-list-container">
+                  <h3>Événements passés</h3>
+                  <ul className="events-list">
+                    {eventsList.past.length === 0 ? 
+                      <li className="orga-detail-events-not-found">
+                        Aucun événements passés
+                      </li>
+                    :
+                    eventsList.past.map((evt: EventProps) => (
+                      <li key={evt.id} className="orga-detail-events-card">
+                        {evt.title}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="events-list-container">
+                  <h3>Événements à venir</h3>
+                  <ul className="events-list">
+                    {eventsList.futures.length === 0 ? 
+                      <li className="orga-detail-events-not-found">
+                        Aucun événements passés
+                      </li>
+                    :
+                    eventsList.futures.map((evt) => (
+                      <EventCard 
+                        key={evt.id}
+                        event={evt}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="events-list-container">
+            <div className="events-list">
+              <h2>Liste des destinations de l'organisation</h2>
+              {user.organization?.role === 'OWNER' &&(
+                <Button
+                  onClick={() => {
+                    navigate('/orga/destination/create', {
+                      state: {
+                        organizationId: id}})
+                  }}
+                  version="tertiary"
+                  
+                  label='Créer une nouvelle destination'
+                  ariaLabel='Créer une nouvelle destination'
+
+                />
+              )}
+            </div>
+              <div className="events-list">
+                {destinationsList.length > 0 ? 
+                  destinationsList.map((destination) => (
+                    <AddressCards
+                      key={destination.id}
+                      destination={destination}
+                      onCreateEventClick={() => {
+                        setSelectedDestination(destination);
+                        setCreateEventOpenModal(true);
+                      }}
+                    />
+                  ))
+                  :
+                  <li className="orga-detail-destinations-not-found">
+                    Aucune destination
+                  </li>
+                }
+              </div>
+          </section>
+          <section className="users-list-container">
+            <div className="">
+
+              <h3>Liste des utilisateurs</h3>
+              {user.organization?.role === 'OWNER' &&(
+              <Button 
+                version="tertiary"
+                onClick={() => {
+                  setAddUserOpenModal(true);
+                }}
+                label='Ajouter un utilisateur'
+                ariaLabel='Ajouter un utilisateur'
+              />
+              )}
+            </div>
+            <div className="users-list-users-container">
+                {usersList.length === 0 ? 
+                  <div className="user-list-not-found">
+                    Aucun utilisateur dans cette organisation
+                  </div>
+                :
+                usersList.map((user: UserProps) => (
+                 <UserDetailCard
+                    key={user.id}
+                    item={user}
+                    setUsers={setUsersList}
+                  />
+                ))}
+            </div>
+          </section>
+          {openCreateEventModal && selectedDestination && (
+            <CreateEventModal
+              destination={selectedDestination}
+              onClose={() => setCreateEventOpenModal(false)}
+              setEvent={setEventsList}
+            />
+          )}
+
+          {addUserOpenModal  && (
+            <AddUserModal
+              onClose={() => setAddUserOpenModal(false)}
+              setUsers ={setUsersList}
+            />
+          )}
+        </main>
+        ) 
+      }
+    </>
+  )
+}
+
+export default OrganizationDetail

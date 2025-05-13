@@ -1,17 +1,16 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 
-import Home from "../pages/Home";
-import Error from "../pages/Error";
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
-import CreateOrganization from "../pages/organization/Create";
-import OrganizationDetail from "../pages/organization/Detail";
+import Home from "../pages/Home/Home";
+import Error from "../pages/Error/Error";
+import Login from "../pages/auth/Login/Login";
+import Register from "../pages/auth/Register/Register";
+import CreateOrganization from "../pages/organization/Create/Create";
+import OrganizationDetail from "../pages/organization/Detail/Detail";
 import EventCreate from "../pages/organization/event/Create";
-import EventList from "../pages/organization/event/List";
 import EventDetail from "../pages/organization/event/Detail";
-import Profile from "../pages/profile";
-import DestinationCreate from "../pages/organization/destination/Create";
+import Profile from "../pages/Profile/Profile";
+import DestinationCreate from "../pages/organization/destination/Create/Create";
 
 
 import IsConnected from "../middlewares/IsConnected";
@@ -40,8 +39,7 @@ export const router = createBrowserRouter([
                                 path: "event", 
                                 children: [
                                     { path: "create", element: <EventCreate /> },
-                                    { path: ":eventId", element: <EventDetail /> },
-                                    { path: "", element: <EventList /> }
+                                    { path: ":eventId", element: <EventDetail /> }
                                 ],
                             },
                         ]

@@ -89,6 +89,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         return true
       }
       else{
+        toast.error(data.message)
         setUser(undefined)
         return false
       }

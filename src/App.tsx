@@ -1,8 +1,8 @@
 import { RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { router } from './routing/router';
-import './styles/index.scss';
 import { ToastContainer } from 'react-toastify';
+import './assets/styles/index.scss';
 
 function App() {
 
