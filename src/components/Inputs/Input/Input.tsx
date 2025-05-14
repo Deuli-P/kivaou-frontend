@@ -3,7 +3,7 @@ import "./../inputs.scss";
 interface InputProps {
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value: string | number;
   required?: boolean;
   placeholder?: string;
   type?: string;
@@ -37,6 +37,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         id={name}
+        min={type ==='datetime-local' ? min: undefined}
         name={name}
         value={value}
         onChange={(e) => handleChangeValue(e)}

@@ -1,4 +1,3 @@
-import React from 'react';
 import './Button.scss';
 
 interface ButtonProps {
@@ -9,7 +8,7 @@ interface ButtonProps {
     disabled?: boolean;
     ariaLabel?: string | undefined;
     }
-const Button = ({version = 'primary', type='button', onClick, disabled=false, ariaLabel, label='Button'}: ButtonProps) => {
+const Button = ({version='primary', type='button', onClick, disabled=false, ariaLabel, label='Button'}: ButtonProps) => {
   return (
     <button
         type={type}

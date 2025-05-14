@@ -3,7 +3,7 @@ import '../inputs.scss';
 
 interface SelectProps {
     name: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     value: string;
     required?: boolean;
     placeholder?: string;

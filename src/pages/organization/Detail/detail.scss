@@ -36,6 +36,15 @@
   }
 }
 
+.orga-detail-title-btn-container{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .orga-detail-events-not-found{
     color: $grey_700;
     font-size: clamp(12px, calc(12px + calc((20 - 12) / (1440 - 320)) * (100vw - 320px)), 20px);
@@ -60,4 +69,11 @@
     align-items: flex-start;
     gap: 8px;
     padding: clamp(10px, calc(10px + calc((20 - 10) / (1440 - 320)) * (100vw - 320px)), 20px);
+}
+
+@media screen and (max-width: 768px) {
+    .orga-detail-title-btn-container{
+        flex-direction: column;
+        gap: 10px;
+    }
 }

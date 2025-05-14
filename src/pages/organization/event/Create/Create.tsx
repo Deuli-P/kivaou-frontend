@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import { toast } from 'react-toastify';
-import { useAuth } from '../../../context/AuthContext';
+import { useAuth } from '../../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-const API_URL = import.meta.env.VITE_BACKEND_URL
+import './create.scss';
+import Button from '../../../../components/Button/Button';
 
+const API_URL = import.meta.env.VITE_BACKEND_URL
 const env = import.meta.env.VITE_ENV_MODE;
 
 interface CreateEventPlaceProps {
@@ -177,21 +179,19 @@ const CreateEvent = () => {
     (
       <main>
         <h1>Aucun lieu trouvé</h1>
-        <p>Vous devez créer un lieu avant de créer un événement.</p>
         {/* Si je suis admin alors on affiche le bouton pour creer une destination sinon un message*/}
-        {user?.organization.role === 'OWNER' ? (
-          <div className="">
+        {user?.organization?.role === 'OWNER' ? (
+          <div className="event-create-no-place-container">
             <p>Vous devez créer un lieu avant de créer un événement.</p>
-            <button
+            <Button
+              version='tertiary'
+              label='Créer une destination'
+              ariaLabel="Créer une première destination pour l'organisation"
               onClick={handleNavigate}
-              className='btn'
-              >
-              Créer une destination
-            </button>
+              />
           </div>
-        
         ) : (
-          <p>Vous devez créer un lieu avant de créer un événement.</p>
+          <p>Il faut que l'administrateur de l'organisation créér une destination en premier</p>
         )}
       </main>
     )

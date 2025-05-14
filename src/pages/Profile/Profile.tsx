@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext';
 import { createPortal } from 'react-dom';
 import { toast } from 'react-toastify';
-import { UserProps } from '../../utils/types';
+import { EventProps, UserProps } from '../../utils/types';
 import EventCard from '../../components/Cards/EventCard/EventCard';
 import EditProfileInfoModal from '../../components/Modals/EditProfileInfoModal.tsx/EditProfileInfoModal';
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 import './profile.scss';
+import Button from '../../components/Button/Button';
 
 const Profile = () => {
 
@@ -48,22 +49,22 @@ const Profile = () => {
                 credentials: 'include',
                 body: JSON.stringify(profileEditData)
             })
-            if(!response.ok){
-                toast.error("Erreur lors de la modification du profil")
-                return
-            }
             const data = await response.json()
-            if(data.user){
+            if(data.status === 200){
                 setUser((prev: UserProps) => ({
                     ...prev,
                     firstname: data.user.firstname,
                     lastname: data.user.lastname,
                     photo_path: data.user.photo_path
                 }))
-                toast.success('Profil modifié avec succès')
+                toast.success(data.message)
                 handleOpeningEditModal()
+                return
             }
-
+            else{
+                toast.error(data.message)
+                return
+            }
         }
         catch(e){
             toast.error("Erreur lors de la modification du profil")
@@ -136,7 +137,22 @@ const Profile = () => {
                             </span>
                         </div>
                     :
-                    <div onClick={()=> navigate(`/orga/create`)}>Créer une organisation ou demandez à l'administrateur d'une organisation de vous ajouter</div>
+                    (
+                        <div className='profile-no-orga-container'>
+                            <p>
+                                Demandez à une organisation de vous ajouter 
+                            </p>
+                            <p>
+                                OU
+                            </p>
+                            <Button 
+                                onClick={()=> navigate(`/orga/create`)}
+                                label='Créer une organisation'
+                                version='tertiary'
+                                ariaLabel='Créer une organisation'
+                            />
+                        </div>
+                    )
                     }
                 </div>
                 <button
@@ -153,7 +169,7 @@ const Profile = () => {
                     <h3>Derniers événements inscris</h3>
                     <div className='events-list'>
                         {/* Liste des événements */}
-                        {events.filter(evt=> evt.owner.id !== user.id).map((event) => (
+                        {events.filter((evt:EventProps)=> evt.owner.id !== user?.id).map((event:EventProps) => (
                             <EventCard
                                 key={event.id}
                                 event={event}
@@ -165,7 +181,7 @@ const Profile = () => {
                     <h3>Derniers événements créés</h3>
                     <div className='events-list'>
                         {/* Liste des événements */}
-                        {events.filter(evt=> evt.owner.id === user.id).map((event) => (
+                        {events.filter((evt:EventProps)=> evt.owner.id === user?.id).map((event:EventProps) => (
                             <EventCard
                                 key={event.id}
                                 event={event}
@@ -176,7 +192,7 @@ const Profile = () => {
             </div>
         ) : (
             <p >
-                Pas d'événements à venir où vous êtes inscrit ou que vous avez créés
+                Pas d'événements à venir ou que vous avez créés
             </p>
                 
         )}

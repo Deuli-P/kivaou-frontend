@@ -158,7 +158,7 @@ const DestinationCreate = () => {
                 />
                 <Select
                     options={optionsData}
-                    onChange={(e)=>handleSelect(e)}
+                    onChange={handleSelect}
                     value={destinationData.service_type}
                     required={true}
                     label='Type de service'

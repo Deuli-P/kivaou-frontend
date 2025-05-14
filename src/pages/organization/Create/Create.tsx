@@ -18,7 +18,7 @@ const CreateOrganization = () => {
     name: 'EDF',
     number: 23,
     street: "Rue de l'avion",
-    postal_code: 12345,
+    postale_code: 12345,
     city: 'Fankfurt',
     country: 'France'
   })
@@ -40,26 +40,22 @@ const CreateOrganization = () => {
         credentials: 'include',
         body: JSON.stringify(organizationData)
       });
-      if(!response.ok){
-        toast.error("Erreur lors de la création de l'organisation")
-        return
-      }
+      const data = await response.json()
 
-      const data = await response.json();
-      if(data.organization){
-        toast.success("Organisation créée avec succès");
+      if(data.status === 200){
         setUser((prev: UserProps) => ({
           ...prev,
-          organization:{
-            id: data.organization.id,
-            name: data.organization.name
-          }
+          organization:[data.organization]
         }))
+        toast.success(data.message);
         navigate('/profile')
       }
       else{
-        toast.error("Erreur lors de la création de l'organisation")
+        toast.error(data.message)
+        return
       }
+
+
     }
     catch(e){
       toast.error("Erreur lors de la création de l'organisation")
@@ -114,11 +110,11 @@ const CreateOrganization = () => {
         />
 
         <Input
-          name="postal_code"
+          name="postale_code"
           label="Code postal"
           type="number"
           placeholder="ex : 75000"
-          value={organizationData.postal_code}
+          value={organizationData.postale_code}
           onChange={handleChange}
           required
         />

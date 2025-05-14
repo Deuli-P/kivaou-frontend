@@ -12,7 +12,7 @@ const EventDetail = () => {
   const [ eventDetails, setEventDetails ] = useState({})
   const { user } = useAuth()
 
-  const fetchEventDetails = async (eventId) => {
+  const fetchEventDetails = async (eventId: string) => {
     try {
       setLoading(true)
       const response = await fetch(`${API_URL}/api/event/${eventId}?id=${user?.organization?.id}`, {
@@ -20,13 +20,16 @@ const EventDetail = () => {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       })
-      if (response.status === 200) {
-        const data = await response.json()
+
+      const data = await response.json()
+      if (data.status === 200) {
         setEventDetails(data.result)
         setLoading(false)
       }
+      else if(data.status === 204){
+        return;
+      }
       else{
-        const data = await response.json()
         setLoading(false)
         toast.error(data.message)
       }
@@ -40,7 +43,7 @@ const EventDetail = () => {
   const handleDeleteEvent = async () => {
     try {
       const response = await fetch(`${API_URL}/api/event/${eventId}?id=${user?.organization?.id}`, {
-        method: 'GET',
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       })
@@ -69,9 +72,7 @@ const EventDetail = () => {
   return (
     <main>
       { loading ? (
-        <div className="">
-          <h3 className="">Chargement...</h3>
-        </div>
+          <h1 className="">Chargement...</h1>
       )
       :
       (

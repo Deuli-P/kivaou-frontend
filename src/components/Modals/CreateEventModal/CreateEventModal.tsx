@@ -96,26 +96,29 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
   
 
   return ReactDOM.createPortal(
-    <div className="modal-overlay">
-      <div className="modal">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <h2>Créer un événement pour {destination.name}</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nom de l'événement :
-            <input type="text" id='title' value={eventData.title} onChange={(e) => handleChange(e)} required />
-          </label>
-          <label>
-            Date de début :
-            <input 
-              type="datetime-local" 
-              name='start_date'
-              id="start_date"
-              min={new Date().toISOString().slice(0,16)} 
-              value={eventData.start_date} 
-              onChange={(e) => handleChange(e)} 
-              required
-            />
-          </label>
+        <form onSubmit={handleSubmit} className='modal-form'>
+          <Input 
+            name='title'
+            value={eventData.title}
+            onChange={(e) => handleChange(e)}
+            required={true}
+            label="Nom de l'événement"
+            placeholder="Nom de l'événement"
+            ariaLabel="Nom de l'événement"
+          />
+          <Input
+            name='start_date'
+            label='Date de début'
+            type='datetime-local'
+            min={new Date().toISOString().slice(0,16)}
+            value={eventData.start_date}
+            onChange={(e) => handleChange(e)}
+            required={true}
+            ariaLabel='Date de début'
+          />
           <Input
             name='start_date'
             label='Date de fin'
@@ -126,18 +129,7 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
             required
             ariaLabel='Date de fin'
           />
-          <label>
-            Date de fin :
-            <input 
-              type="datetime-local" 
-              min={eventData.start_date}
-              name='end_date'
-              id="end_date"
-              value={eventData.end_date} 
-              onChange={(e) => handleChange(e)} 
-              required 
-            />
-          </label>
+          
             <TextArea
               name='description'
               label='Description'

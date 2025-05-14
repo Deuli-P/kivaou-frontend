@@ -15,12 +15,13 @@ interface EditProfileInfoModalProps {
 }
 
 const EditProfileInfoModal = ({handleSubmit, data, handleChangeOpening, onChange}: EditProfileInfoModalProps) => {
+
   return (
-    <div className='modal-overlay'>
-        <div className='modal'>
+    <div className='modal-overlay' onClick={handleChangeOpening}>
+        <div className='modal' onClick={(e) => e.stopPropagation()}>
             <h3>Modifier les informations</h3>
             <form
-                className='auth-form'
+                className='modal-form'
                 onSubmit={(e) => {
                     handleSubmit(e)
                 }}

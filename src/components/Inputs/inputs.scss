@@ -7,8 +7,7 @@
     align-items: flex-start;
     font-size: 0.9rem;
     font-weight: 600;
-    width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     color: $grey_700;
 }
 .select-label{
@@ -32,6 +31,10 @@
         background-color: $grey_200;
         border: 1px solid $grey_300;
         color: $grey_500;
+    }
+    &:focus{
+        outline: none;
+        border: 1px solid $grey_700;
     }
 }
 

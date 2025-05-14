@@ -1,0 +1,55 @@
+@use '../../../assets/styles/sass/variables' as *;
+
+
+.user-card{
+    &-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        gap: 0.5rem;
+    }
+
+    &-remove-container{
+        width: 25px;
+        height: 25px;
+        background-color: $red_600;
+        color: $background;
+        padding: 2px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 5px;
+        cursor: pointer;
+        right: 5px;
+        &:hover{
+            background-color: $red_700;
+        }
+        &:active{
+            background-color: $red_900;
+        }
+    }
+    &-photo-container{
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+        & img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &-infos{
+        font-weight: 600;
+    }
+
+}
+

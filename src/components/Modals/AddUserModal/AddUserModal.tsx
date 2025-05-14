@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../../context/AuthContext";
 import { regexEmail } from "../../../utils/utils";
 import Button from "../../Button/Button";
+import Input from "../../Inputs/Input/Input";
 const env = import.meta.env.VITE_ENV_MODE;
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -16,11 +17,11 @@ interface AddUserModalProps {
 const AddUserModal = ({ onClose, setUsers }: AddUserModalProps) => {
   const { user } = useAuth();
 
-  const fakeEmail = "faux@email.io";
+  const fakeEmail = "";
 
   const [email, setEmail] = useState(env === "DEV" ? fakeEmail : "");
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
@@ -64,25 +65,21 @@ const AddUserModal = ({ onClose, setUsers }: AddUserModalProps) => {
   };
 
   return ReactDOM.createPortal(
-    <div className="modal-overlay">
-      <div className="modal">
-        <h2>Ajouter un membre à l'organization</h2>
-        <form onSubmit={handleSubmit}>
-          <label
-            className="input-label"
-            htmlFor="email"
-          >
-            Email de l'utilisateur :
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => handleChange(e)}
-              required
-              className="input-input"
-            />
-          </label>
-          <div className="modal-buttons">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <h3>Ajouter un membre à l'organization</h3>
+        <form onSubmit={handleSubmit} className="modal-form">
+          <Input
+            name="email"
+            onChange={handleChange}
+            value={email}
+            required={true}
+            label="Email de l'utilisateur :"
+            type="email"
+            ariaLabel="Email de l'utilisateur à ajouter"
+            placeholder="Email de l'utilisateur à ajouter"
+          />
+          <div className="btn-container">
             <Button 
               onClick={onClose}
               version="secondary"

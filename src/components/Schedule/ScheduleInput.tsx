@@ -9,9 +9,9 @@ interface itemProps {
 interface ScheduleInputProps {
     item : itemProps;
     index: number;
-    setSchedule: (schedule:itemProps) => void;
+    setSchedule: React.Dispatch<React.SetStateAction<itemProps[]>>;
     schedule: itemProps[];
-};
+}
 
 const ScheduleInput = ({item,index, setSchedule, schedule}: ScheduleInputProps) => {
   return (

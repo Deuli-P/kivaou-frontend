@@ -1,58 +1,51 @@
-import React from 'react';
 import { UserProps } from '../../../utils/types';
 import { useAuth } from '../../../context/AuthContext';
-import { toast } from 'react-toastify';
-
+import './userDetailCard.scss';
 interface UserDetailCardProps {
     item: UserProps;
-    setUsers: (users: UserProps[]) => void;
-    }
-const UserDetailCard = ({item, setUsers}: UserDetailCardProps) => {
+    setOpen: () => void;
+    setUserToRemove: (user: UserProps) => void;
+}
 
-    const { user } = useAuth();
+const UserDetailCard = ({item, setOpen, setUserToRemove}: UserDetailCardProps) => {
 
-    const handleRemoveUser = async () => {
-        try{
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/organization/remove-user/${item.id}?id=${user?.organization?.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include'
-            })
-            if(response.status === 200){
-                setUsers((prevUsers: UserProps[]) => prevUsers.filter((user) => user.id !== item.id))
-            }else{
-                const data = await response.json()
-                toast.error(data.message)
-            }
-        }
-        catch (error) {
-            console.error('Error removing user:', error);
-            toast.error("Erreur lors de la suppression de l'utilisateur")
-        }
+    const { user } = useAuth();
+
+    const handleStartRemoveMember = async () => {
+        console.log('start remove member');
+        setUserToRemove(item);
+        setOpen();
     };
 
+    
   return (
-    <article key={item.id} className="orga-detail-user-card">
+    <article key={item.id} className="user-card-container">
         {user?.organization?.role === 'OWNER' && (
-             <div className="circle-remove-user" onClick={handleRemoveUser}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
+            <div className="user-card-remove-container" onClick={handleStartRemoveMember}>
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
+                    viewBox="0 0 32 32" enable-background="new 0 0 32 32" xmlSpace="preserve">
+                    <path fill="none" stroke="#FFF" stroke-width="1" stroke-miterlimit="10" d="M23,27H11c-1.1,0-2-0.9-2-2V8h16v17
+                        C25,26.1,24.1,27,23,27z"/>
+                    <line fill="none" stroke="#FFF" stroke-width="1" stroke-miterlimit="10" x1="27" y1="8" x2="7" y2="8"/>
+                    <path fill="none" stroke="#FFF" stroke-width="1" stroke-miterlimit="10" d="M14,8V6c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1v2"/>
+                    <line fill="none" stroke="#FFF" stroke-width="1" stroke-miterlimit="10" x1="17" y1="23" x2="17" y2="12"/>
+                    <line fill="none" stroke="#FFF" stroke-width="1" stroke-miterlimit="10" x1="21" y1="23" x2="21" y2="12"/>
+                    <line fill="none" stroke="#FFF" stroke-width="1" stroke-miterlimit="10" x1="13" y1="23" x2="13" y2="12"/>
                 </svg>
             </div>
-            )}
-        <div className="orga-detail-user-card-photo-container">
-            {item.photo_path ?
-                (
-                <img src={item.photo_path} alt="photo de profil" loading="lazy"/>
-                )
-            :
-                (
-                <img src="https://www.randomkittengenerator.com/cats/1957.jpg" alt="photo de profil" loading="lazy"/>
-                )
-            }
+        )}
+            <div className="user-card-photo-container">
+                {item.photo_path ?
+                    (
+                    <img src={item.photo_path} alt="photo de profil" loading="lazy"/>
+                    )
+                :
+                    (
+                    <img src="https://www.randomkittengenerator.com/cats/1957.jpg" alt="photo de profil" loading="lazy"/>
+                    )
+                }
             </div>
-            <div className="orga-detail-user-card-infos">
+            <div className="user-card-infos">
             <p>
                 {item.firstname} {item.lastname}
             </p>

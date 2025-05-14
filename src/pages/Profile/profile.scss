@@ -42,11 +42,30 @@
     max-width: 1440px;
 }
 
+.profile-no-orga-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $g_m;
+    & .profile-no-orga{
+        font-size: $f_l;
+        font-weight: 700;
+        color: $text;
+    }
+}
+
 
 
 
 @media screen and (min-width: 768px) {
     .profile-container{
         flex-direction: row;
+    }
+    .profile-no-orga-container{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: $g_s;
     }
 }

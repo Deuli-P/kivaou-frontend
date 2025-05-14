@@ -11,6 +11,8 @@ import AddUserModal from "../../../components/Modals/AddUserModal/AddUserModal";
 import UserDetailCard from "../../../components/User/UserDetailCard/UserDetailCard";
 import './detail.scss';
 import Button from "../../../components/Button/Button.tsx";
+import { toast } from "react-toastify";
+import RemoveMemberConfirmModal from "../../../components/Modals/RemoveMemberConfirmModal/RemoveMemberConfirmModal.tsx";
 
 const fakeOrganization ={
   name: 'Robert Space Industries',
@@ -62,16 +64,16 @@ const OrganizationDetail = () => {
   const [openCreateEventModal, setCreateEventOpenModal] = useState(false);
   const [addUserOpenModal, setAddUserOpenModal] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState(null);
-
   const [ organization, setOrganization ] = useState( env === 'DEV' ? fakeOrganization : emptyOrganization);
   const [ destinationsList, setDestinationsList ] = useState(emptyDestinationsList);
+  const [ usersList, setUsersList ] = useState(emptyUsers);
+  const [ eventsList, setEventsList ] = useState(emptyEvents);
+  const [removeUserModalOpen, setRemoveUserModalOpen] = useState(false);
+  const [userToRemove, setUserToRemove] = useState<UserProps | null>(null);
 
 
   const navigate = useNavigate();
 
-
-  const [ usersList, setUsersList ] = useState(emptyUsers);
-  const [ eventsList, setEventsList ] = useState(emptyEvents);
 
   const fetchOrganization = async () => {
     try{
@@ -81,23 +83,58 @@ const OrganizationDetail = () => {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
-      if (!response.ok) {
-        throw new Error('Failed to fetch organization');
-      }
       const data = await response.json();
-      setOrganization(data.organization);
-      setUsersList(data.users);
-      setEventsList({
-        past: data.events.past ? data.events.past : [],
-        futures: data.events.future ? data.events.future : []
-      });
-      setDestinationsList(data.destinations || []);
-      setLoading(false);
+
+      console.log('data :', data);
+      if(data.status === 200){
+        if(!data.organization){
+          setLoading(false);
+          return;
+        }
+        setOrganization(data.organization);
+        setUsersList(data.users);
+        setEventsList({
+          past: data.events.past ? data.events.past : [],
+          futures: data.events.future ? data.events.future : []
+        });
+        setDestinationsList(data.destinations || []);
+        setLoading(false);
+      }
+
+      else {
+        toast.error(data.message);
+        setLoading(false);
+      }
     }
     catch (error) {
       console.error('Error fetching organization:', error);
     }
   }
+
+  const handleRemoveUser = async (userRemove: UserProps) => {
+    try{
+        const response = await fetch(`${API_URL}/api/organization/remove-user/${userRemove.id}?id=${user?.organization?.id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        const data = await response.json()
+        if(data.status === 200){
+          setUsersList((prevUsers: UserProps[]) => prevUsers.filter((user) => user.id !== userRemove.id))
+          toast.success(data.message)
+          setRemoveUserModalOpen(false);
+          setUserToRemove(null);
+        }else if ( data.status === 204){
+          return;
+        }else{
+            toast.error(data.message)
+        }
+    }
+    catch (error) {
+        console.error('Error removing user:', error);
+        toast.error("Erreur lors de la suppression de l'utilisateur")
+    }
+};
 
 
   useEffect(() => {
@@ -127,7 +164,7 @@ const OrganizationDetail = () => {
               className="orga-detail-hero"
               loading="lazy"
             />
-            <h2>Détail de l'organisations</h2>
+            <h1>Détail de l'organisations</h1>
             <div className="orga-detail-orga-title-container">
               <p>Nom : {organization.name}</p>
               <p>Propietaire : {organization.owner.firstname} {organization.owner.lastname} </p>
@@ -141,46 +178,47 @@ const OrganizationDetail = () => {
           </section>
           <section className="orga-detail-events">
             <div className="orga-detail-events-global-container">
-              <h3>Liste des événements</h3>
+              <h2>Liste des événements</h2>
               <div className="orga-detail-events-list-container">
                 <div className="events-list-container">
                   <h3>Événements passés</h3>
-                  <ul className="events-list">
+                  <div className="events-list">
                     {eventsList.past.length === 0 ? 
-                      <li className="orga-detail-events-not-found">
+                      <p className="orga-detail-events-not-found">
                         Aucun événements passés
-                      </li>
+                      </p>
                     :
                     eventsList.past.map((evt: EventProps) => (
-                      <li key={evt.id} className="orga-detail-events-card">
-                        {evt.title}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="events-list-container">
-                  <h3>Événements à venir</h3>
-                  <ul className="events-list">
-                    {eventsList.futures.length === 0 ? 
-                      <li className="orga-detail-events-not-found">
-                        Aucun événements passés
-                      </li>
-                    :
-                    eventsList.futures.map((evt) => (
                       <EventCard 
                         key={evt.id}
                         event={evt}
                       />
                     ))}
-                  </ul>
+                  </div>
+                </div>
+                <div className="events-list-container">
+                  <h3>Événements à venir</h3>
+                  <div className="events-list">
+                    {eventsList.futures.length === 0 ? 
+                      <p className="orga-detail-events-not-found">
+                        Aucun événements passés
+                      </p>
+                    :
+                    eventsList.futures.map((evt: EventProps) => (
+                      <EventCard 
+                        key={evt.id}
+                        event={evt}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </section>
           <section className="events-list-container">
-            <div className="events-list">
+            <div className="orga-detail-title-btn-container">
               <h2>Liste des destinations de l'organisation</h2>
-              {user.organization?.role === 'OWNER' &&(
+              {user?.organization?.role === 'OWNER' &&(
                 <Button
                   onClick={() => {
                     navigate('/orga/destination/create', {
@@ -208,17 +246,16 @@ const OrganizationDetail = () => {
                     />
                   ))
                   :
-                  <li className="orga-detail-destinations-not-found">
+                  <p className="orga-detail-destinations-not-found">
                     Aucune destination
-                  </li>
+                  </p>
                 }
               </div>
           </section>
           <section className="users-list-container">
-            <div className="">
-
+            <div className="orga-detail-title-btn-container">
               <h3>Liste des utilisateurs</h3>
-              {user.organization?.role === 'OWNER' &&(
+              {user?.organization?.role === 'OWNER' &&(
               <Button 
                 version="tertiary"
                 onClick={() => {
@@ -235,11 +272,12 @@ const OrganizationDetail = () => {
                     Aucun utilisateur dans cette organisation
                   </div>
                 :
-                usersList.map((user: UserProps) => (
-                 <UserDetailCard
-                    key={user.id}
-                    item={user}
-                    setUsers={setUsersList}
+                usersList.map((member: UserProps) => (
+                  <UserDetailCard
+                    key={member.id}
+                    item={member}
+                    setOpen={()=>setRemoveUserModalOpen(true)}
+                    setUserToRemove={(user) => setUserToRemove(user)}
                   />
                 ))}
             </div>
@@ -256,6 +294,14 @@ const OrganizationDetail = () => {
             <AddUserModal
               onClose={() => setAddUserOpenModal(false)}
               setUsers ={setUsersList}
+            />
+          )}
+          {removeUserModalOpen && userToRemove && (
+            <RemoveMemberConfirmModal
+              item={userToRemove}
+              setClose={() => setRemoveUserModalOpen(false)}
+              setUserToRemove={setUserToRemove}
+              onRemove={handleRemoveUser}
             />
           )}
         </main>

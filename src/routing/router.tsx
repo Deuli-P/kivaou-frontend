@@ -7,7 +7,7 @@ import Login from "../pages/auth/Login/Login";
 import Register from "../pages/auth/Register/Register";
 import CreateOrganization from "../pages/organization/Create/Create";
 import OrganizationDetail from "../pages/organization/Detail/Detail";
-import EventCreate from "../pages/organization/event/Create";
+import EventCreate from "../pages/organization/event/Create/Create";
 import EventDetail from "../pages/organization/event/Detail";
 import Profile from "../pages/Profile/Profile";
 import DestinationCreate from "../pages/organization/destination/Create/Create";

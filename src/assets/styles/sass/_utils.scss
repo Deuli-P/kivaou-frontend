@@ -47,9 +47,22 @@
 }
   
 .modal {
-background: white;
-padding: $p_m;
-border-radius: 12px;
-max-width: 400px;
-width: 100%;
+    background: $background;
+    padding: $p_m;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $g_s;
+    & h3{
+        text-align: center;
+    }
+}
+
+.modal-form{
+    display: flex;
+    flex-direction: column;
+    gap: $g_s;
+    align-items: center;
 }
