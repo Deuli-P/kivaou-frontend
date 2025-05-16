@@ -1,50 +1,58 @@
-# React + TypeScript + Vite
+# 🧭 KiVaOu - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web du projet **KiVaOu**, une plateforme communautaire permettant à des groupes de personnes de créer, gérer et participer à sorties.
 
-Currently, two official plugins are available:
+## 🚀 Technologies utilisées
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** : bibliothèque JavaScript pour construire des interfaces utilisateur réactives.
+- **Vite** : outil de build ultra-rapide pour développement moderne.
+- **TypeScript** : surcouche de JavaScript avec typage statique.
+- **SASS (SCSS)** : préprocesseur CSS pour une meilleure organisation des styles.
+- **React Router DOM** : gestionnaire de navigation côté client.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 📦 Installation
 
-- Configure the top-level `parserOptions` property like this:
+```bash
+git clone https://github.com/votre-utilisateur/kivaou-frontend.git
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+cd kivaou-frontend
+
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+--- 
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 🔗 Liens vers les documentations
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+[📘 React](https://react.dev/)
+
+[🔀 React Router DOM](https://reactrouter.com/)
+
+[🔡 TypeScript](https://www.typescriptlang.org/docs/)
+
+[🎨 SASS](https://sass-lang.com/documentation/)
+
+[⚡ Vite](https://vitejs.fr/)
+
+---
+
+## 🔐 Sécurité & Authentification 
+
+Le frontend intéragit avec une API sécurisée et stock unitquement les informations essentielles côté client. Les mots de passe sont hachés côté serveur avec Bcrypt.
+
+---
+
+## 📡 Backend
+
+Ce projet frontend communique avec une API REST développée avec Node.js, Express.js et PostgreSQL.
+🔗 Retrouvez le dépôt backend [GitHub - kivaou-backend](https://github.com/Deuli-P/kivaou-backend)
+
+--- 
+
+## Auteur 
+
+**Pierre Antoniutti**
+
+_pierre.antoniutti@gmail.com_
