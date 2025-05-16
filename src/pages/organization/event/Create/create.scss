@@ -1,0 +1,11 @@
+@use '../../../../assets/styles/sass/variables' as *;
+
+.event-create{
+    &-no-place-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: $g_m;
+    }
+}

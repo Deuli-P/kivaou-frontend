@@ -1,0 +1,15 @@
+@use '../../assets/styles/sass/variables' as *;
+
+
+.tag-container{
+    padding: $p_xs $p_m;
+    background: $blue_100;
+    border-radius: 25px;
+    width: fit-content;
+    span{
+        font-size: $f_s;
+        font-weight: 700;
+        color: $text;
+    }
+
+}

@@ -1,0 +1,31 @@
+@use '../../assets/styles/sass/variables' as *;
+
+
+.input-schedule-day-row{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.input-schedule-day-label{
+    font-size: clamp(0.6rem, calc(0.6rem + calc((1.2 - 0.6) / (1440 - 320)) * (100vw - 320px)), 1rem);
+    font-weight: 600;
+    color: $grey_700;
+    width: clamp(4rem, calc(4rem + calc((5.6 - 4) / (1440 - 320)) * (100vw - 320px)), 5.6rem);
+
+}
+
+.input-schedule-day-inputs-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.input-schedule{
+    max-width: 100px;
+    text-align: center;
+    border: 1px solid $grey_100;
+}

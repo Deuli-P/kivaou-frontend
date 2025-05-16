@@ -1,0 +1,72 @@
+@use '../../assets/styles/sass/variables' as *;
+@use '../../assets/styles/sass/mixins' as *;
+
+.profile-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $g_l;
+    padding: $p_m;
+    @include tablet {
+        flex-direction: row;
+
+    }
+}
+.profile-photo{
+    border-radius: 25%;
+    background-color: $primary;
+    width: 150px;
+    height: 150px;
+    border: 3px solid $text;
+}
+.profile-infos-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $g_m;
+    & .profile-infos{
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      & .profile-name{
+          font-size: $f_l;
+          font-weight: 700;
+      
+      }
+    }
+}
+.profile-events{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $g_l;
+    margin-top: 18px;
+    max-width: 1440px;
+}
+
+.profile-no-orga-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $g_m;
+    @include tablet {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: $g_s;
+    }
+    & .profile-no-orga{
+        font-size: $f_l;
+        font-weight: 700;
+        color: $text;
+    }
+}
+
+
+
+
+

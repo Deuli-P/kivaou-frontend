@@ -1,34 +1,124 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
+import { toast } from 'react-toastify';
+import { UserProps } from '../utils/types';
+const API_URL = import.meta.env.VITE_BACKEND_URL
 interface AuthContextType {
-  user: string | null;
-  login: (username: string) => void;
-  logout: () => void;
+  user: UserProps | undefined;
+  setUser: (user: UserProps) => void;
+  getLogin: (dataLogin:LoginData) => void;
+  getLogout: () => void;
+  loading : boolean;
 }
+interface LoginData {
+  email: string;
+  password: string;
+}
+
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<string | null>(null);
 
-  const login = (username: string) => {
-    setUser(username);
-  };
+  const [user, setUser] = useState<UserProps>();
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const logout = () => {
-    setUser(null);
-  };
 
-  useEffect(() => {
 
-    const storedUser = localStorage.getItem('userToken');
-    if (storedUser) {
-      setUser(storedUser);
+
+  const getLogin = async (dataLogin:LoginData) => {
+    try{
+      const response = await fetch(`${API_URL}/api/v1/auth/login`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(dataLogin)
+      })
+      const data = await response.json()
+
+      if(data.status === 200){
+        console.log('reussite')
+        setUser(data.user); 
+        toast.success(data.message)
+        window.location.href = '/';
+      }
+      else{
+        toast.error(data.message)
+      }
     }
+    catch(e: any){
+      toast.error(e.message)
+    }
+  }
+
+  const getLogout = async () => {
+    try {
+        const response = await fetch(`${API_URL}/api/v1/auth/logout`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            toast.success(data.message);
+            setUser(null);
+        } else {
+            toast.error(data.message);
+        }
+    } catch (e: any) {
+        toast.error("Erreur serveur lors de la déconnexion");
+    }
+};
+
+  const getSession = async () => {
+    try{
+      setLoading(true)
+      const response = await fetch(`${API_URL}/api/v1/auth/check`,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      })
+
+      const data = await response.json()
+      if(data.success){
+        setUser(data.user)
+        return true
+      }
+      else{
+        toast.error(data.message)
+        setUser(undefined)
+        return false
+      }
+    }
+    catch(e: any){
+      toast.error(e.message)
+      return false
+    }
+    finally{
+      setLoading(false)
+    }
+  }
+  useEffect(() => {
+    getSession()
   }, []);
 
+
+
+  const values:AuthContextType ={
+    user,
+    setUser,
+    getLogin,
+    getLogout,
+    loading
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={values}>
       {children}
     </AuthContext.Provider>
   );

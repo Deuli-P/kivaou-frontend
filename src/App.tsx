@@ -1,18 +1,25 @@
-import { useState } from 'react';
-import './styles/index.scss';
-import InputWithLabel from './components/InputWithLabel';
-import Header from './components/Header/Header';
+import { RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import PresentationCard from './components/PresentationCard/PresentationCard';
+import { router } from './routing/router';
+import { ToastContainer } from 'react-toastify';
+import './assets/styles/index.scss';
 
 function App() {
+
+
   
 
   return (
     <AuthProvider>
-      <Header />
-      <PresentationCard />
-  </AuthProvider>
+        <RouterProvider router={router} />
+        <ToastContainer
+          position='bottom-right'
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick
+        />
+      </AuthProvider>
   )
 }
 

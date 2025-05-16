@@ -1,0 +1,21 @@
+@use '../../assets/styles/sass/variables' as *;
+.home-no-organization{
+    &-section{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: $g_l;
+        h2{
+            text-align: center;
+        }
+    }
+    &-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: $g_m;
+        text-align: center;
+    }
+}

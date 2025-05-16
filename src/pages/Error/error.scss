@@ -1,0 +1,9 @@
+@use '../../assets/styles/sass/variables' as *; 
+.error-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: $g_l
+}

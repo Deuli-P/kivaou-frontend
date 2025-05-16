@@ -1,0 +1,88 @@
+@use '../../../../assets/styles/sass/variables' as *;
+@use '../../../../assets/styles/sass/mixins' as *;
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $g_l;
+    padding: $p_s;
+    &>h2 {
+        text-align: center;
+    }
+}
+.event-detail{
+    &-event-date-time-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    &-event-date-time{
+        font-size: $f_m;
+        font-weight: 600;
+    }
+    &-section{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    &-sections-destination-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: $g_m;
+        @include tablet {
+            flex-direction: row;
+            gap: $g_l;
+        }
+        img {
+            width: 150px;
+            border-radius: 8px;
+            object-fit:scale-down;
+        }
+    }
+
+    &-event-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $g_m
+    }
+    &-sous-section-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.2rem;
+    }
+    &-website-container{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &-participants-container{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &-destination-info{
+        gap: $g_xs;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.event-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+

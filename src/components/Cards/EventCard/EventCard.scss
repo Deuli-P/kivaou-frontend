@@ -1,0 +1,84 @@
+@use '../../../assets/styles/sass/variables' as *;
+
+.event_card-container {
+    width: clamp(280px, calc(280px + calc((400 - 280) / (1920 - 320)) * (100vw - 320px)), 400px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0px 0px 3.3px rgba(0, 0, 0, 0.20);
+  }
+  .event_card-content-container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+  
+  .event_card-title {
+    font-size: clamp(12px, calc(12px + calc((19 - 12) / (1440 - 320)) * (100vw - 320px)), 19px);
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .event_card-description {
+    margin-bottom: 8px;
+  }
+  
+  .event_card-info {
+    display: flex;
+    align-items: flex-start; 
+    gap: 4px;
+  }
+  
+  .event_card_label {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .event_card-dates{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .event_card-content{
+    font-size: clamp(10px, calc(10px + calc((16 - 10) / (1440 - 320)) * (100vw - 320px)), 16px);
+    font-family: 'Roboto', sans-serif;
+    color: $text;
+      &.underline{
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover{
+            color: $blue_100;
+        };
+      }
+
+  }
+  
+  
+  .event_card-user_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .event_card-user_item {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+  }
+  
+
+  
+  .event_card-actions {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+
+  
+
+
+

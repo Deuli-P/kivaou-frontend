@@ -1,0 +1,60 @@
+@use '../../assets/styles/sass/variables' as *;
+
+button{
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    &:focus{
+        outline: none;
+    }
+    &:active{
+        transform: scale(0.95);
+    }
+    &.primary{
+        background-color: $text;
+        color: $accent;
+        transition: $transition;
+        &:hover{
+            background-color: $grey_700;
+        }
+        &.disabled{
+            background-color: $grey_500;
+            cursor: not-allowed;
+            &:active{
+                transform: scale(1);
+            }
+        }
+    }
+    &.secondary{
+        background-color: $background;
+        color: $text;
+        transition: $transition;
+        &:hover{
+            background-color: $grey_100;
+        }
+        &.disabled{
+            background-color: $grey_200;
+            color: $grey_700;
+            cursor: not-allowed;
+            &:active{
+                transform: scale(1);
+            }
+        }
+    }
+    &.tertiary{
+        background-color: $primary;
+        color: $background;
+        transition: $transition;
+        &:hover{
+            background-color: $blue_700;
+        }
+        &.disabled{
+            background-color: $blue_200;
+            cursor: not-allowed;
+            &:active{
+                transform: scale(1);
+            }
+        }
+    }
+}
