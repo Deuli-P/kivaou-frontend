@@ -4,7 +4,7 @@ const IsMember = () => {
 
     const { user } = useAuth();
 
-    const isMember = user?.organization.id ? true : false;
+    const isMember = user?.organization?.id || user?.user_type === "admin" ? true : false ;
 
     return isMember ? <Outlet /> : <Navigate to="/" />;
 

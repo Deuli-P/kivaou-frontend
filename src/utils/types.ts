@@ -16,7 +16,8 @@ export interface OrganizationProps {
     id: string;
     name: string;
     owner: UserProps;
-    address: AddressProps;
+    users?: UserProps[];
+    address?: AddressProps;
 }
 
 export interface EventProps {
@@ -53,7 +54,7 @@ export interface PlaceProps {
     google_page_link?: string;
     website?: string;
     note?: number;
-    address: AddressProps;
+    address?: AddressProps;
 }
 
 export interface DayProps {

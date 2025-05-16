@@ -199,6 +199,7 @@ const DestinationCreate = () => {
                     value={destinationData.phone}
                     label='Téléphone'
                     type='text'
+                    required={true}
                     placeholder='+33 1 23 45 67 89'
                     ariaLabel="Numéro de téléphone de la destination"
                 />

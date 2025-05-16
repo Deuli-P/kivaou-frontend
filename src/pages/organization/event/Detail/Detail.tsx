@@ -71,7 +71,7 @@ const EventDetail = () => {
     try {
       console.log("start fetch event details")
       setLoading(true)
-      const response = await fetch(`${API_URL}/api/v1/event/${eventId}?id=${user?.organization?.id}`, {
+      const response = await fetch(`${API_URL}/api/v1/event/${eventId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -103,7 +103,7 @@ const EventDetail = () => {
   const handleCancelEvent = async () => {
     try {
       console.log('start cancel event')
-      const response = await fetch(`${API_URL}/api/v1/event/cancel/${eventDetails.id}?id=${user?.organization?.id}`, {
+      const response = await fetch(`${API_URL}/api/v1/event/cancel/${eventDetails.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -136,21 +136,19 @@ const EventDetail = () => {
     try {
       console.log('start cancel event')
       console.log('feature pas encore implémentée')
-      // const response = await fetch(`${API_URL}/api/event/${eventId}?id=${user?.organization?.id}`, {
-      //   method: 'DELETE',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   credentials: 'include'
-      // })
-      // if (response.status === 204) {
-      //   setEventDetails((prev: EventProps)=> ({
-      //     ...prev,
-      //     status : 'deleted'
-      //   }))
-      // }
-      // else{
-      //   const data = await response.json()
-      //   toast.error(data.message)
-      // }
+      const response = await fetch(`${API_URL}/api/v1/admin/event/${eventId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+      })
+      const data = await response.json()
+      if (data.status === 200) {
+        toast.success(data.message)
+        navigate('/')
+      }
+      else{
+        toast.error(data.message)
+      }
     }
     catch (error) {
       console.error('Error deleting event:', error)

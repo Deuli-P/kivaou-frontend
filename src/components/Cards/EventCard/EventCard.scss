@@ -4,9 +4,7 @@
     width: clamp(280px, calc(280px + calc((400 - 280) / (1920 - 320)) * (100vw - 320px)), 400px);
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
     padding: 12px;
-    box-shadow: 0px 0px 3.3px rgba(0, 0, 0, 0.20);
   }
   .event_card-content-container{
     display: flex;

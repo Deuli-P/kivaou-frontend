@@ -74,6 +74,8 @@ const OrganizationDetail = () => {
 
   const navigate = useNavigate();
 
+  console.log('params :', id);
+
 
   const fetchOrganization = async () => {
     try{
@@ -85,7 +87,6 @@ const OrganizationDetail = () => {
       });
       const data = await response.json();
 
-      console.log('data :', data);
       if(data.status === 200){
         if(!data.organization){
           setLoading(false);

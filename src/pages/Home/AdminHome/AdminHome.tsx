@@ -4,10 +4,12 @@ import EventCard from '../../../components/Cards/EventCard/EventCard';
 import { EventProps, OrganizationProps, UserProps } from '../../../utils/types';
 import UserDetailCard from '../../../components/User/UserDetailCard/UserDetailCard';
 import { toast } from 'react-toastify';
+import OrganizationCard from '../../../components/Cards/OrganizationCard/OrganizationCard';
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 const AdminHome = () => {
 
-    const { user } = useAuth();
+    const { user, getLogout } = useAuth();
 
     const [ events, setEvents ] = useState<EventProps[]>([])
     const [ organizations, setOrganizations ] = useState<OrganizationProps[]>([])
@@ -20,16 +22,21 @@ const AdminHome = () => {
 
     const fetchAllData = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/admin/all`, {
+            const response = await fetch(`${API_URL}/api/v1/admin/all`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
             });
             const data = await response.json();
+            console.log('data :', data);
             if(data.status === 200) {
-                setEvents(data.events || []);
-                setOrganizations(data.organizations || []);
-                setUsers(data.users || []);
+                setEvents(data.events);
+                setOrganizations(data.organizations);
+                setUsers(data.users);
+            }else if(data.status === 404 || data.status === 403){
+                getLogout()
+                toast.error(data.message);
+
             }else{
                 toast.error(data.message);
             }
@@ -43,7 +50,7 @@ const AdminHome = () => {
 
 
     useEffect(() => {
-        //fetchAllData();
+        fetchAllData();
     },[])
 
   return (
@@ -72,11 +79,12 @@ const AdminHome = () => {
             ) : (
                 <div>
                     {organizations.map((organization) => (
-                       <p
+                       <OrganizationCard
                             key={organization.id}
-                       >
-                        {organization.name}
-                       </p>
+                            item={organization}
+                            setOpen={()=>setDeleteOrganizationModal(true)}
+                            setRemoveOrganization={(organization:OrganizationProps)=>setOrganizationToRemove(organization)}
+                        />
                     ))}
                 </div>
             )}
