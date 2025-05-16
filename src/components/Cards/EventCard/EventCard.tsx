@@ -7,6 +7,7 @@ import { formatDateTime } from '../../../utils/utils';
 import UserGroup from '../../User/UserGroup/UserGroup';
 import './EventCard.scss';
 import Button from '../../Button/Button';
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 interface EventCardProps {
   event: EventProps;
@@ -52,7 +53,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const handleSubmit = async () => {
         setLoading(true);
         try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/event/submit?id=${user?.organization?.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/event/submit?id=${user?.organization?.id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -77,7 +78,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const handleCancel = async () => {
         setLoading(true);
         try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/event/cancel?id=${user?.organization?.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/event/cancel?id=${user?.organization?.id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -85,7 +86,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         });
 
         if (response.status === 200) {
-            deleteUserFromUsers(user.id);
+            deleteUserFromUsers(user?.id);
         } else {
             const data = await response.json();
             toast.error(data.message ? data.message : "Erreur lors de l'annulation");
@@ -169,9 +170,9 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {eventData.submitted ? (
           <Button 
             onClick={handleCancel} 
-            disabled={loading || eventData.owner.id === user.id} 
+            disabled={loading || eventData.owner.id === user?.id} 
             ariaLabel={ariaLabelSubmit}
-            label='Annuler'
+            label='Annuler ma participation'
             version='secondary'
           />
         ) : (
@@ -179,7 +180,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             onClick={handleSubmit} 
             disabled={loading} 
             ariaLabel={ariaLabelSubmit}
-            label='Valider'
+            label="Rejoindre l'événement"
             version='primary'
           />
         )}

@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL
 interface AuthContextType {
   user: UserProps | undefined;
   setUser: (user: UserProps) => void;
-  getLogin: (arg0:LoginData) => void;
+  getLogin: (dataLogin:LoginData) => void;
   getLogout: () => void;
   loading : boolean;
 }
@@ -24,9 +24,10 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 
 
+
   const getLogin = async (dataLogin:LoginData) => {
     try{
-      const response = await fetch(`${API_URL}/api/auth/login`,{
+      const response = await fetch(`${API_URL}/api/v1/auth/login`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -36,14 +37,14 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       })
       const data = await response.json()
 
-      if(data.success){
-        toast.success(data.message)
+      if(data.status === 200){
+        console.log('reussite')
         setUser(data.user); 
-        return true
+        toast.success(data.message)
+        window.location.href = '/';
       }
       else{
         toast.error(data.message)
-        return false
       }
     }
     catch(e: any){
@@ -53,7 +54,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const getLogout = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/auth/logout`, {
+        const response = await fetch(`${API_URL}/api/v1/auth/logout`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -72,10 +73,10 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
 };
 
-  const checkIfAuth = async () => {
+  const getSession = async () => {
     try{
       setLoading(true)
-      const response = await fetch(`${API_URL}/api/auth/check`,{
+      const response = await fetch(`${API_URL}/api/v1/auth/check`,{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -103,7 +104,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   }
   useEffect(() => {
-    checkIfAuth()
+    getSession()
   }, []);
 
 

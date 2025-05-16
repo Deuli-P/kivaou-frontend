@@ -10,13 +10,16 @@ interface SelectProps {
     type?: string;
     label: string;
     ariaLabel?: string;
-    options: any[]
+    options: any[];
   }
 
-const Select = ({label, name, onChange, value , options, placeholder= '-- --' }: SelectProps) => {
+const Select = ({label, name, onChange, value , required=false, options, placeholder= '-- --' }: SelectProps) => {
   return (
+    <div className='input-container'>
     <label htmlFor={name} className='label'>
         {label}
+        {required && <span className='required'>*</span>}
+    </label>
         <select 
             name={name} 
             id={name}
@@ -34,7 +37,7 @@ const Select = ({label, name, onChange, value , options, placeholder= '-- --' }:
                 </option>
             ))}
         </select>
-    </label>
+    </div>
   )
 }
 

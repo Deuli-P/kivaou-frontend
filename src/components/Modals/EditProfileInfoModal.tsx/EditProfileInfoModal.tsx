@@ -48,7 +48,6 @@ const EditProfileInfoModal = ({handleSubmit, data, handleChangeOpening, onChange
                     name='photo_path'
                     onChange={onChange}
                     value={data.photo_path}
-                    required={true}
                     label='Lien de la photo de profile'
                     type='text'
                     placeholder='https://...'

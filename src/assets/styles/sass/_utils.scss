@@ -1,4 +1,6 @@
 @use './variables' as *;
+@use './mixins' as *;
+
 
 .events-list-container{
     display: flex;
@@ -18,13 +20,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-@media screen and (min-width: 768px) {
-    .events-list{
+    @include tablet{
         flex-direction: row;
     }
-};
+}
+
+
 
 .btn-container{
     display: flex;

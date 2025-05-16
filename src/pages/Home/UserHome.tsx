@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { EventProps } from '../../utils/types';
 import Button from '../../components/Button/Button';
 const API_URL = import.meta.env.VITE_BACKEND_URL;
-import './home.scss';
-const Home = () => {
+import './userHome.scss';
+const UserHome = () => {
 
   const { user } = useAuth();
 
@@ -29,7 +29,7 @@ const Home = () => {
         setEvents([]);
         return;
       }
-      const response = await fetch(`${API_URL}/api/event/active?id=${user?.organization?.id}`, {
+      const response = await fetch(`${API_URL}/api/v1/event/active?id=${user?.organization?.id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -60,6 +60,7 @@ const Home = () => {
   return (
     <main>
       <h1>Liste des événements</h1>
+      <span>Bonjour {user?.firstname}</span>
         {user?.organization?.id === null ? (
           <section className='home-no-organization-section'>
             <h2>
@@ -115,4 +116,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default UserHome

@@ -1,4 +1,5 @@
 @use '../../assets/styles/sass/variables' as *;
+@use '../../assets/styles/sass/mixins' as *;
 
 .profile-container{
     display: flex;
@@ -7,6 +8,10 @@
     align-items: center;
     gap: $g_l;
     padding: $p_m;
+    @include tablet {
+        flex-direction: row;
+
+    }
 }
 .profile-photo{
     border-radius: 25%;
@@ -48,6 +53,12 @@
     justify-content: center;
     align-items: center;
     gap: $g_m;
+    @include tablet {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: $g_s;
+    }
     & .profile-no-orga{
         font-size: $f_l;
         font-weight: 700;
@@ -58,14 +69,4 @@
 
 
 
-@media screen and (min-width: 768px) {
-    .profile-container{
-        flex-direction: row;
-    }
-    .profile-no-orga-container{
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: $g_s;
-    }
-}
+

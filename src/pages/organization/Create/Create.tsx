@@ -14,7 +14,7 @@ const CreateOrganization = () => {
 
   const navigate = useNavigate();
 
-  const [ organizationData, setOrganizationData ] = useState({
+  const [ organizationData, setOrganizationData ] = useState({
     name: 'EDF',
     number: 23,
     street: "Rue de l'avion",
@@ -34,7 +34,7 @@ const CreateOrganization = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try{
-      const response = await fetch(`${API_URL}/api/organization/create`, {
+      const response = await fetch(`${API_URL}/api/v1/organization/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -84,7 +84,7 @@ const CreateOrganization = () => {
         <Input
           name="number"
           label="Numéro de la voie"
-          type="number"
+          type="text"
           placeholder="ex : 123"
           value={organizationData.number}
           onChange={handleChange}
@@ -112,7 +112,7 @@ const CreateOrganization = () => {
         <Input
           name="postale_code"
           label="Code postal"
-          type="number"
+          type="text"
           placeholder="ex : 75000"
           value={organizationData.postale_code}
           onChange={handleChange}

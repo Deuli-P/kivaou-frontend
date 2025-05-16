@@ -4,6 +4,7 @@ export interface UserProps {
     lastname: string;
     email?: string;
     photo_path?: string;
+    user_type?: null | "admin"
     organization?:{
       id: string | null;
       name: string | null;
@@ -36,6 +37,8 @@ export interface EventProps {
     end_date: string;
     destination: PlaceProps;
     submitted?: boolean;
+    users?: UserProps[];
+    status?: 'started'|'deleted'| 'cancelled';
   };
   
 export interface PlaceProps {
@@ -55,8 +58,8 @@ export interface PlaceProps {
 
 export interface DayProps {
     day: string;
-    morning: string | null;
-    afternoon: string | null;
+    morning: string | "";
+    afternoon: string | "";
 }
 
 export interface AddressProps{

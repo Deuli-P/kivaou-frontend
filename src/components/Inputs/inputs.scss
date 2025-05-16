@@ -1,14 +1,17 @@
 @use '../../assets/styles/sass/variables' as *;
 
-.label{
+.input-container{
     display:  flex;
     flex-direction: column;
     gap: 4px;
     align-items: flex-start;
+}
+.label{
     font-size: 0.9rem;
     font-weight: 600;
     max-width: 300px;
     color: $grey_700;
+
 }
 .select-label{
     display:  flex;
@@ -46,4 +49,10 @@
     padding: 6px;
     min-width: 300px;
     min-height: 100px;
+}
+
+.required{
+    color: $red_500;
+    font-size: 0.8rem;
+    font-weight: 400;
 }

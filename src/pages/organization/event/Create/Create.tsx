@@ -4,6 +4,9 @@ import { useAuth } from '../../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './create.scss';
 import Button from '../../../../components/Button/Button';
+import Input from '../../../../components/Inputs/Input/Input';
+import Select from '../../../../components/Inputs/Select/Select';
+import TextArea from '../../../../components/Inputs/TextArea/TextArea';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL
 const env = import.meta.env.VITE_ENV_MODE;
@@ -27,7 +30,7 @@ const fakeEvent = {
   description: 'Une description de l\'événement ici pour dire quel est le programme ou le projet',
   start_date: '2025-10-01T12:00',
   end_date: '2025-10-01T15:00',
-  place : "931b6c05-6a48-47c1-a330-0c92be775f7a"
+  place : ""
 
 };
 
@@ -88,8 +91,9 @@ const CreateEvent = () => {
 
   const navigate = useNavigate();
 
-  const handleChange= (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+  const handleChange = (e: React.ChangeEvent<any>) => {
+    const { name, value } = e.target;
+  
     setEventData(prev => ({
       ...prev,
       [name]: value
@@ -99,7 +103,7 @@ const CreateEvent = () => {
   const fetchPlaces = async (organizationId: string) => {
     try {
       setLoading(true)
-      const response = await fetch(`${API_URL}/api/destination/all?id=${organizationId}`, {
+      const response = await fetch(`${API_URL}/api/v1/destination/all?id=${organizationId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -136,19 +140,17 @@ const CreateEvent = () => {
         return;
       }
     
-      const response = await fetch(`${API_URL}/api/event/create?id=${user.organization.id}`, {
+      const response = await fetch(`${API_URL}/api/v1/event/create?id=${user.organization.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify(eventData)
       })
+      const data = await response.json();
         if (response.status === 200) {
-          const data = await response.json();
           toast.success(data.message);
-          //navigate vers la page de l'événement
-          //navigate("/orga/event/"+eventData.id);
+          navigate(`/orga/event/${data.event_id}`);
       } else {
-          const data = await response.json();
           toast.error(data.message);
       }
     } catch (error) {
@@ -205,102 +207,57 @@ const CreateEvent = () => {
           onSubmit={handleSubmit}
           className='auth-form'
         >
-          <label 
-              className="input-label"
-              htmlFor="title"
-          >
-              Titre de l'événement
-              <input 
-                  type="text" 
-                  placeholder="ex : Escape game de Paris" 
-                  name='title'
-                  id="title"
-                  required
-                  className='input-input'
-                  value={eventData.title}
-                  onChange={(e)=>handleChange(e)}
-              />
-          </label>
-          <label 
-              className="input-label"
-              htmlFor="firstname"
-          >
-              Heure et date de début
-              <input 
-                  type="datetime-local" 
-                  name='start_date'
-                  id="start_date"
-                  min={new Date().toISOString().slice(0,16)}
-                  required
-                  className='input-input'
-                  value={eventData.start_date}
-                  onChange={(e)=>handleChange(e)}
-              />
-          </label>
-          <label 
-              className="input-label"
-              htmlFor="firstname"
-          >
-              Heure et date de fin
-              <input 
-                  type="datetime-local" 
-                  name='end_date'
-                  id="end_date"
-                  min={ eventData.start_date || new Date().toISOString().slice(0,16)}
-                  className='input-input'
-                  value={eventData.end_date}
-                  onChange={(e)=>handleChange(e)}
-              />
-          </label>
-          <div className="event-form-place-list-container">
-            <label 
-                className="select-label"
-                htmlFor="place"
-            >
-              Lieu
-              <select 
-                  name="place"
-                  id="place"
-                  required
-                  className='input-select'
-                  value={eventData.place}
-                  onChange={(e)=>handleChange(e)}
-              >
-                  <option value="null">-- Sélectionner un lieu --</option>
-                  {places.map((place) => (
-                      <option
-                          key={place.id}
-                          value={place.id}
-                          className="input-option"
-                      >
-                          {place.name}
-                      </option>
-                  ))} 
-              </select>
-            </label>
-          </div>
-          <label 
-            className="input-label"
-            htmlFor="description"
-          >
-            Description
-            <textarea 
-                rows={5}
-                placeholder="Description de l'événement" 
-                name='description'
-                id="description"
-                className='textarea-input'
-                value={eventData.description}
-                onChange={(e)=>handleChange(e)}
-            />
-          </label>
-            <button
-                disabled={new Date(eventData.end_date) < new Date(eventData.start_date) ? true : false}
-                type="submit"
-                className='btn primary'
-                >
-                Créer
-            </button>
+          <Input
+              name='title'
+              label="Titre de l'événement"
+              type='text'
+              placeholder="ex : Escape game de Paris"
+              required={true}
+              value={eventData.title}
+              onChange={(e)=>handleChange(e)}
+          />
+          <Input
+              name='start_date'
+              label=" Heure et date de début"
+              type='datetime-local'
+              required={true}
+              value={eventData.start_date}
+              onChange={(e)=>handleChange(e)}
+              min={new Date().toISOString().slice(0,16)}
+          />
+          <Input
+              label=" Heure et date de fin"
+              type='datetime-local'
+              required={true}
+              name='end_date'
+              min={ eventData.start_date || new Date().toISOString().slice(0,16)}
+              onChange={(e)=>handleChange(e)}
+              value={eventData.end_date}
+          />
+         <Select
+            options={places}
+            name='place'
+            label='Sélectionner un lieu'
+            required={true}
+            value={eventData.place}
+            onChange={(e)=>handleChange(e)}
+            placeholder='-- Sélectionner un lieu --'
+         />
+         <TextArea
+            label="Description de l'événement"
+            name='description'
+            value={eventData.description}
+            onChange={(e)=>handleChange(e)}
+            placeholder="Description de l'événement"
+            ariaLabel="Description de l'événement"
+         />
+         <Button
+            version='primary'
+            disabled={new Date(eventData.end_date) < new Date(eventData.start_date) ? true : false}
+            type="submit"
+            label='Créer un événement'
+            ariaLabel="Créer un événement"
+          />
         </form>
       </main>
     )

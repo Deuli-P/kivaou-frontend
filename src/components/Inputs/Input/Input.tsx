@@ -31,8 +31,11 @@ const Input = ({
   };
 
   return (
-    <label htmlFor={name} className="label">
-      {label}
+    <div className="input-container">
+        <label htmlFor={name} className="label">
+          {label}
+          {required && <span className="required">*</span>}
+        </label>
       <input
         type={type}
         placeholder={placeholder}
@@ -46,7 +49,7 @@ const Input = ({
         disabled={disabled}
         aria-label={ariaLabel ? ariaLabel : undefined}
       />
-    </label>
+    </div>
   );
 };
 

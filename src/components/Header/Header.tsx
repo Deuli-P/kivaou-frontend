@@ -20,7 +20,7 @@ const Header = () => {
         <NavLink to="/" className="header-logo">
           <span className="header-logo">KiVAOU</span>
         </NavLink>
-
+        
         {/* Burger Menu uniquement en mobile */}
         <div
           className={`burger-container ${menuOpen ? "open" : ""}`}
@@ -53,12 +53,10 @@ const Header = () => {
               )
             }
             <NavLink to="/profile" className="header-navlink header-profile">
-              {user.photo_path && (
                 <UserCircle
                   user={user}
                   size="m"
                 />
-              )}
               Profile
             </NavLink>
           </nav>

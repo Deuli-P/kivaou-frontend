@@ -1,14 +1,14 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 
-import Home from "../pages/Home/Home";
+import HomeRedirect from "./HomeRedirect";
 import Error from "../pages/Error/Error";
 import Login from "../pages/auth/Login/Login";
 import Register from "../pages/auth/Register/Register";
 import CreateOrganization from "../pages/organization/Create/Create";
 import OrganizationDetail from "../pages/organization/Detail/Detail";
 import EventCreate from "../pages/organization/event/Create/Create";
-import EventDetail from "../pages/organization/event/Detail";
+import EventDetail from "../pages/organization/event/Detail/Detail";
 import Profile from "../pages/Profile/Profile";
 import DestinationCreate from "../pages/organization/destination/Create/Create";
 
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
                 path: "",
                 element: <IsConnected />,
                 children: [
-                    { path: "", element: <Home /> },
+                    { path: "", element: <HomeRedirect /> },
                     { path: "orga/create", element: <CreateOrganization /> },
                     { path: 'profile', element: <Profile />},
                     { 

@@ -79,8 +79,10 @@ a{
     p {
         text-decoration: none;
         text-decoration-color: $text;
+        font-size: $f_xs;
     }
     span{
+        font-size: $f_xs;
         text-decoration: underline;
         cursor: pointer;
         text-underline-offset: 2px;
@@ -97,3 +99,33 @@ a{
         text-underline-offset: 2px;
     }
 };
+
+.user-circle-initials{
+    color: $text;
+    background-color: $grey_200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 50%;
+    &.s{
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+    &.m{
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+    &.l{
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    &.xxl{
+        width: 150px;
+        height: 150px;
+        font-size: 50px;
+    }
+}

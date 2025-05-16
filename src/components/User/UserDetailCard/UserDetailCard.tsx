@@ -1,6 +1,7 @@
 import { UserProps } from '../../../utils/types';
 import { useAuth } from '../../../context/AuthContext';
 import './userDetailCard.scss';
+import { initials } from '../../../utils/utils';
 interface UserDetailCardProps {
     item: UserProps;
     setOpen: () => void;
@@ -17,10 +18,11 @@ const UserDetailCard = ({item, setOpen, setUserToRemove}: UserDetailCardProps) =
         setOpen();
     };
 
+
     
   return (
     <article key={item.id} className="user-card-container">
-        {user?.organization?.role === 'OWNER' && (
+        {user?.organization?.role === 'OWNER' && user.id !== item.id && (
             <div className="user-card-remove-container" onClick={handleStartRemoveMember}>
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
                     viewBox="0 0 32 32" enable-background="new 0 0 32 32" xmlSpace="preserve">
@@ -37,11 +39,11 @@ const UserDetailCard = ({item, setOpen, setUserToRemove}: UserDetailCardProps) =
             <div className="user-card-photo-container">
                 {item.photo_path ?
                     (
-                    <img src={item.photo_path} alt="photo de profil" loading="lazy"/>
+                        <img src={item.photo_path} alt="photo de profil" loading="lazy"/>
                     )
                 :
                     (
-                    <img src="https://www.randomkittengenerator.com/cats/1957.jpg" alt="photo de profil" loading="lazy"/>
+                        <span className="user-circle-initials">{initials(item)}</span>
                     )
                 }
             </div>

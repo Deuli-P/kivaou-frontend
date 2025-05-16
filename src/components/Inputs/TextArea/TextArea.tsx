@@ -1,4 +1,6 @@
 import React from 'react'
+import "./../inputs.scss";
+
 
 interface TextAreaProps {
     label: string;
@@ -7,17 +9,21 @@ interface TextAreaProps {
     value: string;
     ariaLabel?: string;
     placeholder?: string;
+    required?: boolean;
 }; 
 
 
-const TextArea = ({label, name, onChange, value, ariaLabel, placeholder}:TextAreaProps) => {
+const TextArea = ({label, name, onChange, value, ariaLabel, placeholder, required}:TextAreaProps) => {
 
   return (
+    <div className='input-container'>
     <label 
         htmlFor={name}
         className='label'
     >
         {label}
+        {required && <span className='required'>*</span>}
+    </label>
         <textarea 
             id={name}
             name={name}
@@ -28,7 +34,7 @@ const TextArea = ({label, name, onChange, value, ariaLabel, placeholder}:TextAre
             aria-label={ariaLabel}
             placeholder={placeholder}
         />
-    </label>
+    </div>
   )
 }
 

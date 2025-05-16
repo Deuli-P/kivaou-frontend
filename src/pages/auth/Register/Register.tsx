@@ -14,11 +14,11 @@ const Register = () => {
   const navigate = useNavigate()
 
   const [registerData, setRegisterData] = useState({
-    email: 'jeff@field.com',
-    password: 'papillon',
-    firstname: 'Jeff',
-    lastname: 'Field',
-    photo_path: 'https://randomuser.me/api/portraits/men/65.jpg'
+    email: 'john@doe.com',
+    password: 'Papillons28*',
+    firstname: 'John',
+    lastname: 'Die',
+    photo_path: 'https://randomuser.me/api/portraits/men/70.jpg'
   })
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +41,7 @@ const Register = () => {
       }
 
 
-      if(!regexPassword.test(registerData.password || registerData.password.length < 12)){
+      if(!regexPassword.test(registerData.password )|| registerData.password.length < 12){
         toast.error("Le mot de passe doit contenir au moins 12 caractères, une majuscule, une minuscule et un chiffre")
         return
       };
@@ -57,7 +57,7 @@ const Register = () => {
       };
 
 
-      const response = await fetch(`${API_URL}/api/auth/register`, {
+      const response = await fetch(`${API_URL}/api/v1/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -65,18 +65,14 @@ const Register = () => {
         credentials: 'include',
         body: JSON.stringify(registerData)
       })
-      if(response){
-        const data = await response.json()
-        if(data.user){
-          setUser(data.user)
-          toast.success("Inscription réussie")
-          if(user){
-            navigate('/')
-          }
-        }
-        else{
-          toast.error(data.message)
-        }
+      const data = await response.json()
+      if(data.status === 200){
+        setUser(data.user)
+        toast.success(data.message)
+        navigate('/')
+      }
+      else{
+        toast.error(data.message)
       }
     }
     catch(e: any){
@@ -107,6 +103,8 @@ const Register = () => {
           onChange={handleChangeValue}
           ariaLabel="Email de l'utilisateur"
         />
+        <div className="password-container">
+
         <Input
           name='password'
           type='password'
@@ -116,7 +114,9 @@ const Register = () => {
           value={registerData.password}
           onChange={handleChangeValue}
           ariaLabel="Mot de passe de l'utilisateur comprenant au moins 12 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial"
-        />
+          />
+          <p>Votre mot de passe doit contenir au minimum 12 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial !</p>
+          </div>
         <Input
           name="firstname"
           label='Prénom'

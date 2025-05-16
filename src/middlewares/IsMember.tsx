@@ -6,7 +6,7 @@ const IsMember = () => {
 
     const isMember = user?.organization.id ? true : false;
 
-    return isMember ? <Outlet /> : <Navigate to="/auth/login" />;
+    return isMember ? <Outlet /> : <Navigate to="/" />;
 
 }
 

@@ -9,7 +9,7 @@ interface RemoveMemberConfirmModalProps {
     setUserToRemove: (user: UserProps | null) => void;
 }
 
-const RemoveMemberConfirmModal = ({setClose, item, onRemove,setUserToRemove}: RemoveMemberConfirmModalProps) => {
+const RemoveMemberFromOrganizationConfirmModal = ({setClose, item, onRemove,setUserToRemove}: RemoveMemberConfirmModalProps) => {
 
 
     const handleClose = () => {
@@ -21,7 +21,7 @@ const RemoveMemberConfirmModal = ({setClose, item, onRemove,setUserToRemove}: Re
   return ReactDOM.createPortal(
         <div className='modal-overlay' onClick={handleClose}>
             <div className='modal' onClick={(e) => e.stopPropagation()}>
-                <h3>Êtes-vous sur de vouloir supprimer {item.firstname} {item.lastname} ?</h3>
+                <h3>Êtes-vous sur de vouloir exclure de l'organisation {item.firstname} {item.lastname} ?</h3>
                 <div className="btn-container">
                     <Button
                         type='button'
@@ -44,4 +44,4 @@ const RemoveMemberConfirmModal = ({setClose, item, onRemove,setUserToRemove}: Re
     );
 }
 
-export default RemoveMemberConfirmModal
+export default RemoveMemberFromOrganizationConfirmModal

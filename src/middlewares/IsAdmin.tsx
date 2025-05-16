@@ -1,11 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 
 const IsAdmin = () => {
 
-    const isAdmin = true
+    const { user } = useAuth();
 
-    return isAdmin ? <Outlet /> : <Navigate to="/auth/login" />;
+    const isAdmin = user?.user_type === 'admin';
+
+    return isAdmin ? <Outlet /> : <Navigate to="/auth/login"/>;
 
 };
 

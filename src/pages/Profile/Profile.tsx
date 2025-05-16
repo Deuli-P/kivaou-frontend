@@ -9,6 +9,7 @@ import EditProfileInfoModal from '../../components/Modals/EditProfileInfoModal.t
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 import './profile.scss';
 import Button from '../../components/Button/Button';
+import { initials } from '../../utils/utils';
 
 const Profile = () => {
 
@@ -43,7 +44,7 @@ const Profile = () => {
     const handleSubmitEditProfile =async(e: React.FormEvent<HTMLFormElement>)=> {
         e.preventDefault();
         try{
-            const response = await fetch(`${API_URL}/api/user/edit`, {
+            const response = await fetch(`${API_URL}/api/v1/user/edit`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -73,7 +74,7 @@ const Profile = () => {
 
     const fetchProfile = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/user`, {
+            const response = await fetch(`${API_URL}/api/v1/user`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -101,11 +102,17 @@ const Profile = () => {
     <main>
         <h1>Mon profile</h1>
         <div className='profile-container'>
+            {user?.photo_path ?(
             <img 
                 className='profile-photo'
                 src={user?.photo_path ? user.photo_path : "https://www.randomkittengenerator.com/cats/1957.jpg"} alt={user?.photo_path ? "Photo de profile" : "Photo de chaton"} 
                 loading="lazy"
             />
+            ) : (
+                    <span className='user-circle-initials xxl'>
+                        {initials(user)}
+                    </span>
+            )}
             <div className='profile-infos-container'>
                 <div
                     className='profile-infos'

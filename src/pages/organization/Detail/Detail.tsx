@@ -12,7 +12,7 @@ import UserDetailCard from "../../../components/User/UserDetailCard/UserDetailCa
 import './detail.scss';
 import Button from "../../../components/Button/Button.tsx";
 import { toast } from "react-toastify";
-import RemoveMemberConfirmModal from "../../../components/Modals/RemoveMemberConfirmModal/RemoveMemberConfirmModal.tsx";
+import RemoveMemberFromOrganizationConfirmModal from "../../../components/Modals/RemoveMemberFromOrganizationConfirmModal/RemoveMemberFromOrganizationConfirmModal.tsx";
 
 const fakeOrganization ={
   name: 'Robert Space Industries',
@@ -78,7 +78,7 @@ const OrganizationDetail = () => {
   const fetchOrganization = async () => {
     try{
       setLoading(true);
-      const response = await fetch(`${API_URL}/api/organization/${id}`, {
+      const response = await fetch(`${API_URL}/api/v1/organization/${id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -113,7 +113,7 @@ const OrganizationDetail = () => {
 
   const handleRemoveUser = async (userRemove: UserProps) => {
     try{
-        const response = await fetch(`${API_URL}/api/organization/remove-user/${userRemove.id}?id=${user?.organization?.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/organization/remove-user/${userRemove.id}?id=${user?.organization?.id}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -297,9 +297,9 @@ const OrganizationDetail = () => {
             />
           )}
           {removeUserModalOpen && userToRemove && (
-            <RemoveMemberConfirmModal
+            <RemoveMemberFromOrganizationConfirmModal
               item={userToRemove}
-              setClose={() => setRemoveUserModalOpen(false)}
+              onClose={() => setRemoveUserModalOpen(false)}
               setUserToRemove={setUserToRemove}
               onRemove={handleRemoveUser}
             />

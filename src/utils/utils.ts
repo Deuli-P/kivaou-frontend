@@ -1,3 +1,5 @@
+import { UserProps } from "./types";
+
 export const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
 export const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/;
@@ -36,3 +38,5 @@ export const formatDateTime = (date: string) => {
     const timeFormatted = formatTime(date);
     return `${dateFormatted} à ${timeFormatted}`;
 };
+
+export const initials = (user: UserProps) => {return `${user.firstname?.[0] ?? ''}${user.lastname?.[0] ?? ''}`.toUpperCase()};

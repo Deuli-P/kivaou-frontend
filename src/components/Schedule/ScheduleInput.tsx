@@ -1,16 +1,11 @@
+import { DayProps } from '../../utils/types';
 import './schedule.scss';
 
-interface itemProps {
-    day: string;
-    morning: string;
-    afternoon: string;
-}
-
 interface ScheduleInputProps {
-    item : itemProps;
+    item : DayProps;
     index: number;
-    setSchedule: React.Dispatch<React.SetStateAction<itemProps[]>>;
-    schedule: itemProps[];
+    setSchedule: React.Dispatch<React.SetStateAction<DayProps[]>>;
+    schedule: DayProps[];
 }
 
 const ScheduleInput = ({item,index, setSchedule, schedule}: ScheduleInputProps) => {

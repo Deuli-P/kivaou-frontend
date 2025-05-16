@@ -1,6 +1,7 @@
 import React from 'react'
 import { UserProps } from '../../../utils/types';
 import './userThumbnail.scss';
+import { initials } from '../../../utils/utils';
 
 interface UserThumbnailProps {
     user: UserProps;
@@ -8,14 +9,13 @@ interface UserThumbnailProps {
   }
 
 const UserThumbnail: React.FC<UserThumbnailProps> = ({ user, size }) => {
-    const initials = `${user.firstname?.[0] ?? ''}${user.lastname?.[0] ?? ''}`.toUpperCase();
   
   return (
     <div className={`user-circle user-circle-${size}`}>
       {user.photo_path ? (
         <img src={user.photo_path} alt={`Photo de ${user.firstname} ${user.lastname}`} className="user-circle-img" loading="lazy"/>
       ) : (
-        <span className="user-circle-initials">{initials}</span>
+        <span className={`user-circle-initials ${size}`}>{initials(user)}</span>
       )}
     </div>
   )

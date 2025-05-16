@@ -4,25 +4,25 @@ import { toast } from 'react-toastify';
 import ScheduleInput from '../../../../components/Schedule/ScheduleInput';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Inputs/Input/Input';
+import Select from '../../../../components/Inputs/Select/Select';
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 import './create.scss'
-import Select from '../../../../components/Inputs/Select/Select';
 
 const env = import.meta.env.VITE_ENV_MODE;
 
 const fakeDestinations = {
-    name: 'Peper Grill',
-    service_type: 'restaurant',
-    service_link: '',
-    google_map: 'https://g.co/kgs/DjjEM1S',
-    speciality: 'Fast-food',
-    phone: '01 23 45 67 89',
-    website: 'https://pepper-grill.com/',
-    photo_path: 'https://pepper-grill.com/wp-content/uploads/2023/06/pepper_grill_logo.png.webp',
-    number: 6,
-    street: 'Boulevard du Mont d\'Est',
-    postale_code: 93100,
-    city: 'Noisy-le-Grand',
+    name: 'Stade de France',
+    service_type: 'entertenment',
+    service_link: 'https://www.stadefrance.com/',
+    google_map: 'https://goo.gl/maps/xyz123',
+    speciality: 'Stade de France',
+    phone: '+33 1 23 45 67 89',
+    website: 'https://www.stadefrance.com/',
+    photo_path: 'https://lh3.googleusercontent.com/gps-cs-s/AC9h4npC8J_314etjhqTAURtXRNwqqG5QKT7AlINstHjOdFCFIeyazTiwqfleLIvLcY8bsuDsmKsJ0V4JWp8XU3Y7QhY-fkYMl-mtkjwvkYsnPKh27reb4TzIN1MfPOVGYaXtPeXs1b3=w408-h306-k-no',
+    number: 21,
+    street: 'Avenue Jules Rimet',
+    postale_code: 93200,
+    city: 'Saint-Denis',
     country: 'France'
 };
 
@@ -48,8 +48,8 @@ const fakeSchedule = [
     { day: 'Mercredi', morning: '8h-12h', afternoon: '16h-18h' },
     { day: 'Jeudi', morning: '11h', afternoon: '23h' },
     { day: 'Vendredi', morning: '11h', afternoon: '23h' },
-    { day: 'Samedi', morning: 'close', afternoon: 'close' },
-    { day: 'Dimanche', morning: 'close', afternoon: 'close' }
+    { day: 'Samedi', morning: 'fermé', afternoon: '14-0h' },
+    { day: 'Dimanche', morning: '0h-1h30', afternoon: '14-22' }
 ];
 
 const emptySchedule = [
@@ -90,7 +90,7 @@ const DestinationCreate = () => {
         const { name, value } = e.target
         setDestinationData({
             ...destinationData,
-            [name]: value.trim()
+            [name]: value
         })
     };
 
@@ -110,7 +110,7 @@ const DestinationCreate = () => {
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try{
-            const response = await fetch(`${API_URL}/api/destination/create?id=${user?.organization?.id}`, {
+            const response = await fetch(`${API_URL}/api/v1/destination/create?id=${user?.organization?.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -222,33 +222,34 @@ const DestinationCreate = () => {
                 />
             </section>
 
-            <section className='input-schedule-container'>
+            <section>
                 <h2 >Horaires d'ouverture (optionnel)</h2>
-                <p >
+                <p>
                     Saisissez les horaires sous forme libre : "8h-12h", "fermé", "10h", etc.
                 </p>
-                {schedule.map((item, index) => (
-                    <ScheduleInput
-                    key={index}
-                    item={item}
-                    index={index}
-                    setSchedule={setSchedule}
-                    schedule={schedule}
-                    />
-                ))}
+                <div className="input-schedule-container">
+                    {schedule.map((item, index) => (
+                        <ScheduleInput
+                        key={index}
+                        item={item}
+                        index={index}
+                        setSchedule={setSchedule}
+                        schedule={schedule}
+                        />
+                    ))}
+                </div>
             </section>
             <section>
                 <h2>Adresse du lieu</h2>
                 <Input
                     name="number"
-                    type="number"
+                    type="text"
                     label="Numéro de la voie"
                     placeholder="ex : 123"
                     value={destinationData.number}
                     onChange={handleChange}
                     required
                     />
-
                     <Input
                     name="street"
                     label="Rue"
@@ -257,7 +258,6 @@ const DestinationCreate = () => {
                     onChange={handleChange}
                     required
                     />
-
                     <Input
                     name="city"
                     label="Ville"
@@ -267,7 +267,7 @@ const DestinationCreate = () => {
                     required
                     />
                     <Input
-                    name="postal_code"
+                    name="postale_code"
                     type="number"
                     label="Code postal"
                     placeholder="ex : 75000"

@@ -1,4 +1,5 @@
 @use '../../../assets/styles/sass/variables' as *;
+@use '../../../assets/styles/sass/mixins' as *;
 
 .orga-detail-orga-info{
   display: flex;
@@ -39,10 +40,14 @@
 .orga-detail-title-btn-container{
     display: flex;
     width: 100%;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
+    @include tablet{
+        flex-direction: row;
+        gap: 20px;
+    }
 }
 
 .orga-detail-events-not-found{
@@ -69,11 +74,4 @@
     align-items: flex-start;
     gap: 8px;
     padding: clamp(10px, calc(10px + calc((20 - 10) / (1440 - 320)) * (100vw - 320px)), 20px);
-}
-
-@media screen and (max-width: 768px) {
-    .orga-detail-title-btn-container{
-        flex-direction: column;
-        gap: 10px;
-    }
 }
