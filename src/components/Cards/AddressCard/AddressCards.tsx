@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './AddressCard.scss';
 import { firstLetterUppercase } from '../../../utils/utils';
+import { PlaceProps } from '../../../utils/types';
 
-const AddressCard = ({ destination, onCreateEventClick }) => {
+interface AddressCardProps {
+  destination: PlaceProps;
+  onCreateEventClick: () => void;
+};
+
+const AddressCard = ({ destination, onCreateEventClick }: AddressCardProps) => {
   const {
     name,
     service_type,
@@ -26,12 +32,12 @@ const AddressCard = ({ destination, onCreateEventClick }) => {
       <img className="address-card_image" src={photo_path} alt={`Photo de ${name}`} loading="lazy"/>
       <div className="address-card_name-type">
         <h3 className="address-card__title">{name}</h3>
-        <p className="address-card_type">{firstLetterUppercase(service_type)} – {speciality}</p>
+        <p className="address-card_type">{service_type && (firstLetterUppercase(service_type))} – {speciality}</p>
       </div>
       </div>
       <div className="address-card_content">
         <p className="address-card_address">
-          {address.street_number} {address.street}, {address.postale_code} {address.city}, {address.country}
+          {address?.number} {address?.street}, {address?.postale_code} {address?.city}, {address?.country}
         </p>
         <p className="address-card_phone">📞 {phone}</p>
 
@@ -50,7 +56,7 @@ const AddressCard = ({ destination, onCreateEventClick }) => {
               <div className="address-card_schedule">
                 <strong>Horaires :</strong>
                 <ul>
-                  {schedule.map(({ day, morning, afternoon }) => (
+                  {schedule?.map(({ day, morning, afternoon }) => (
                     <li key={day}>{day} : {morning || '—'} / {afternoon || '—'}</li>
                   ))}
                 </ul>

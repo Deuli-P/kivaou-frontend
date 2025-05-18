@@ -4,11 +4,11 @@ export interface UserProps {
     lastname: string;
     email?: string;
     photo_path?: string;
-    user_type?: null | "admin"
+    user_type?: "admin"
     organization?:{
-      id: string | null;
-      name: string | null;
-      role: 'OWNER' | 'MEMBER' | null;
+      id: string ;
+      name: string ;
+      role: 'OWNER' | 'MEMBER';
     };
 }
 

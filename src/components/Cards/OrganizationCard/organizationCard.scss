@@ -7,9 +7,9 @@
         display: flex;
         flex-direction: column;
         padding: 12px;
+        gap: $g_xs;
     }
     &-title-container{
-        border-bottom:  1px solid $grey_200;
         padding: 0.5rem 1rem;
         width: 100%;
         display: flex;
@@ -23,7 +23,22 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-top: 1rem;
+    }
+    &-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &-owner-container{
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 4px;
+        }
+        &-owner-span{
+            font-size: $f_s;
+            font-weight: 600;
+
+        }
     }
 
   

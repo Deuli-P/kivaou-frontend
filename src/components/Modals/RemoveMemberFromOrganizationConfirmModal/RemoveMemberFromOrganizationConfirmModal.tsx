@@ -9,7 +9,7 @@ interface RemoveMemberConfirmModalProps {
     setUserToRemove: (user: UserProps | null) => void;
 }
 
-const RemoveMemberFromOrganizationConfirmModal = ({setClose, item, onRemove,setUserToRemove}: RemoveMemberConfirmModalProps) => {
+const RemoveMemberFromOrganizationConfirmModal = ({setClose, item, onRemove, setUserToRemove}: RemoveMemberConfirmModalProps) => {
 
 
     const handleClose = () => {

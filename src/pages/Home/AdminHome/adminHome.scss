@@ -1,0 +1,14 @@
+@use "../../../assets/styles/sass/variables" as *;
+@use "../../../assets/styles/sass/mixins" as *;
+
+
+.admin-home{
+    &-users-list{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap:$g_m;
+        
+    }
+
+}

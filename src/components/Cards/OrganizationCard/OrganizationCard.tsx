@@ -3,6 +3,7 @@ import { OrganizationProps } from '../../../utils/types';
 import Button from '../../Button/Button';
 import './organizationCard.scss';
 import UserGroup from '../../User/UserGroup/UserGroup';
+import UserThumbnail from '../../User/UserThumbnail/UserThumbnail';
 
 interface OrganizationCardProps {
     item: OrganizationProps
@@ -26,8 +27,16 @@ const OrganizationCard = ({item, setOpen, setRemoveOrganization}:OrganizationCar
   return (
     <article className='card organization-card-container'>
         <div className="organization-card-header">
-            <h3>{item.name}</h3> 
+            <h3>{item.name}</h3>
+            <div className="organization-card-header-owner-container">
+                <UserThumbnail
+                    user={item.owner}
+                    size='s'
+                />
+                <span className='organization-card-header-owner'>{item.owner.firstname} {item.owner.lastname}</span>
+            </div>
         </div>
+        <p>Ville : {item.address?.postale_code} {item.address?.city}</p>
         <div className="organization-card-users-container">
                 <UserGroup 
                     users={item.users ? item.users : []}

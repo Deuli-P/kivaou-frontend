@@ -29,7 +29,7 @@ const UserHome = () => {
         setEvents([]);
         return;
       }
-      const response = await fetch(`${API_URL}/api/v1/event/active?id=${user?.organization?.id}`, {
+      const response = await fetch(`${API_URL}/api/v1/event/active`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'

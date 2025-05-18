@@ -85,6 +85,9 @@ const EventDetail = () => {
       else if(data.status === 204){
         return;
       }
+      else if(data.status === 404){
+        navigate('/')
+      }
       else{
         setLoading(false)
         toast.error(data.message)
@@ -187,22 +190,21 @@ const EventDetail = () => {
     }))
 };
 
-  const handleSubmit = async () => {
+  const handleSubmitParticipation = async () => {
     setLoading(true);
     try {
-    const response = await fetch(`${API_URL}/api/v1/event/submit?id=${user?.organization?.id}`, {
+    const response = await fetch(`${API_URL}/api/v1/event/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ eventId: eventDetails.id })
     });
 
+    const data = await response.json();
         if (response.status === 200) {
-            const data = await response.json();
-            addUserToUsers(user.id);
+            addUserToUsers(user ? user.id : '');
             toast.success(data.message);
         } else {
-            const data = await response.json();
             toast.error(data.message? data.message : "Erreur lors de la l'enregistrement à l'événement");
         }
     } catch (error) {
@@ -225,7 +227,7 @@ const deleteUserFromUsers = (userId: string) => {
 const handleCancel = async () => {
     setLoading(true);
     try {
-    const response = await fetch(`${API_URL}/api/v1/event/cancel/${eventDetails.id}?id=${user?.organization?.id}`, {
+    const response = await fetch(`${API_URL}/api/v1/event/cancel/${eventDetails.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -233,7 +235,7 @@ const handleCancel = async () => {
     });
 
     if (response.status === 200) {
-        deleteUserFromUsers(user.id);
+        deleteUserFromUsers(user ? user.id : '');
     } else {
         const data = await response.json();
         toast.error(data.message ? data.message : "Erreur lors de l'annulation");
@@ -294,8 +296,8 @@ const handleCancel = async () => {
               {eventDetails?.description && <p>{eventDetails.description}</p>}
               {/* Dates - createur - */}
               <div className="event-detail-event-date-time-container">
-                <p className='event-detail-event-date-time'>De {formatDateTime(eventDetails.start_date)}</p>
-                <p className='event-detail-event-date-time'>jusqu'à {formatDateTime(eventDetails.end_date)}</p>
+                <p className='event-detail-event-date-time'>De {formatDateTime(eventDetails?.start_date)}</p>
+                <p className='event-detail-event-date-time'>jusqu'à {formatDateTime(eventDetails?.end_date)}</p>
               </div>
             </div>
           </section>
@@ -312,7 +314,7 @@ const handleCancel = async () => {
                 ) : (
                     <Button
                       label="Participer à l'événement"
-                      onClick={() => handleSubmit()}
+                      onClick={() => handleSubmitParticipation()}
                       disabled={loading}
                       version='primary'
                       type='button'
@@ -361,9 +363,9 @@ const handleCancel = async () => {
               <h2>Adresse</h2>
               {/* adresse complete */}
               <div className="event-detail-sous-section-container">
-                <p>{eventDetails.destination.address.number} {eventDetails.destination.address.street}</p>
-                <p>{eventDetails.destination.address.postale_code} {eventDetails.destination.address.city}</p>
-                <p>{eventDetails.destination.address.country}</p>
+                <p>{eventDetails.destination.address?.number} {eventDetails.destination.address?.street}</p>
+                <p>{eventDetails.destination.address?.postale_code} {eventDetails.destination.address?.city}</p>
+                <p>{eventDetails.destination.address?.country}</p>
               </div>
             </div>
             <div className='event-detail-destination-info'>
@@ -445,7 +447,7 @@ const handleCancel = async () => {
           onCancel={handleCancelEvent}
         />
       )}
-      {removeMemberModal && (user?.organization?.role === 'OWNER' || user?.user_type === 'admin') && (
+      {removeMemberModal && userToRemove && (user?.organization?.role === 'OWNER' || user?.user_type === 'admin') && (
         <RemoveUserFromEventModal
           item={userToRemove}
           onClose={handleOpenRemoveMemberModal}

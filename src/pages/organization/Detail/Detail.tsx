@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { EventProps, UserProps } from "../../../utils/types";
 const API_URL = import.meta.env.VITE_BACKEND_URL;
-const env = import.meta.env.VITE_ENV_MODE;
 import AddressCards from "../../../components/Cards/AddressCard/AddressCards";
 import CreateEventModal from '../../../components/Modals/CreateEventModal/CreateEventModal.tsx';
 import EventCard from "../../../components/Cards/EventCard/EventCard";
@@ -14,25 +13,10 @@ import Button from "../../../components/Button/Button.tsx";
 import { toast } from "react-toastify";
 import RemoveMemberFromOrganizationConfirmModal from "../../../components/Modals/RemoveMemberFromOrganizationConfirmModal/RemoveMemberFromOrganizationConfirmModal.tsx";
 
-const fakeOrganization ={
-  name: 'Robert Space Industries',
-  address: {
-    number: 123,
-    street: "Rue de l'avion",
-    postale_code: 55604,
-    city: 'Los Santos',
-    country: 'États-Unis',
-    latitude: 23.405,
-    longitude: -12.456,
-  },
-  owner: {
-    id: '123456789',
-    firstname: 'Chriss',
-    lastname: 'Robert'
-  }
-};
+
 
 const emptyOrganization = {
+  id: null,
   name: '',
   address: {
     number: 0,
@@ -59,12 +43,12 @@ const emptyDestinationsList: any[] = [];
 const OrganizationDetail = () => {
 
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, getLogout } = useAuth();
   const [ loading, setLoading ] = useState(true);
   const [openCreateEventModal, setCreateEventOpenModal] = useState(false);
   const [addUserOpenModal, setAddUserOpenModal] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState(null);
-  const [ organization, setOrganization ] = useState( env === 'DEV' ? fakeOrganization : emptyOrganization);
+  const [ organization, setOrganization ] = useState(emptyOrganization);
   const [ destinationsList, setDestinationsList ] = useState(emptyDestinationsList);
   const [ usersList, setUsersList ] = useState(emptyUsers);
   const [ eventsList, setEventsList ] = useState(emptyEvents);
@@ -85,6 +69,10 @@ const OrganizationDetail = () => {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
+      if(response.status === 402){
+        getLogout();
+        navigate('/');
+      }
       const data = await response.json();
 
       if(data.status === 200){
@@ -114,7 +102,7 @@ const OrganizationDetail = () => {
 
   const handleRemoveUser = async (userRemove: UserProps) => {
     try{
-        const response = await fetch(`${API_URL}/api/v1/organization/remove-user/${userRemove.id}?id=${user?.organization?.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/organization/remove-user/${userRemove.id}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -151,9 +139,9 @@ const OrganizationDetail = () => {
           <div>Chargement...</div>
         </main>
       :
-       !organization ? 
+       !organization.id ? 
         <main>
-          <div>Cette organisation n'existe pas</div>
+          <div>Aucune organisation correspond</div>
         </main>
       :
         (
@@ -300,7 +288,7 @@ const OrganizationDetail = () => {
           {removeUserModalOpen && userToRemove && (
             <RemoveMemberFromOrganizationConfirmModal
               item={userToRemove}
-              onClose={() => setRemoveUserModalOpen(false)}
+              setClose={() => setRemoveUserModalOpen(false)}
               setUserToRemove={setUserToRemove}
               onRemove={handleRemoveUser}
             />
