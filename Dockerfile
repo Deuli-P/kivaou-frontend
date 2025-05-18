@@ -8,13 +8,6 @@ RUN npm install
 
 COPY . .
 
-ARG VITE_BACKEND_URL
-ARG VITE_ENV_MODE
-
-ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
-ENV VITE_ENV_MODE=$VITE_ENV_MODE
-
-
 RUN npm run build
 
 # Étape 2 : nginx pour servir le build
