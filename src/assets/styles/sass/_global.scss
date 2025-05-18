@@ -45,7 +45,7 @@ p{
 
 h1{
     color: $text;
-    font-size: clamp(18px, calc(18px + calc((24 - 18) / (1440 - 320)) * (100vw - 320px)), 24px);
+    font-size: clamp(20px, calc(20px + calc((24 - 20) / (1440 - 320)) * (100vw - 320px)), 24px);
     font-family: 'Cal sans', sans-serif;
 }
 
