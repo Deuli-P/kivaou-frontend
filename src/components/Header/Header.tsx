@@ -13,6 +13,8 @@ const Header = () => {
     setMenuOpen((prev) => !prev);
   };
 
+  const isAdmin = user?.user_type === "admin";
+
   return (
     <header>
       <div className="container">
@@ -20,7 +22,7 @@ const Header = () => {
         <NavLink to="/" className="header-logo">
           <span className="header-logo">KiVAOU</span>
         </NavLink>
-        
+
         {/* Burger Menu uniquement en mobile */}
         <div
           className={`burger-container ${menuOpen ? "open" : ""}`}
@@ -31,34 +33,39 @@ const Header = () => {
           <span className={`burger-bar ${menuOpen ? "open" : ""}`} />
         </div>
 
-        {/* Navigation Desktop*/}
+        {/* Navigation Desktop */}
         {user ? (
           <nav className="desktop-nav">
-            {user?.organization?.id ? 
-              (
-                <>
-                  <NavLink to="/orga/event/create" className="header-navlink">
-                    Créer un événement
+            {isAdmin ? (
+              <NavLink to="/profile" className="header-navlink header-profile">
+                <UserCircle user={user} size="m" />
+                Profile
+              </NavLink>
+            ) : (
+              <>
+                {user?.organization?.id ? (
+                  <>
+                    <NavLink to="/orga/event/create" className="header-navlink">
+                      Créer un événement
+                    </NavLink>
+                    <NavLink
+                      to={`/orga/${user.organization.id}`}
+                      className="header-navlink"
+                    >
+                      Mon organisation
+                    </NavLink>
+                  </>
+                ) : (
+                  <NavLink to="/orga/create" className="header-navlink">
+                    Créer une organisation
                   </NavLink>
-                  <NavLink to={`/orga/${user.organization.id}`} className="header-navlink">
-                    Mon organisation
-                  </NavLink>
-                </>
-              ) 
-            : 
-              (
-                <NavLink to="orga/create" className="header-navlink">
-                  Créer une organisation
+                )}
+                <NavLink to="/profile" className="header-navlink header-profile">
+                  <UserCircle user={user} size="m" />
+                  Profile
                 </NavLink>
-              )
-            }
-            <NavLink to="/profile" className="header-navlink header-profile">
-                <UserCircle
-                  user={user}
-                  size="m"
-                />
-              Profile
-            </NavLink>
+              </>
+            )}
           </nav>
         ) : (
           <nav className="desktop-nav">
@@ -75,27 +82,34 @@ const Header = () => {
       {/* Navigation Mobile */}
       {user ? (
         <nav className={`mobile-nav ${menuOpen ? "open" : ""}`} ref={navRef}>
-          {user.organization.id ? 
-              (
+          {isAdmin ? (
+            <NavLink to="/profile" className="header-navlink">
+              Profil
+            </NavLink>
+          ) : (
+            <>
+              {user?.organization?.id ? (
                 <>
                   <NavLink to="/orga/event/create" className="header-navlink">
                     Créer un événement
                   </NavLink>
-                  <NavLink to={`/orga/${user.organization.id}`} className="header-navlink">
+                  <NavLink
+                    to={`/orga/${user.organization.id}`}
+                    className="header-navlink"
+                  >
                     Mon organisation
                   </NavLink>
                 </>
-              ) 
-            : 
-              (
-                <NavLink to="orga/create" className="header-navlink">
+              ) : (
+                <NavLink to="/orga/create" className="header-navlink">
                   Créer une organisation
                 </NavLink>
-              )
-            }
-          <NavLink to="/profile" className="header-navlink">
-            Profil
-          </NavLink>
+              )}
+              <NavLink to="/profile" className="header-navlink">
+                Profil
+              </NavLink>
+            </>
+          )}
         </nav>
       ) : (
         <nav className={`mobile-nav ${menuOpen ? "open" : ""}`} ref={navRef}>

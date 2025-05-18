@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext';
 import { createPortal } from 'react-dom';
 import { toast } from 'react-toastify';
-import { EventProps, UserProps } from '../../utils/types';
+import { EventProps } from '../../utils/types';
 import EventCard from '../../components/Cards/EventCard/EventCard';
 import EditProfileInfoModal from '../../components/Modals/EditProfileInfoModal.tsx/EditProfileInfoModal';
 const API_URL = import.meta.env.VITE_BACKEND_URL;
@@ -52,11 +52,11 @@ const Profile = () => {
             })
             const data = await response.json()
             if(data.status === 200){
-                setUser((prev: UserProps) => ({
+                setUser((prev:any) => ({
                     ...prev,
                     firstname: data.user.firstname,
                     lastname: data.user.lastname,
-                    photo_path: data.user.photo_path
+                    photo_path: data.user.photo_path,
                 }))
                 toast.success(data.message)
                 handleOpeningEditModal()
@@ -110,7 +110,7 @@ const Profile = () => {
             />
             ) : (
                     <span className='user-circle-initials xxl'>
-                        {initials(user)}
+                        {user ? initials(user) : ''}
                     </span>
             )}
             <div className='profile-infos-container'>
@@ -130,37 +130,38 @@ const Profile = () => {
                             {user?.email}
                         </span>
                     </div>
-                    { user?.organization?.id ? 
-                        <div 
-                            className='underline_label'
-                        >  
-                            <p>
-                                Votre organisation : 
-                            </p>
-                            <span
-                                onClick={()=> navigate(`/orga/${user?.organization?.id}`)}
-                            >
-                                {user?.organization?.name}
-                            </span>
-                        </div>
-                    :
-                    (
-                        <div className='profile-no-orga-container'>
-                            <p>
-                                Demandez à une organisation de vous ajouter 
-                            </p>
-                            <p>
-                                OU
-                            </p>
-                            <Button 
-                                onClick={()=> navigate(`/orga/create`)}
-                                label='Créer une organisation'
-                                version='tertiary'
-                                ariaLabel='Créer une organisation'
-                            />
-                        </div>
-                    )
-                    }
+                    {user?.user_type !== 'admin' &&(
+                        user?.organization?.id ? 
+                            <div 
+                                className='underline_label'
+                            >  
+                                <p>
+                                    Votre organisation : 
+                                </p>
+                                <span
+                                    onClick={()=> navigate(`/orga/${user?.organization?.id}`)}
+                                >
+                                    {user?.organization?.name}
+                                </span>
+                            </div>
+                        :
+                        (
+                            <div className='profile-no-orga-container'>
+                                <p>
+                                    Demandez à une organisation de vous ajouter 
+                                </p>
+                                <p>
+                                    OU
+                                </p>
+                                <Button 
+                                    onClick={()=> navigate(`/orga/create`)}
+                                    label='Créer une organisation'
+                                    version='tertiary'
+                                    ariaLabel='Créer une organisation'
+                                />
+                            </div>
+                        )
+                    )}
                 </div>
                 <button
                     className='btn primary'

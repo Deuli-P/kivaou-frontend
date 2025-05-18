@@ -1,0 +1,45 @@
+@use '../../../assets/styles/sass/variables' as *;
+@use '../../../assets/styles/sass/mixins' as *;
+
+.organization-card {
+    &-container{
+        width: clamp(280px, calc(280px + calc((400 - 280) / (1920 - 320)) * (100vw - 320px)), 400px);
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        gap: $g_xs;
+    }
+    &-title-container{
+        padding: 0.5rem 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    &-users-container{
+        display: flex;
+        width: 100%;
+    }
+    &-btn-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    &-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &-owner-container{
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 4px;
+        }
+        &-owner-span{
+            font-size: $f_s;
+            font-weight: 600;
+
+        }
+    }
+
+  
+}

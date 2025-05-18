@@ -53,7 +53,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const handleSubmit = async () => {
         setLoading(true);
         try {
-        const response = await fetch(`${API_URL}/api/v1/event/submit?id=${user?.organization?.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/event/submit`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -61,8 +61,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         });
 
             if (response.status === 200) {
-                const data = await response.json();
-                addUserToUsers(user.id);
+                addUserToUsers(user ? user.id : '');
                 toast.success("Participation validée");
             } else {
                 const data = await response.json();
@@ -78,7 +77,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const handleCancel = async () => {
         setLoading(true);
         try {
-        const response = await fetch(`${API_URL}/api/v1/event/cancel?id=${user?.organization?.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/event/cancel`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -86,7 +85,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         });
 
         if (response.status === 200) {
-            deleteUserFromUsers(user?.id);
+            deleteUserFromUsers(user ? user?.id : '');
         } else {
             const data = await response.json();
             toast.error(data.message ? data.message : "Erreur lors de l'annulation");
@@ -107,10 +106,10 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         ? `Vous êtes inscrit à l'événement ${eventData.title}`
         : `Vous n'êtes pas inscrit à l'événement ${eventData.title}`;
 
-    const ariaLabelEventCard = `Événement le ${formatDateTime(eventData.start_date)} à ${eventData.destination.name} - ${eventData.destination.address.street}, ${eventData.destination.address.postale_code} ${eventData.destination.address.city}, ${eventData.destination.address.country}`;
+    const ariaLabelEventCard = `Événement le ${formatDateTime(eventData.start_date)} à ${eventData.destination.name} ${eventData.destination.address && (`${eventData.destination.address?.street}, ${eventData.destination.address?.postale_code} ${eventData.destination.address?.city}, ${eventData.destination.address?.country}`)}`;
 
   return (
-    <article className="event_card-container" aria-label={ariaLabelEventCard}>
+    <article className="event_card-container card" aria-label={ariaLabelEventCard}>
       <div className="event_card-content-container">
         <div className="">
           <h5 className="event_card-title">{eventData.title}</h5>

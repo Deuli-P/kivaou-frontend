@@ -13,7 +13,6 @@ const UserDetailCard = ({item, setOpen, setUserToRemove}: UserDetailCardProps) =
     const { user } = useAuth();
 
     const handleStartRemoveMember = async () => {
-        console.log('start remove member');
         setUserToRemove(item);
         setOpen();
     };
@@ -22,7 +21,7 @@ const UserDetailCard = ({item, setOpen, setUserToRemove}: UserDetailCardProps) =
     
   return (
     <article key={item.id} className="user-card-container">
-        {user?.organization?.role === 'OWNER' && user.id !== item.id && (
+        {(user?.organization?.role === 'OWNER' && user.id !== item.id)|| user?.user_type === 'admin' && (
             <div className="user-card-remove-container" onClick={handleStartRemoveMember}>
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
                     viewBox="0 0 32 32" enable-background="new 0 0 32 32" xmlSpace="preserve">

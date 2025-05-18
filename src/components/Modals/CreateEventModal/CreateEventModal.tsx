@@ -43,7 +43,7 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
 
   const [eventData, setEventData] = useState(env === 'DEV' ? fakeEvent : emptyEvent);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setEventData((prevData) => ({
       ...prevData,
@@ -70,7 +70,7 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
           return;
         }
       
-        const response = await fetch(`${API_URL}/api/v1/event/create?id=${user.organization.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/event/create`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
@@ -79,7 +79,7 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
           if (response.status === 200) {
             const data = await response.json();
             toast.success(data.message);
-            setEvent((prev)=> ({
+            setEvent((prev: any)=> ({
               ...prev,
               future:[...prev,eventData]
           }));

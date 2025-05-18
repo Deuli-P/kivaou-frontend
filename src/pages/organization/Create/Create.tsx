@@ -2,7 +2,6 @@ import React, { useState} from 'react'
 import { toast } from 'react-toastify';
 import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { UserProps } from '../../../utils/types';
 import Button from '../../../components/Button/Button';
 import Input from '../../../components/Inputs/Input/Input';
 const API_URL = import.meta.env.VITE_BACKEND_URL
@@ -43,7 +42,7 @@ const CreateOrganization = () => {
       const data = await response.json()
 
       if(data.status === 200){
-        setUser((prev: UserProps) => ({
+        setUser((prev: any) => ({
           ...prev,
           organization:[data.organization]
         }))

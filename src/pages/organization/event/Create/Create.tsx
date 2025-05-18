@@ -103,7 +103,7 @@ const CreateEvent = () => {
   const fetchPlaces = async (organizationId: string) => {
     try {
       setLoading(true)
-      const response = await fetch(`${API_URL}/api/v1/destination/all?id=${organizationId}`, {
+      const response = await fetch(`${API_URL}/api/v1/destination/all/${organizationId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -140,7 +140,7 @@ const CreateEvent = () => {
         return;
       }
     
-      const response = await fetch(`${API_URL}/api/v1/event/create?id=${user.organization.id}`, {
+      const response = await fetch(`${API_URL}/api/v1/event/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -164,7 +164,9 @@ const CreateEvent = () => {
   };
 
   useEffect(() => {
-    fetchPlaces(user?.organization.id)
+    if(user?.organization){
+      fetchPlaces(user?.organization?.id)
+    }
   },[user])
 
   if(loading){

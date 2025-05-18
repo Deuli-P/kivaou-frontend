@@ -4,11 +4,11 @@ export interface UserProps {
     lastname: string;
     email?: string;
     photo_path?: string;
-    user_type?: null | "admin"
+    user_type?: "admin"
     organization?:{
-      id: string | null;
-      name: string | null;
-      role: 'OWNER' | 'MEMBER' | null;
+      id: string ;
+      name: string ;
+      role: 'OWNER' | 'MEMBER';
     };
 }
 
@@ -16,7 +16,8 @@ export interface OrganizationProps {
     id: string;
     name: string;
     owner: UserProps;
-    address: AddressProps;
+    users?: UserProps[];
+    address?: AddressProps;
 }
 
 export interface EventProps {
@@ -53,7 +54,7 @@ export interface PlaceProps {
     google_page_link?: string;
     website?: string;
     note?: number;
-    address: AddressProps;
+    address?: AddressProps;
 }
 
 export interface DayProps {

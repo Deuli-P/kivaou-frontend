@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useAuth } from '../../../../context/AuthContext';
 import { toast } from 'react-toastify';
 import ScheduleInput from '../../../../components/Schedule/ScheduleInput';
 import Button from '../../../../components/Button/Button';
@@ -19,7 +18,7 @@ const fakeDestinations = {
     phone: '+33 1 23 45 67 89',
     website: 'https://www.stadefrance.com/',
     photo_path: 'https://lh3.googleusercontent.com/gps-cs-s/AC9h4npC8J_314etjhqTAURtXRNwqqG5QKT7AlINstHjOdFCFIeyazTiwqfleLIvLcY8bsuDsmKsJ0V4JWp8XU3Y7QhY-fkYMl-mtkjwvkYsnPKh27reb4TzIN1MfPOVGYaXtPeXs1b3=w408-h306-k-no',
-    number: 21,
+    number: '21',
     street: 'Avenue Jules Rimet',
     postale_code: 93200,
     city: 'Saint-Denis',
@@ -35,7 +34,7 @@ const emptyDestinations = {
     phone: '',
     website: '',
     photo_path: '',
-    number: 0,
+    number: '',
     street: '',
     postale_code: 0,
     city: '',
@@ -75,7 +74,6 @@ const optionsData = [
 
 const DestinationCreate = () => {
 
-    const { user } = useAuth();
 
     const [ destinationData, setDestinationData ] = useState(
         env === 'DEV' ? fakeDestinations : emptyDestinations
@@ -110,7 +108,8 @@ const DestinationCreate = () => {
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try{
-            const response = await fetch(`${API_URL}/api/v1/destination/create?id=${user?.organization?.id}`, {
+            console.log('type of number', typeof destinationData.number)
+            const response = await fetch(`${API_URL}/api/v1/destination/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -166,6 +165,16 @@ const DestinationCreate = () => {
                     ariaLabel="Type de service de la destination"
                     name='service_type'
                 />
+                 <Input
+                    name='speciality'
+                    onChange={handleChange}
+                    value={destinationData.speciality}
+                    label='Spécialité'
+                    type='text'
+                    required={true}
+                    placeholder='ex: Plongée, Surf, Libanais, Bar.'
+                    ariaLabel="Ce que fait la destination"
+                />
                 <Input
                     name='service_link'
                     onChange={handleChange}
@@ -184,21 +193,14 @@ const DestinationCreate = () => {
                     placeholder='Lien du lieu sur Google map'
                     ariaLabel="Lien du lieu sur Google map"
                 />
-                <Input
-                    name='speciality'
-                    onChange={handleChange}
-                    value={destinationData.speciality}
-                    label='Spécialité'
-                    type='text'
-                    placeholder='ex: Plongée, Surf, Libanais, Bar.'
-                    ariaLabel="Ce que fait la destination"
-                />
+               
                 <Input
                     name='phone'
                     onChange={handleChange}
                     value={destinationData.phone}
                     label='Téléphone'
                     type='text'
+                    required={true}
                     placeholder='+33 1 23 45 67 89'
                     ariaLabel="Numéro de téléphone de la destination"
                 />
@@ -259,19 +261,19 @@ const DestinationCreate = () => {
                     required
                     />
                     <Input
-                    name="city"
-                    label="Ville"
-                    placeholder="ex : Paris"
-                    value={destinationData.city}
-                    onChange={handleChange}
-                    required
-                    />
-                    <Input
                     name="postale_code"
                     type="number"
                     label="Code postal"
                     placeholder="ex : 75000"
                     value={destinationData.postale_code}
+                    onChange={handleChange}
+                    required
+                    />
+                    <Input
+                    name="city"
+                    label="Ville"
+                    placeholder="ex : Paris"
+                    value={destinationData.city}
                     onChange={handleChange}
                     required
                     />
