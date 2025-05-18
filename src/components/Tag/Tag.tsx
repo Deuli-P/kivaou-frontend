@@ -1,8 +1,10 @@
 import './tag.scss';
 
+interface TagProps {
+  children: React.ReactNode;
+};
 
-
-const Tag = ({children}) => {
+const Tag = ({children}: TagProps) => {
 
 
   return (
