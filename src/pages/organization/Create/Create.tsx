@@ -14,7 +14,7 @@ const CreateOrganization = () => {
 
   const [ organizationData, setOrganizationData ] = useState({
     name: '',
-    number: '',
+    number_street: '',
     street: "",
     postale_code: 0,
     city: '',
@@ -80,11 +80,11 @@ const CreateOrganization = () => {
         />
 
         <Input
-          name="number"
+          name="number_street"
           label="Numéro de la voie"
           type="text"
           placeholder="ex : 123 ou 123bis"
-          value={organizationData.number}
+          value={organizationData.number_street}
           onChange={handleChange}
           required
         />
