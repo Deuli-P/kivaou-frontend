@@ -109,7 +109,7 @@ const DestinationCreate = () => {
         e.preventDefault()
         try{
             console.log('type of number', typeof destinationData.number)
-            const response = await fetch(`${API_URL}/api/v1/destination/create`, {
+            const response = await fetch(`/server/api/v1/destination/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

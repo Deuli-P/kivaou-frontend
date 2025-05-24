@@ -13,16 +13,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copie et préparation de votre entrypoint
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh \
-    && apk add --no-cache dos2unix \
-    && dos2unix /entrypoint.sh
-
-# On force l'utilisation de VOTRE entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+EXPOSE 80 443
 
 # Le CMD par défaut après votre script
 CMD ["nginx", "-g", "daemon off;"]
-
-EXPOSE 80 443

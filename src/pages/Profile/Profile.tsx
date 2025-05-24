@@ -44,7 +44,7 @@ const Profile = () => {
     const handleSubmitEditProfile =async(e: React.FormEvent<HTMLFormElement>)=> {
         e.preventDefault();
         try{
-            const response = await fetch(`${API_URL}/api/v1/user/edit`, {
+            const response = await fetch(`/server/api/v1/user/edit`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -74,7 +74,7 @@ const Profile = () => {
 
     const fetchProfile = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/v1/user`, {
+            const response = await fetch(`/server/api/v1/user`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'

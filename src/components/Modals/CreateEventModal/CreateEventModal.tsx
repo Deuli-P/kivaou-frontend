@@ -70,7 +70,7 @@ const CreateEventModal = ({ destination, onClose, setEvent }: CreateEventModalPr
           return;
         }
       
-        const response = await fetch(`${API_URL}/api/v1/event/create`, {
+        const response = await fetch(`/server/api/v1/event/create`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',

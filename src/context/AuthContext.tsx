@@ -54,7 +54,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const getLogout = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/v1/auth/logout`, {
+        const response = await fetch(`/server/api/v1/auth/logout`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -77,7 +77,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const getSession = async () => {
     try{
       setLoading(true)
-      const response = await fetch(`${API_URL}/api/v1/auth/check`,{
+      const response = await fetch(`/server/api/v1/auth/check`,{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

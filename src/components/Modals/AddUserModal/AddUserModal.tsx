@@ -42,7 +42,7 @@ const AddUserModal = ({ onClose, setUsers }: AddUserModalProps) => {
       }
 
       const response = await fetch(
-        `${API_URL}/api/v1/organization/add-user/${email}`,
+        `/server/api/v1/organization/add-user/${email}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
