@@ -1,6 +1,10 @@
 #!/bin/sh
-echo 'window.env ={
-    VITE_BACKEND_URL: '$(echo $VITE_BACKEND_URL)',
-    VITE_ENV_MODE: '$(echo $VITE_ENV_MODE)'
-},' > /usr/share/nginx/html/env.js
+
+cat <<EOF > /usr/share/nginx/html/env.js
+window.env = {
+  VITE_BACKEND_URL: "${VITE_BACKEND_URL}",
+  VITE_ENV_MODE: "${VITE_ENV_MODE}"
+};
+EOF
+
 exec nginx -g 'daemon off;'
