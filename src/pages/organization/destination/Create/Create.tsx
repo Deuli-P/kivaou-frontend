@@ -4,10 +4,10 @@ import ScheduleInput from '../../../../components/Schedule/ScheduleInput';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Inputs/Input/Input';
 import Select from '../../../../components/Inputs/Select/Select';
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 import './create.scss'
 
-const env = import.meta.env.VITE_ENV_MODE;
+const env = (window as any).env?.VITE_ENV_MOE || import.meta.env.VITE_ENV_MOE;
 
 const fakeDestinations = {
     name: 'Stade de France',

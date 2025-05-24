@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { EventProps, UserProps } from "../../../utils/types";
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 import AddressCards from "../../../components/Cards/AddressCard/AddressCards";
 import CreateEventModal from '../../../components/Modals/CreateEventModal/CreateEventModal.tsx';
 import EventCard from "../../../components/Cards/EventCard/EventCard";

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { EventProps } from '../../utils/types';
 import Button from '../../components/Button/Button';
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 import './userHome.scss';
 const UserHome = () => {
 

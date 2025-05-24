@@ -8,8 +8,8 @@ import Input from '../../../../components/Inputs/Input/Input';
 import Select from '../../../../components/Inputs/Select/Select';
 import TextArea from '../../../../components/Inputs/TextArea/TextArea';
 
-const API_URL = import.meta.env.VITE_BACKEND_URL
-const env = import.meta.env.VITE_ENV_MODE;
+const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
+const env = (window as any).env?.VITE_ENV_MOE || import.meta.env.VITE_ENV_MOE;
 
 interface CreateEventPlaceProps {
   id: string;

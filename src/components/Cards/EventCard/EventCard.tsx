@@ -8,6 +8,12 @@ import UserGroup from '../../User/UserGroup/UserGroup';
 import './EventCard.scss';
 import Button from '../../Button/Button';
 const API_URL = import.meta.env.VITE_BACKEND_URL;
+/*
+ * Remarque :
+ * L'accès à import.meta.env est la méthode recommandée avec Vite pour injecter des variables d'environnement au build.
+ * Pour Docker, il faut s'assurer que les variables (ex: VITE_BACKEND_URL) sont bien définies lors du build de l'image.
+ * Si tu veux des variables dynamiques au runtime (après build), il faut une autre approche (ex: fetch d'un fichier config.json généré au démarrage du conteneur).
+ */
 
 interface EventCardProps {
   event: EventProps;

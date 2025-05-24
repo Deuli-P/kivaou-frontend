@@ -5,7 +5,7 @@ import { toast } from "react-toastify"
 import { regexEmail, regexPassword } from "../../../utils/utils"
 import Button from "../../../components/Button/Button"
 import Input from "../../../components/Inputs/Input/Input"
-const API_URL = import.meta.env.VITE_BACKEND_URL
+const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 import './../auth.scss';
 
 const Register = () => {

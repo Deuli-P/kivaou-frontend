@@ -19,6 +19,11 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copie la conf custom pour gérer les routes React
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+# Copie le script d'entrypoint pour injecter les variables d'env
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 80
+EXPOSE 443
+
+CMD ["/entrypoint.sh"]
