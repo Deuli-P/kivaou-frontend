@@ -13,8 +13,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [ loginData , setLoginData ] = useState({
-    email: 'pierre@deliverycar.fr',
-    password: 'Devliverycar28*'
+    email: '',
+    password: ''
   })
  
 

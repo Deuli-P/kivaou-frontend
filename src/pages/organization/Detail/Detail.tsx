@@ -18,7 +18,7 @@ const emptyOrganization = {
   id: null,
   name: '',
   address: {
-    number: 0,
+    number: '',
     street: '',
     postale_code: 0,
     city: '',

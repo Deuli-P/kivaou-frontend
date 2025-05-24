@@ -13,11 +13,11 @@ const Register = () => {
   const navigate = useNavigate()
 
   const [registerData, setRegisterData] = useState({
-    email: 'john@doe.com',
-    password: 'Papillons28*',
-    firstname: 'John',
-    lastname: 'Die',
-    photo_path: 'https://randomuser.me/api/portraits/men/70.jpg'
+    email: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    photo_path: ''
   })
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -25,10 +25,10 @@ interface CreateEventPlaceProps {
 };
 
 const fakeEvent = {
-  title: 'Final des Worlds series',
-  description: 'Une description de l\'événement ici pour dire quel est le programme ou le projet',
-  start_date: '2025-10-01T12:00',
-  end_date: '2025-10-01T15:00',
+  title: '',
+  description: '',
+  start_date: '',
+  end_date: '',
   place : ""
 
 };

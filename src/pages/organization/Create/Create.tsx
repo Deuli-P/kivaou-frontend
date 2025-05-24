@@ -13,12 +13,12 @@ const CreateOrganization = () => {
   const navigate = useNavigate();
 
   const [ organizationData, setOrganizationData ] = useState({
-    name: 'EDF',
-    number: 23,
-    street: "Rue de l'avion",
-    postale_code: 12345,
-    city: 'Fankfurt',
-    country: 'France'
+    name: '',
+    number: '',
+    street: "",
+    postale_code: 0,
+    city: '',
+    country: ''
   })
 
   const handleChange= (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +83,7 @@ const CreateOrganization = () => {
           name="number"
           label="Numéro de la voie"
           type="text"
-          placeholder="ex : 123"
+          placeholder="ex : 123 ou 123bis"
           value={organizationData.number}
           onChange={handleChange}
           required
