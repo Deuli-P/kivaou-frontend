@@ -174,7 +174,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {eventData.submitted ? (
           <Button 
             onClick={handleCancel} 
-            disabled={loading || eventData.owner.id === user?.id} 
+            disabled={loading || eventData.owner.id === user?.id || user?.user_type === 'admin'} 
             ariaLabel={ariaLabelSubmit}
             label='Annuler ma participation'
             version='secondary'

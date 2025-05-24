@@ -104,7 +104,10 @@ const EventDetail = () => {
 
   const handleCancelEvent = async () => {
     try {
-      console.log('start cancel event')
+      if(user?.user_type === 'admin' || user?.organization?.role !== 'OWNER'){
+        toast.error("Vous n'êtes pas autorisé à annuler cet événement")
+        return;
+      }
       const response = await fetch(`/server/api/v1/event/cancel/${eventDetails.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
@@ -136,8 +139,10 @@ const EventDetail = () => {
 
   const handleDeleteEvent = async () => {
     try {
-      console.log('start cancel event')
-      console.log('feature pas encore implémentée')
+      if(user?.user_type !== 'admin'){
+        toast.error("Vous n'êtes pas autorisé à supprimer cet événement")
+        return;
+      }
       const response = await fetch(`/server/api/v1/admin/event/${eventId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },

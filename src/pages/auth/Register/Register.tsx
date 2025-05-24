@@ -138,9 +138,8 @@ const Register = () => {
         />
         <Input
           name="photo_path"
-          label='https://...'
+          label='Photo de profil'
           type="text"
-          required={true}
           value={registerData.photo_path}
           onChange={(e)=>handleChangeValue(e)}
           ariaLabel="URL de la photo de profil de l'utilisateur"
