@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { EventProps } from '../../utils/types';
 import EventCard from '../../components/Cards/EventCard/EventCard';
 import EditProfileInfoModal from '../../components/Modals/EditProfileInfoModal.tsx/EditProfileInfoModal';
-const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 import './profile.scss';
 import Button from '../../components/Button/Button';
 import { initials } from '../../utils/utils';

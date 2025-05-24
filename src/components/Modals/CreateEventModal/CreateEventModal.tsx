@@ -5,7 +5,6 @@ import { PlaceProps } from '../../../utils/types';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../../context/AuthContext';
 const env = (window as any).env?.VITE_ENV_MOE || import.meta.env.VITE_ENV_MOE;
-const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 import './CreateEventModal.scss';
 import Button from '../../Button/Button';
 import TextArea from '../../Inputs/TextArea/TextArea';

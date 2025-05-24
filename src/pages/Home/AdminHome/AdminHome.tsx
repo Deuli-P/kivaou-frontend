@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import OrganizationCard from '../../../components/Cards/OrganizationCard/OrganizationCard';
 import DeleteOrganizationModal from '../../../components/Modals/DeleteOrganizationModal/DeleteOrganizationModal';
 import DeleteUserModal from '../../../components/Modals/DeleteUserModal/DeleteUserModal';
-const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 import './adminHome.scss';
 const AdminHome = () => {
 

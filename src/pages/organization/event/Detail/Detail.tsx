@@ -11,7 +11,6 @@ import CancelEventModal from '../../../../components/Modals/CancelEventModal/Can
 import RemoveUserFromEventModal from '../../../../components/Modals/RemoveUserFromEventModal/RemoveUserFromEventModal';
 import { formatDateTime } from '../../../../utils/utils';
 import Tag from '../../../../components/Tag/Tag';
-const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 const emptyEvent: EventProps = {
   id: '',

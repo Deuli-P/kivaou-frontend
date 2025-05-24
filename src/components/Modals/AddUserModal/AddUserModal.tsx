@@ -7,7 +7,6 @@ import { regexEmail } from "../../../utils/utils";
 import Button from "../../Button/Button";
 import Input from "../../Inputs/Input/Input";
 const env = (window as any).env?.VITE_ENV_MOE || import.meta.env.VITE_ENV_MOE;
-const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 
 interface AddUserModalProps {
   onClose: () => void;

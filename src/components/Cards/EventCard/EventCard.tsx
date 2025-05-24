@@ -7,7 +7,6 @@ import { formatDateTime } from '../../../utils/utils';
 import UserGroup from '../../User/UserGroup/UserGroup';
 import './EventCard.scss';
 import Button from '../../Button/Button';
-const API_URL = import.meta.env.VITE_BACKEND_URL;
 /*
  * Remarque :
  * L'accès à import.meta.env est la méthode recommandée avec Vite pour injecter des variables d'environnement au build.

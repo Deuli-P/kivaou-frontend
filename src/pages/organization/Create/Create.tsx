@@ -4,7 +4,6 @@ import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import Input from '../../../components/Inputs/Input/Input';
-const API_URL = (window as any).env?.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
 
 
 const CreateOrganization = () => {
