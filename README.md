@@ -51,6 +51,18 @@ Ce projet frontend communique avec une API REST développée avec Node.js, Expre
 
 --- 
 
+## 👨👨👨 Comptes administrateur
+
+Email :
+```
+admin@kivaou.fr
+```
+Mot de passe : 
+```
+PasswordStrong56*
+```
+
+---
 ## Auteur 
 
 **Pierre Antoniutti**
