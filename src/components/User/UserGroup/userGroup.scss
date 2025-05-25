@@ -18,22 +18,26 @@
 }
 
 
-.user_circle-wrapper{
-    display: flex;
-    gap: -10px;
-    position: absolute;
-    &.s{
-        left: 20px;
-    }
-    &.m{
-        left: 25px;
-    }
-    &.l{
-        left: 30px;
-    }
-    &:first-child{
-        position: absolute;
-        left: 0;
-    }
+.user_circle-wrapper {
+  display: flex;
+  position: absolute;
+  $offsets: (
+    s: 20px,
+    m: 25px,
+    l: 30px
+  );
 
+  @each $size, $offset in $offsets {
+    &.#{$size} {
+      &:nth-child(1) {
+        left: 0;
+      }
+
+      @for $i from 2 through 10 {
+        &:nth-child(#{$i}) {
+          left: ($i - 1) * $offset;
+        }
+      }
+    }
+  }
 }

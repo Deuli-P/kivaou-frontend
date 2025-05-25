@@ -4,12 +4,15 @@
     width: clamp(280px, calc(280px + calc((400 - 280) / (1920 - 320)) * (100vw - 320px)), 400px);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 12px;
+    height: 350px;
   }
   .event_card-content-container{
     display: flex;
     flex-direction: column;
     gap: 0.3em;
+    justify-content: space-between;
   }
   
   .event_card-title {

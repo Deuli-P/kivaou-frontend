@@ -150,8 +150,6 @@ const OrganizationDetail = () => {
               srcSet="/hero-320.webp 320px, /hero-768.webp 600px, /hero-1440.webp 1100px, /hero-2400.webp 2000px"
               className="orga-detail-hero"
               alt="Image d'événements"
-              width="1440"
-              height="600"
             />
           <section className="orga-detail-orga-info">
             <h1>Détail de l'organisations</h1>
