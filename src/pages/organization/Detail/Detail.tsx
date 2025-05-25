@@ -148,9 +148,10 @@ const OrganizationDetail = () => {
           <section className="orga-detail-orga-info">
             <img 
               src="/hero-1440.webp" 
-              srcSet="/hero-320.webp 320w, /hero-768.webp 600w, /hero-1440.webp 1100w, /hero-2400.webp 2000w"
+              srcSet="/hero-320.webp 320px, /hero-768.webp 600px, /hero-1440.webp 1100px, /hero-2400.webp 2000px"
               className="orga-detail-hero"
               loading="lazy"
+              alt="Image d'événements"
             />
             <h1>Détail de l'organisations</h1>
             <div className="orga-detail-orga-title-container">

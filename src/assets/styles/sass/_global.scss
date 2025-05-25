@@ -73,16 +73,17 @@ a{
 
 .underline_label{
     color: $text;
+    font-family: "Roboto", sans-serif;
     display: flex;
     align-items: center;
     gap: 4px;
     p {
         text-decoration: none;
         text-decoration-color: $text;
-        font-size: $f_xs;
+        font-size: $f_s;
     }
     span{
-        font-size: $f_xs;
+        font-size: $f_s;
         text-decoration: underline;
         cursor: pointer;
         text-underline-offset: 2px;
@@ -91,6 +92,8 @@ a{
 };
 
 .deep_link{
+    font-family: "Roboto", sans-serif;
+
     color: $text;
     text-decoration: none;
     &:hover{
