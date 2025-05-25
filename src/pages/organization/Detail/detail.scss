@@ -1,6 +1,11 @@
 @use '../../../assets/styles/sass/variables' as *;
 @use '../../../assets/styles/sass/mixins' as *;
 
+
+.orga-detail-main{
+    margin-top:  0;
+    padding: 0px 20px 20 20px
+}
 .orga-detail-orga-info{
   display: flex;
   flex-direction: column;

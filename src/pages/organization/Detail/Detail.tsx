@@ -144,15 +144,16 @@ const OrganizationDetail = () => {
         </main>
       :
         (
-        <main>
-          <section className="orga-detail-orga-info">
+        <main className="orga-detail-main">
             <img 
               src="/hero-1440.webp" 
               srcSet="/hero-320.webp 320px, /hero-768.webp 600px, /hero-1440.webp 1100px, /hero-2400.webp 2000px"
               className="orga-detail-hero"
-              loading="lazy"
               alt="Image d'événements"
+              width="1440"
+              height="600"
             />
+          <section className="orga-detail-orga-info">
             <h1>Détail de l'organisations</h1>
             <div className="orga-detail-orga-title-container">
               <p>Nom : {organization.name}</p>

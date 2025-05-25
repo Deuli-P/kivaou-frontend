@@ -13,7 +13,7 @@ const UserThumbnail: React.FC<UserThumbnailProps> = ({ user, size }) => {
   return (
     <div className={`user-circle user-circle-${size}`}>
       {user.photo_path ? (
-        <img src={user.photo_path} alt={`Photo de ${user.firstname} ${user.lastname}`} className="user-circle-img" loading="lazy"/>
+        <img src={user.photo_path} alt={`Photo de ${user.firstname} ${user.lastname}`} className="user-circle-img"/>
       ) : (
         <span className={`user-circle-initials ${size}`}>{initials(user)}</span>
       )}
