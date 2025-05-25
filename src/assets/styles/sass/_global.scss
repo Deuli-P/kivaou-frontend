@@ -38,26 +38,26 @@ main{
 
 
 p{
-    font-size: clamp(10px, calc(10px + calc((16 - 10) / (1920 - 320)) * (100vw - 320px)), 16px);
+    font-size: $f_s;
     font-family: 'Roboto', sans-serif;
     color: $text;
 }
 
 h1{
     color: $text;
-    font-size: clamp(20px, calc(20px + calc((24 - 20) / (1440 - 320)) * (100vw - 320px)), 24px);
+    font-size: $f_l;
     font-family: 'Cal sans', sans-serif;
 }
 
 h2{
     color: $text;
-    font-size: clamp(16px, calc(16px + calc((20 - 16) / (1440 - 320)) * (100vw - 320px)), 20px);
+    font-size: $f_m;
     font-family: 'Cal sans', sans-serif;
 }
 
 h3{
     color: $text;
-    font-size: clamp(14px, calc(14px + calc((18 - 14) / (1440 - 320)) * (100vw - 320px)), 18px);
+    font-size: $f_m;
     font-family: 'Cal sans', sans-serif;
 }
 
@@ -114,7 +114,7 @@ a{
     &.s{
         width: 18px;
         height: 18px;
-        font-size: 10px;
+        font-size: 12px;
     }
     &.m{
         width: 30px;

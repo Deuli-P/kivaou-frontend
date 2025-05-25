@@ -41,7 +41,7 @@
   }
 
   .event_card-content{
-    font-size: clamp(10px, calc(10px + calc((16 - 10) / (1440 - 320)) * (100vw - 320px)), 16px);
+    font-size: $f_s;
     font-family: 'Roboto', sans-serif;
     color: $text;
       &.underline{

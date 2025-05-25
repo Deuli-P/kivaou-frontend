@@ -352,6 +352,7 @@ const handleCancel = async () => {
                 <img
                   src={eventDetails.owner.photo_path}
                   alt={eventDetails.owner.firstname + ' ' + eventDetails.owner.lastname}
+                  loading="lazy"
                 />
               )}
               <p>{eventDetails.owner.firstname} {eventDetails.owner.lastname}</p>
@@ -361,6 +362,7 @@ const handleCancel = async () => {
               <img
                 src={eventDetails.destination.photo_path}
                 alt={eventDetails.destination.name}
+                loading="lazy"
               />
             )}
             <div className="event-detail-destination-info">

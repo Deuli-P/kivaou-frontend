@@ -77,16 +77,15 @@ $m_xxs: 0.3rem;
 
 // FONT SIZES
 
-$f_l: clamp(1.125rem, calc(1.125rem + calc((1.6 - 1.125) / (1440 - 320)) * (100vw - 320px)), 1.6rem);
-$f_m: clamp(1rem, calc(1rem + calc((1.4 - 1) / (1440 - 320)) * (100vw - 320px)), 1.4rem);
-$f_s: clamp(0.875rem, calc(0.875rem + calc((1.2 - 0.875) / (1440 - 320)) * (100vw - 320px)), 1.2rem);
-$f_xs: clamp(0.75rem, calc(0.75rem + calc((1 - 0.75) / (1440 - 320)) * (100vw - 320px)), 1rem);
+$f_l: clamp(1.125rem, calc(1.125rem + calc((1.5 - 1.125) / (1440 - 320)) * (100vw - 320px)), 1.5rem);
+$f_m: clamp(1rem, calc(1rem + calc((1.125 - 1) / (1440 - 320)) * (100vw - 320px)), 1.125rem);
+$f_s: clamp(0.75rem, calc(0.75rem + calc((1 - 0.75) / (1440 - 320)) * (100vw - 320px)), 1rem);
 
 
 
 // GAP 
 
 $g_l: clamp(1.125rem, calc(1.125rem + calc((1.6 - 1.125) / (1440 - 320)) * (100vw - 320px)), 1.6rem);
-$g_m: clamp(1rem, calc(1rem + calc((1.4 - 1) / (1440 - 320)) * (100vw - 320px)), 1.4rem);
-$g_s: clamp(0.875rem, calc(0.875rem + calc((1.2 - 0.875) / (1440 - 320)) * (100vw - 320px)), 1.2rem);
-$g_xs: clamp(0.5rem, calc(0.5rem + calc((0.7 - 0.5) / (1440 - 320)) * (100vw - 320px)), 0.7rem);
+$g_m: clamp(1rem, calc(1rem + calc((1.275 - 1) / (1440 - 320)) * (100vw - 320px)), 1.275rem);
+$g_s: clamp(0.875rem, calc(0.875rem + calc((1 - 0.875) / (1440 - 320)) * (100vw - 320px)), 1rem);
+$g_xs: clamp(0.75rem, calc(0.75rem + calc((0.875 - 0.75) / (1440 - 320)) * (100vw - 320px)), 0.875rem);
