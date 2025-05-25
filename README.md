@@ -51,7 +51,10 @@ Ce projet frontend communique avec une API REST développée avec Node.js, Expre
 
 --- 
 
-## 👨👨👨 Comptes administrateur
+## 👨👨👨 Comptes
+
+
+### Administrateur
 
 Email :
 ```
@@ -61,6 +64,40 @@ Mot de passe :
 ```
 PasswordStrong56*
 ```
+
+### Demo
+
+Email
+````
+Gabrielle.T@demo.io
+````
+
+Mot de passe : 
+```
+PasswordStrong56*
+```
+
+Email
+````
+tarra.l@demo.io
+````
+
+Mot de passe : 
+```
+PasswordStrong56*
+```
+
+
+Email
+````
+etienne-3421@demo.io
+````
+
+Mot de passe : 
+```
+PasswordStrong56*
+```
+
 
 ---
 ## Auteur 
