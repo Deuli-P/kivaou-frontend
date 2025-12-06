@@ -63,7 +63,7 @@ const OrganizationDetail = () => {
   const fetchOrganization = async () => {
     try{
       setLoading(true);
-      const response = await fetch(`/server/api/v1/organization/${id}`, {
+      const response = await fetch(`/api/v1/organization/${id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -101,7 +101,7 @@ const OrganizationDetail = () => {
 
   const handleRemoveUser = async (userRemove: UserProps) => {
     try{
-        const response = await fetch(`/server/api/v1/organization/remove-user/${userRemove.id}`, {
+        const response = await fetch(`/api/v1/organization/remove-user/${userRemove.id}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'

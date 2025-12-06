@@ -70,7 +70,7 @@ const EventDetail = () => {
     try {
       console.log("start fetch event details")
       setLoading(true)
-      const response = await fetch(`/server/api/v1/event/${eventId}`, {
+      const response = await fetch(`/api/v1/event/${eventId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -108,7 +108,7 @@ const EventDetail = () => {
         toast.error("Vous n'êtes pas autorisé à annuler cet événement")
         return;
       }
-      const response = await fetch(`/server/api/v1/event/cancel/${eventDetails.id}`, {
+      const response = await fetch(`/api/v1/event/cancel/${eventDetails.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -143,7 +143,7 @@ const EventDetail = () => {
         toast.error("Vous n'êtes pas autorisé à supprimer cet événement")
         return;
       }
-      const response = await fetch(`/server/api/v1/admin/event/${eventId}`, {
+      const response = await fetch(`/api/v1/admin/event/${eventId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -197,7 +197,7 @@ const EventDetail = () => {
   const handleSubmitParticipation = async () => {
     setLoading(true);
     try {
-    const response = await fetch(`/server/api/v1/event/submit`, {
+    const response = await fetch(`/api/v1/event/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -231,7 +231,7 @@ const deleteUserFromUsers = (userId: string) => {
 const handleCancel = async () => {
     setLoading(true);
     try {
-    const response = await fetch(`/server/api/v1/event/cancel/${eventDetails.id}`, {
+    const response = await fetch(`/api/v1/event/cancel/${eventDetails.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

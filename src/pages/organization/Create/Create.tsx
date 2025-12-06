@@ -32,7 +32,7 @@ const CreateOrganization = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try{
-      const response = await fetch(`/server/api/v1/organization/create`, {
+      const response = await fetch(`/api/v1/organization/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

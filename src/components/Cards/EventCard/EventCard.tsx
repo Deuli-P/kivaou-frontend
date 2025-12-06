@@ -58,7 +58,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const handleSubmit = async () => {
         setLoading(true);
         try {
-        const response = await fetch(`/server/api/v1/event/submit`, {
+        const response = await fetch(`/api/v1/event/submit`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -82,7 +82,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const handleCancel = async () => {
         setLoading(true);
         try {
-        const response = await fetch(`/server/api/v1/event/cancel`, {
+        const response = await fetch(`/api/v1/event/cancel`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

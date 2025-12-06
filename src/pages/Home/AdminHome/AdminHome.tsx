@@ -23,7 +23,7 @@ const AdminHome = () => {
 
     const fetchAllData = async () => {
         try {
-            const response = await fetch(`/server/api/v1/admin/all`, {
+            const response = await fetch(`/api/v1/admin/all`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -53,7 +53,7 @@ const AdminHome = () => {
                 setDeleteOrganizationModal(false);
                 return;
             }
-            const response = await fetch(`/server/api/v1/admin/organization/${organization.id}`, {
+            const response = await fetch(`/api/v1/admin/organization/${organization.id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
@@ -85,7 +85,7 @@ const AdminHome = () => {
                 setDeleteUserModal(false);
                 return;
             }
-            const response = await fetch(`/server/api/v1/admin/user/${user.id}`, {
+            const response = await fetch(`/api/v1/admin/user/${user.id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'
