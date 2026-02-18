@@ -2,6 +2,8 @@
 
 Interface web du projet **KiVaOu**, une plateforme communautaire permettant à des groupes de personnes de créer, gérer et participer à sorties.
 
+[https://kivaou.pierre-antoniutti.fr](Lien du site)
+
 ## 🚀 Technologies utilisées
 
 - **React** : bibliothèque JavaScript pour construire des interfaces utilisateur réactives.
