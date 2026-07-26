@@ -1,0 +1,55 @@
+@use '../../assets/styles/sass/variables' as *;
+@use '../../assets/styles/sass/mixins' as *;
+
+.landing-page{
+    align-items: stretch;
+    gap: $g_l;
+}
+
+.landing-hero{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: $g_m;
+    padding: clamp(1.5rem, calc(1.5rem + calc((4 - 1.5) / (1440 - 320)) * (100vw - 320px)), 4rem) 0;
+
+    h1{
+        font-size: clamp(2rem, calc(2rem + calc((3.5 - 2) / (1440 - 320)) * (100vw - 320px)), 3.5rem);
+        letter-spacing: -2px;
+    }
+}
+
+.landing-subtitle{
+    max-width: 520px;
+    font-size: $f_m;
+    color: $text-muted;
+}
+
+.landing-features{
+    display: flex;
+    flex-direction: column;
+    gap: $g_m;
+    width: 100%;
+
+    @include tablet{
+        flex-direction: row;
+        align-items: stretch;
+    }
+}
+
+.landing-feature-card{
+    padding: $p_l;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $g_xs;
+
+    h2{
+        font-size: $f_m;
+    }
+
+    p{
+        color: $text-muted;
+    }
+}

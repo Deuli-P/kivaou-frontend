@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 
+import Landing from "../pages/Landing/Landing";
 import HomeRedirect from "./HomeRedirect";
 import Error from "../pages/Error/Error";
 import Login from "../pages/auth/Login/Login";
@@ -22,21 +23,27 @@ export const router = createBrowserRouter([
         element: <Layout />,
         errorElement: <Error />,
         children: [
+            { index: true, element: <Landing /> },
             {
-                path: "",
+                path: "home",
                 element: <IsConnected />,
                 children: [
-                    { path: "", element: <HomeRedirect /> },
+                    { index: true, element: <HomeRedirect /> },
+                ]
+            },
+            {
+                element: <IsConnected />,
+                children: [
                     { path: "orga/create", element: <CreateOrganization /> },
                     { path: 'profile', element: <Profile />},
-                    { 
+                    {
                         path: "orga",
                         element: <IsMember />,
                         children: [
                             { path: ":id", element: <OrganizationDetail /> },
                             { path: "destination/create", element: <DestinationCreate /> },
                             {
-                                path: "event", 
+                                path: "event",
                                 children: [
                                     { path: "create", element: <EventCreate /> },
                                     { path: ":eventId", element: <EventDetail /> }
@@ -49,9 +56,9 @@ export const router = createBrowserRouter([
             {
                 path: "auth",
                 children: [
-                    { path: "login", element: <Login /> }, 
+                    { path: "login", element: <Login /> },
                     { path: "register", element: <Register /> }
-                ], 
+                ],
             },
             { path: "*", element: <Navigate to='/' replace /> }
         ]

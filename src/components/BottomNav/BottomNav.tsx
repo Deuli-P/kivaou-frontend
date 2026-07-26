@@ -48,18 +48,18 @@ const BottomNav = () => {
 
   const items = isAdmin
     ? [
-        { to: '/', label: 'Accueil', icon: <HomeIcon />, end: true },
+        { to: '/home', label: 'Accueil', icon: <HomeIcon />, end: true },
         { to: '/profile', label: 'Profil', icon: <ProfileIcon /> }
       ]
     : user.organization?.id
     ? [
-        { to: '/', label: 'Accueil', icon: <HomeIcon />, end: true },
+        { to: '/home', label: 'Accueil', icon: <HomeIcon />, end: true },
         { to: '/orga/event/create', label: 'Créer', icon: <PlusIcon /> },
         { to: `/orga/${user.organization.id}`, label: 'Organisation', icon: <OrganizationIcon /> },
         { to: '/profile', label: 'Profil', icon: <ProfileIcon /> }
       ]
     : [
-        { to: '/', label: 'Accueil', icon: <HomeIcon />, end: true },
+        { to: '/home', label: 'Accueil', icon: <HomeIcon />, end: true },
         { to: '/orga/create', label: 'Créer', icon: <PlusIcon /> },
         { to: '/profile', label: 'Profil', icon: <ProfileIcon /> }
       ];

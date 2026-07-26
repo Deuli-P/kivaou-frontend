@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <header>
       <div className="container">
-        <NavLink to="/" className="header-logo">
+        <NavLink to={user ? "/home" : "/"} className="header-logo">
           <span className="header-logo">KiVAOU</span>
         </NavLink>
 

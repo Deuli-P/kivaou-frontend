@@ -85,7 +85,7 @@ const EventDetail = () => {
         return;
       }
       else if(data.status === 404){
-        navigate('/')
+        navigate('/home')
       }
       else{
         setLoading(false)
@@ -120,7 +120,7 @@ const EventDetail = () => {
       const data = await response.json()
       if (response.status === 200) {
         toast.success(data.message)
-        navigate('/')
+        navigate('/home')
       }
       else {
         toast.error(data.message)
@@ -151,7 +151,7 @@ const EventDetail = () => {
       const data = await response.json()
       if (data.status === 200) {
         toast.success(data.message)
-        navigate('/')
+        navigate('/home')
       }
       else{
         toast.error(data.message)

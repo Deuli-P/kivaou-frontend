@@ -68,7 +68,7 @@ const Register = () => {
       if(data.status === 200){
         setUser(data.user)
         toast.success(data.message)
-        navigate('/')
+        navigate('/home')
       }
       else{
         toast.error(data.message)
@@ -81,7 +81,7 @@ const Register = () => {
 
   useEffect(() => {
     if(user){
-      navigate('/')
+      navigate('/home')
     }
   }, []);
 

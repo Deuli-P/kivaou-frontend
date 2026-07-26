@@ -38,9 +38,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       if(data.status === 200){
         console.log('reussite')
-        setUser(data.user); 
+        setUser(data.user);
         toast.success(data.message)
-        window.location.href = '/';
+        window.location.href = '/home';
       }
       else{
         toast.error(data.message)
