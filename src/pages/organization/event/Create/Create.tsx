@@ -187,7 +187,7 @@ const CreateEvent = () => {
           <div className="event-create-no-place-container">
             <p>Vous devez créer un lieu avant de créer un événement.</p>
             <Button
-              version='tertiary'
+              version='primary'
               label='Créer une destination'
               ariaLabel="Créer une première destination pour l'organisation"
               onClick={handleNavigate}

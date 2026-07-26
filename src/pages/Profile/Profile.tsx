@@ -155,7 +155,7 @@ const Profile = () => {
                                 <Button 
                                     onClick={()=> navigate(`/orga/create`)}
                                     label='Créer une organisation'
-                                    version='tertiary'
+                                    version='primary'
                                     ariaLabel='Créer une organisation'
                                 />
                             </div>

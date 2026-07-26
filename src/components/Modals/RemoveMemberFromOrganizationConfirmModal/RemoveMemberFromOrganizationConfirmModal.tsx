@@ -26,14 +26,14 @@ const RemoveMemberFromOrganizationConfirmModal = ({setClose, item, onRemove, set
                     <Button
                         type='button'
                         label='Annuler'
-                        version='primary'
+                        version='secondary'
                         ariaLabel='Fermer la modale'
                         onClick={handleClose}
                     />
                     <Button
                         type='button'
                         label='Confirmer'
-                        version='tertiary'
+                        version='destructive'
                         ariaLabel='Confirmer la suppression du membre'
                         onClick={()=>onRemove(item)}
                     />

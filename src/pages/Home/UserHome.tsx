@@ -24,7 +24,7 @@ const UserHome = () => {
 
   const fetchEvents = async () => {
     try {
-      if(user?.organization?.id === null) {
+      if(!user?.organization?.id) {
         setEvents([]);
         return;
       }
@@ -60,7 +60,7 @@ const UserHome = () => {
     <main>
       <h1>Liste des événements</h1>
       <span>Bonjour {user?.firstname}</span>
-        {user?.organization?.id === null ? (
+        {!user?.organization?.id ? (
           <section className='home-no-organization-section'>
             <h2>
               Vous n'avez pas encore d'organisation
@@ -71,7 +71,7 @@ const UserHome = () => {
               </p>
               <span>OU</span>
                 <Button
-                  version='tertiary'
+                  version='primary'
                   label='Créer une organisation'
                   ariaLabel='Créer sa propre organisation'
                   onClick={handleRedirectOrganization}
@@ -90,7 +90,7 @@ const UserHome = () => {
             <div className="home-no-organization-content">
               <p>Votre organisation n'a aucun événement de prévu actuellement</p>
               <Button
-                version='tertiary'
+                version='primary'
                 label='Créer un événement'
                 ariaLabel='Créer sa propre organisation'
                 onClick={handleRedirectEvent}

@@ -191,7 +191,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <Button
           onClick={handleSeeMore}
           label='Voir plus'
-          version='tertiary'
+          version='ghost'
         />
       </div>
     </article>

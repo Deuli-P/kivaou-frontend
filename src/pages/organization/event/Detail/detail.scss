@@ -22,6 +22,7 @@ section {
     &-event-date-time{
         font-size: $f_m;
         font-weight: 600;
+        color: $text-muted;
     }
     &-section{
         display: flex;
@@ -29,6 +30,10 @@ section {
         justify-content: center;
         align-items: center;
         gap: 0.5rem;
+        width: 100%;
+        background: $surface;
+        border: 1px solid $border;
+        border-radius: $radius-lg;
     }
     &-sections-destination-container{
         display: flex;

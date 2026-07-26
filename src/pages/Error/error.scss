@@ -1,9 +1,23 @@
-@use '../../assets/styles/sass/variables' as *; 
+@use '../../assets/styles/sass/variables' as *;
+
+.error-page{
+    justify-content: center;
+    flex: 1;
+}
+
 .error-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: $g_l
+    gap: $g_l;
+    padding: $p_l;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    max-width: 480px;
+    p{
+        color: $text-muted;
+    }
 }

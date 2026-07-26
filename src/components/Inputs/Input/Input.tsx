@@ -11,6 +11,8 @@ interface InputProps {
   disabled?: boolean;
   ariaLabel?: string;
   min?: string;
+  invalid?: boolean;
+  helperText?: string;
 }
 
 const Input = ({
@@ -23,7 +25,9 @@ const Input = ({
     placeholder,
     disabled = false,
     ariaLabel,
-    min
+    min,
+    invalid = false,
+    helperText
 }: InputProps) => {
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +49,14 @@ const Input = ({
         value={value}
         onChange={(e) => handleChangeValue(e)}
         required={required}
-        className="input"
+        className={`input ${invalid ? 'invalid' : ''}`}
         disabled={disabled}
         aria-label={ariaLabel ? ariaLabel : undefined}
+        aria-invalid={invalid || undefined}
       />
+      {helperText && (
+        <span className={`helper-text ${invalid ? 'invalid' : ''}`}>{helperText}</span>
+      )}
     </div>
   );
 };

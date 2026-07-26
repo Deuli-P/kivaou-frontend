@@ -213,8 +213,8 @@ const OrganizationDetail = () => {
                       state: {
                         organizationId: id}})
                   }}
-                  version="tertiary"
-                  
+                  version="secondary"
+
                   label='Créer une nouvelle destination'
                   ariaLabel='Créer une nouvelle destination'
 
@@ -244,8 +244,8 @@ const OrganizationDetail = () => {
             <div className="orga-detail-title-btn-container">
               <h3>Liste des utilisateurs</h3>
               {user?.organization?.role === 'OWNER' &&(
-              <Button 
-                version="tertiary"
+              <Button
+                version="secondary"
                 onClick={() => {
                   setAddUserOpenModal(true);
                 }}

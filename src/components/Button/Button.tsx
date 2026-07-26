@@ -1,7 +1,7 @@
 import './Button.scss';
 
 interface ButtonProps {
-    version: string;
+    version: 'primary' | 'secondary' | 'ghost' | 'destructive';
     onClick?: any;
     type?: 'button' | 'submit' | 'reset' | undefined;
     label: string;

@@ -118,12 +118,12 @@ const AdminHome = () => {
     <main>
         <h1>Tableau de bord d'administraiton</h1>
         <span>Bonjour {user?.firstname}</span>
-        <section>
+        <section className="events-list-container">
             <h2>Liste des événements</h2>
             {events.length === 0 ? (
                 <p>Aucun événement prévu sur l'ensemble du site</p>
             ) : (
-                <div>
+                <div className="events-list">
                     {events.map((event) => (
                         <EventCard
                             key={event.id}
@@ -133,12 +133,12 @@ const AdminHome = () => {
                 </div>
             )}
         </section>
-        <section>
+        <section className="events-list-container">
             <h2>Liste des organisations</h2>
             {organizations.length === 0 ? (
                 <p>Il n'y a aucune organisation de créée et active sur la plateforme pour le moment</p>
             ) : (
-                <div>
+                <div className="events-list">
                     {organizations.map((organization) => (
                        <OrganizationCard
                             key={organization.id}
@@ -150,8 +150,8 @@ const AdminHome = () => {
                 </div>
             )}
         </section>
-        <section>
-            <h2>Liste des événements</h2>
+        <section className="events-list-container">
+            <h2>Liste des utilisateurs</h2>
             {users.length === 0 ? (
                 <p>Aucun utilisateur actif d'inscrit sur la plateforme pour le moment</p>
             ) : (

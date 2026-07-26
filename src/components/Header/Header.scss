@@ -2,118 +2,81 @@
 @use '../../assets/styles/sass/mixins' as *;
 
 header {
-    width: 100vw; 
-    max-width: 100%;
+    width: 100%;
     display: flex;
-    min-height: 70px;
+    min-height: 56px;
     align-items: center;
     justify-content: center;
     background: $background;
-    box-shadow: 0 2px 4px $grey_200;
-    padding: clamp(10px, 2vw, 20px);
-    position: relative;
+    border-bottom: 1px solid $border;
+    padding: 0 clamp(1rem, calc(1rem + calc((1.25 - 1) / (1440 - 320)) * (100vw - 320px)), 1.25rem);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    @include tablet {
+        min-height: 70px;
+    }
 }
 .header-logo {
     font-family: 'Cal sans', sans-serif;
     font-weight: 700;
     color: $text;
-    font-size: 30px;
-    letter-spacing: -3px;
+    font-size: 24px;
+    letter-spacing: -2px;
+    @include tablet {
+        font-size: 30px;
+        letter-spacing: -3px;
+    }
 }
 
 .container {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1120px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* --- Styles pour Desktop --- */
+/* --- Navigation Desktop --- */
 .desktop-nav {
     display: none;
     gap: 16px;
     @include tablet {
         display: flex;
-        align-items: center
+        align-items: center;
     }
 }
 
-/* --- Styles pour Mobile --- */
-.burger-container {
-    width: 40px;
-    height: 40px;
+/* --- Avatar mobile (remplace le menu burger) --- */
+.header-profile-mobile {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 6px;
-    cursor: pointer;
     @include tablet {
         display: none;
     }
 }
 
-.burger-bar {
-    width: 75%;
-    height: 3px;
-    background-color: $text;
-    transition: $transition;
-    &.open {
-        &:first-child{
-            transform: rotate(45deg) translateY(5px) translateX(7px);
-
-        }
-        &:nth-child(2){
-            opacity: 0;
-        }
-        &:last-child{
-           transform: rotate(-45deg) translateY(-5px) translateX(7px);
-        }
-    }
-}
-
-.mobile-nav {
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    transform: translateY(-100%);
-    background: $background;
-    padding: 20px;
-    transition: $transition;
-    z-index: 100;
+/* --- Navigation visiteur (non connecté), visible mobile + desktop --- */
+.guest-nav {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-    @include tablet {
-        display: none;
-    }
+    align-items: center;
+    gap: clamp(8px, calc(8px + calc((16 - 8) / (1440 - 320)) * (100vw - 320px)), 16px);
 }
+
 .header-navlink{
         cursor: pointer;
         color: $text;
         font-family: 'Roboto', sans-serif;
         font-weight: 500;
-        font-size: 1rem;
+        font-size: 0.95rem;
         text-decoration: none;
-        padding: 5px 10px;
+        padding: 6px 10px;
         transition: $transition;
-        border-radius: 4px;
+        border-radius: $radius-md;
         &:hover {
-            background-color: $grey_100;
-            color: $text;
+            background-color: $surface-hover;
         }
-}
-
-.mobile-nav.open {
-    opacity: 1;
-    transform: translateY(0);
-    position: absolute;
-    top : 60px;
 }
 
 .header-profile{
@@ -121,32 +84,4 @@ header {
     align-items: center;
     gap: 10px;
     cursor: pointer;
-}
-
-.header_img_profile{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-@media screen and (min-width: 768px) {
-    .desktop-nav { 
-        ul {
-            display: flex;
-            gap: 20px;
-        }
-        li {
-            list-style: none;
-            a {
-                color: $text;
-                font-size: 1rem;
-                text-decoration: none;
-                transition: $transition;
-                &:hover {
-                    color: $accent;
-                }
-            }
-        }
-    }
 }

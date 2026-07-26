@@ -86,8 +86,9 @@ const Register = () => {
   }, []);
 
   return (
-    <main>
+    <main className='auth-page'>
       <h1>Inscription</h1>
+      <div className='auth-card card'>
       <form
         className='auth-form'
         onSubmit={handleSubmit}
@@ -155,6 +156,7 @@ const Register = () => {
             ariaLabel="S'inscrire à l'application"
           />
       </form>
+      </div>
     </main>
   )
 }

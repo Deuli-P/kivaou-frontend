@@ -332,14 +332,14 @@ const handleCancel = async () => {
                 <Button
                   label="Annuler l'événement"
                   onClick={handleOpenCancelEvent}
-                  version='tertiary'
+                  version='destructive'
                   type='button'
                 />
             {user?.user_type === 'admin' && (
               <Button
               label="Supprimer l'événement"
               onClick={handleOpenDeleteEventModal}
-              version='tertiary'
+              version='destructive'
               type='button'
               />
             )}

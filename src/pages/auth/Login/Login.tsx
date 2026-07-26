@@ -42,10 +42,10 @@ const Login = () => {
   
 
   return (
-    <main>
+    <main className='auth-page'>
       <h1>Connexion</h1>
-      <div>
-        <form 
+      <div className='auth-card card'>
+        <form
           onSubmit={handleSubmit}
           className='auth-form'
           >

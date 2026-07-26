@@ -1,0 +1,37 @@
+@use './variables' as *;
+
+.text-title{
+    font-family: 'Cal Sans', sans-serif;
+    font-size: $f_l;
+    font-weight: 600;
+    color: $text;
+}
+
+.text-heading{
+    font-family: 'Cal Sans', sans-serif;
+    font-size: $f_m;
+    font-weight: 600;
+    color: $text;
+}
+
+.text-body{
+    font-family: 'Roboto', sans-serif;
+    font-size: $f_m;
+    font-weight: 400;
+    color: $text;
+}
+
+.text-caption{
+    font-family: 'Roboto', sans-serif;
+    font-size: $f_s;
+    font-weight: 400;
+    color: $text-muted;
+}
+
+.text-subtle{
+    color: $text-subtle;
+}
+
+.text-muted{
+    color: $text-muted;
+}

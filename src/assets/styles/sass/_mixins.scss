@@ -1,6 +1,24 @@
+@use './variables' as *;
 
 @mixin tablet {
   @media (min-width: 768px) {
     @content;
   }
+}
+
+@mixin desktop {
+  @media (min-width: 1120px) {
+    @content;
+  }
+}
+
+@mixin mobile-only {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin focus-ring {
+  outline: 2px solid $text;
+  outline-offset: 2px;
 }

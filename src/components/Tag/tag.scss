@@ -2,13 +2,14 @@
 
 
 .tag-container{
-    padding: $p_xs $p_m;
-    background: $blue_100;
-    border-radius: 25px;
+    padding: $p_xxs $p_s;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius-full;
     width: fit-content;
     span{
         font-size: $f_s;
-        font-weight: 700;
+        font-weight: 600;
         color: $text;
     }
 

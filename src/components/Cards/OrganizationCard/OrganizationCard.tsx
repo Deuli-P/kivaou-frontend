@@ -46,7 +46,7 @@ const OrganizationCard = ({item, setOpen, setRemoveOrganization}:OrganizationCar
         <div className="organization-card-btn-container">
             <Button
                 label="Supprimer l'organisation"
-                version='secondary'
+                version='destructive'
                 type='button'
                 ariaLabel="Supprimer l'organisation"
                 onClick={handleStartDeleteOrganization}

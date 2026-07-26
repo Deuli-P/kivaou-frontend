@@ -8,6 +8,8 @@
     overflow: hidden;
     font-weight: bold;
     text-transform: uppercase;
+    background-color: $surface;
+    border: 1px solid $border;
 
     &-s {
         width: 18px;

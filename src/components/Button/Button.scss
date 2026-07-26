@@ -1,25 +1,33 @@
 @use '../../assets/styles/sass/variables' as *;
+@use '../../assets/styles/sass/mixins' as *;
 
 button{
-    padding: 8px 16px;
+    padding: 10px 18px;
     border: none;
-    border-radius: 8px;
+    border-radius: $radius-md;
+    font-family: 'Roboto', sans-serif;
     font-weight: 600;
-    &:focus{
-        outline: none;
+    font-size: $f_s;
+    cursor: pointer;
+    &:focus-visible{
+        @include focus-ring;
     }
     &:active{
-        transform: scale(0.95);
+        transform: scale(0.97);
     }
     &.primary{
         background-color: $text;
-        color: $accent;
+        color: $background;
+        border: 1px solid $text;
         transition: $transition;
         &:hover{
             background-color: $grey_700;
+            border-color: $grey_700;
         }
         &.disabled{
-            background-color: $grey_500;
+            background-color: $grey_300;
+            border-color: $grey_300;
+            color: $grey_600;
             cursor: not-allowed;
             &:active{
                 transform: scale(1);
@@ -29,28 +37,50 @@ button{
     &.secondary{
         background-color: $background;
         color: $text;
+        border: 1px solid $border-strong;
         transition: $transition;
         &:hover{
-            background-color: $grey_100;
+            background-color: $surface-hover;
         }
         &.disabled{
-            background-color: $grey_200;
-            color: $grey_700;
+            background-color: $surface;
+            border-color: $border;
+            color: $text-subtle;
             cursor: not-allowed;
             &:active{
                 transform: scale(1);
             }
         }
     }
-    &.tertiary{
-        background-color: $primary;
-        color: $background;
+    &.ghost{
+        background-color: transparent;
+        color: $text;
+        border: 1px solid transparent;
         transition: $transition;
         &:hover{
-            background-color: $blue_700;
+            background-color: $surface-hover;
         }
         &.disabled{
-            background-color: $blue_200;
+            color: $text-subtle;
+            cursor: not-allowed;
+            &:active{
+                transform: scale(1);
+            }
+        }
+    }
+    &.destructive{
+        background-color: $background;
+        color: $danger_600;
+        border: 1px solid $border-strong;
+        transition: $transition;
+        &:hover{
+            background-color: $danger_100;
+            border-color: $danger_600;
+        }
+        &.disabled{
+            background-color: $surface;
+            border-color: $border;
+            color: $text-subtle;
             cursor: not-allowed;
             &:active{
                 transform: scale(1);

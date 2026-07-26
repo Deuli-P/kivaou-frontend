@@ -8,8 +8,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: $g_s;
-    padding: 0px 20px;
-    width: 100vw;
+    width: 100%;
 };
 
 .events-list {
@@ -22,6 +21,7 @@
     align-items: center;
     @include tablet{
         flex-direction: row;
+        justify-content: flex-start;
     }
 }
 
@@ -32,6 +32,7 @@
     justify-content: center;
     align-items: center;
     gap: $g_m;
+    flex-wrap: wrap;
 };
 
 .modal-overlay {
@@ -40,24 +41,34 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(15, 15, 15, 0.4);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     z-index: 999;
+    @include tablet {
+        align-items: center;
+    }
 }
-  
+
 .modal {
     background: $background;
-    padding: $p_m;
-    border-radius: 12px;
+    padding: $p_l;
+    border-radius: $radius-xl $radius-xl 0 0;
     max-width: 400px;
     width: 100%;
+    box-shadow: $shadow-lg;
     display: flex;
     flex-direction: column;
     gap: $g_s;
+    max-height: 90dvh;
+    overflow-y: auto;
     & h3{
         text-align: center;
+    }
+    @include tablet {
+        border-radius: $radius-xl;
     }
 }
 
@@ -69,7 +80,12 @@
 }
 
 .card{
-    box-shadow: 0px 0px 3.3px rgba(0, 0, 0, 0.20);
-    border-radius: 10px;
-    
+    background-color: $background;
+    border: 1px solid $border;
+    box-shadow: $shadow-xs;
+    border-radius: $radius-lg;
+    transition: $transition;
+    &:hover{
+        box-shadow: $shadow-sm;
+    }
 }

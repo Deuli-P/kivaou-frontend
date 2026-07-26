@@ -141,7 +141,7 @@ const DestinationCreate = () => {
     <main>
         <h1>Ajouter une destination à votre organisation</h1>
         <p>Il faut ajouter des destinations pour pouvoir les utiliser pour créer des événements.</p>
-        <form action='submit' onSubmit={handleSubmit} className='auth-form'>
+        <form action='submit' onSubmit={handleSubmit} className='auth-form destination-create-form'>
             <section>
                 <h2>Information</h2>
                 <Input

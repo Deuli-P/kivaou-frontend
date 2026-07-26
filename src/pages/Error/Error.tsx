@@ -12,14 +12,14 @@ const Error = () => {
 
   console.log('Error page');
   return (
-    <main>
+    <main className='error-page'>
       <h1>Une erreur est survenue</h1>
       <div className="error-container">
         <p>La page recherchée n'existe pas. Vous pouvez retourner à l'accueil en cliquant sur le bouton suivant</p>
         <Button
           label="Retourner à l'accueil"
           onClick={handleClick}
-          version="tertiary"
+          version="primary"
           type="button"
           ariaLabel="Retourner à l'accueil"
         />

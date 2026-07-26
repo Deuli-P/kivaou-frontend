@@ -3,23 +3,30 @@
 .address-card {
     display: flex;
     flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    background-color: $background;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
     overflow: hidden;
     padding: $p_m;
     width: clamp(280px, calc(280px + calc((400 - 280) / (1440 - 320)) * (100vw - 320px)), 400px);
-    box-shadow: 0px 0px 3.3px rgba(0, 0, 0, 0.20);
+    box-shadow: $shadow-xs;
+    transition: $transition;
+
+    &:hover {
+      box-shadow: $shadow-sm;
+    }
 
     &_header {
       display: flex;
       align-items: center;
       padding: 0.5rem 1rem;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid $border;
       & .address-card_image {
         width: 50px;
         height: 50px;
         object-fit: cover;
         flex-shrink: 0;
+        border-radius: $radius-sm;
       }
       & .address-card_name-type{
         display: flex;
@@ -29,8 +36,8 @@
         padding: 4px;
       }
     }
-  
-  
+
+
     &_content {
       padding: 1rem;
       flex: 1;
@@ -38,51 +45,55 @@
       flex-direction: column;
       gap: 0.3rem;
     }
-  
+
     &_title {
       font-size: 1.2rem;
       font-weight: 600;
+      color: $text;
     }
-  
+
     &_type {
       font-style: italic;
-      color: #555;
+      color: $text-muted;
     }
-  
+
     &_address {
-      color: #333;
+      color: $text;
     }
-  
+
     &_phone {
       font-weight: 500;
+      color: $text;
     }
-  
+
     &_links {
       display: flex;
       gap: 1rem;
       margin-top: 0.5rem;
-  
+
       a {
-        text-decoration: none;
-        color: #0066cc;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        color: $text;
         font-size: 0.9rem;
-  
+
         &:hover {
-          text-decoration: underline;
+          color: $text-muted;
         }
       }
     }
-  
+
     &_schedule {
       margin-top: 0.5rem;
-  
+
       ul {
         padding-left: 1rem;
         margin: 0.3rem 0;
       }
-  
+
       li {
         font-size: 0.85rem;
+        color: $text;
       }
     }
 
@@ -90,13 +101,15 @@
   .address-card_more {
     background: none;
     border: none;
-    color: #007acc;
+    color: $text;
     font-weight: 500;
     cursor: pointer;
     margin-top: 0.5rem;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 
     &:hover {
-      text-decoration: underline;
+      color: $text-muted;
     }
   }
 }
